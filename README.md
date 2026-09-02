@@ -1,5 +1,9 @@
 # HarrisLab Research
 
+[![Tests](https://github.com/andrei-kovacs/harrislab-research/actions/workflows/tests.yml/badge.svg)](https://github.com/andrei-kovacs/harrislab-research/actions/workflows/tests.yml)
+
+[Open the live HarrisLab prototype](https://andrei-kovacs.github.io/harrislab-research/)
+
 HarrisLab is an early computational-archaeology research project exploring a
 provenance-aware, uncertainty-conscious extension of the Harris matrix. Its
 first principle is that software and AI proposals must remain distinguishable
