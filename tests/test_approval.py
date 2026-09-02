@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from harrislab.approval import approve_candidate, create_review_template
+from harrislab.approval import approve_candidate, create_review_template, file_sha256
 from harrislab.io import load_stratigraphy
 from harrislab.model import RelationStatus
 
@@ -34,6 +34,15 @@ class ApprovalTests(unittest.TestCase):
 
             with self.assertRaisesRegex(ValueError, "does not match"):
                 approve_candidate(self.candidate, review_path)
+
+    def test_candidate_hash_is_independent_of_json_line_endings(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            lf_path = Path(directory) / "lf.json"
+            crlf_path = Path(directory) / "crlf.json"
+            lf_path.write_bytes(b'{\n  "value": 1\n}\n')
+            crlf_path.write_bytes(b'{\r\n  "value": 1\r\n}\r\n')
+
+            self.assertEqual(file_sha256(lf_path), file_sha256(crlf_path))
 
     def test_complete_review_emits_loadable_reference_graph(self) -> None:
         review = self._approved_review()
