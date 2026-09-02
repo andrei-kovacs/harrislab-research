@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HarrisLab - Trimmis Profile 19</title>
+  <style>
+    :root {
+      --ink: #1d2528;
+      --muted: #667275;
+      --line: #d7dedd;
+      --paper: #f6f5f0;
+      --panel: #ffffff;
+      --moss: #55705a;
+      --moss-soft: #dfe8dc;
+      --ochre: #bc7b2d;
+      --ochre-soft: #f5e5cc;
+      --red: #b34c43;
+      --red-soft: #f5deda;
+      --blue: #3d6f82;
+      --blue-soft: #dbe9ee;
+      --shadow: 0 8px 28px rgba(32, 41, 42, 0.08);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      overflow: hidden;
+      color: var(--ink);
+      background:
+        linear-gradient(rgba(29, 37, 40, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(29, 37, 40, 0.035) 1px, transparent 1px),
+        var(--paper);
+      background-size: 24px 24px;
+      font-family: "Aptos", "Segoe UI", sans-serif;
+    }
+    button, input { font: inherit; }
+    button { color: inherit; }
+    .app { height: 100%; display: grid; grid-template-rows: 58px 1fr; }
+    .topbar {
+      display: grid;
+      grid-template-columns: 245px 1fr auto;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      z-index: 20;
+    }
+    .brand {
+      height: 100%; display: flex; align-items: center; gap: 11px;
+      padding: 0 18px; border-right: 1px solid var(--line);
+      font-family: Georgia, "Times New Roman", serif; font-weight: 700; font-size: 20px;
+    }
+    .brand-mark {
+      width: 24px; height: 30px; position: relative; border-left: 2px solid var(--ink);
+    }
+    .brand-mark::before, .brand-mark::after {
+      content: ""; position: absolute; left: 0; height: 2px; background: var(--ink);
+    }
+    .brand-mark::before { width: 22px; top: 7px; transform: rotate(-24deg); transform-origin: left; }
+    .brand-mark::after { width: 16px; top: 20px; transform: rotate(20deg); transform-origin: left; }
+    .project { min-width: 0; padding: 0 20px; }
+    .project strong { display: block; font-size: 14px; }
+    .project span { color: var(--muted); font-size: 12px; }
+    .top-actions { display: flex; align-items: center; gap: 8px; padding-right: 14px; }
+    .status {
+      display: inline-flex; align-items: center; gap: 7px; height: 30px; padding: 0 10px;
+      border: 1px solid #d9b77e; background: var(--ochre-soft); color: #714817;
+      border-radius: 4px; font-size: 12px; font-weight: 700;
+    }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ochre); }
+    .icon-btn, .command-btn {
+      border: 1px solid var(--line); background: var(--panel); border-radius: 4px;
+      height: 32px; display: inline-flex; align-items: center; justify-content: center;
+      cursor: pointer;
+    }
+    .icon-btn { width: 34px; padding: 0; }
+    .command-btn { gap: 7px; padding: 0 11px; font-size: 12px; font-weight: 700; }
+    .icon-btn:hover, .command-btn:hover { border-color: #9ba9a8; background: #f8faf9; }
+    .icon-btn svg, .command-btn svg { width: 16px; height: 16px; }
+    .workspace { min-height: 0; display: grid; grid-template-columns: 245px minmax(420px, 1fr) 350px; }
+    .sidebar, .inspector { background: rgba(255, 255, 255, 0.95); min-height: 0; }
+    .sidebar { border-right: 1px solid var(--line); overflow-y: auto; padding: 16px 14px; }
+    .inspector { border-left: 1px solid var(--line); display: grid; grid-template-rows: auto auto 1fr; overflow: hidden; }
+    .section-label {
+      color: #788385; font-size: 10px; font-weight: 800; text-transform: uppercase;
+      margin: 4px 7px 8px; letter-spacing: 0;
+    }
+    .view-button {
+      width: 100%; height: 36px; display: flex; align-items: center; gap: 10px;
+      padding: 0 10px; border: 0; border-radius: 4px; background: transparent;
+      cursor: pointer; font-size: 13px; text-align: left; margin-bottom: 2px;
+    }
+    .view-button svg { width: 16px; height: 16px; color: var(--muted); }
+    .view-button.active { background: #e8eeea; color: #314a37; font-weight: 700; }
+    .view-button.active svg { color: var(--moss); }
+    .count { margin-left: auto; color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+    .divider { height: 1px; background: var(--line); margin: 16px 4px; }
+    .legend-item { display: flex; align-items: center; gap: 9px; padding: 6px 8px; font-size: 12px; }
+    .swatch { width: 12px; height: 12px; border: 2px solid; background: white; }
+    .swatch.observed { border-color: var(--moss); background: var(--moss-soft); }
+    .swatch.disputed { border-color: var(--ochre); background: repeating-linear-gradient(135deg, var(--ochre-soft), var(--ochre-soft) 3px, white 3px, white 6px); }
+    .swatch.derived { border-color: var(--blue); background: var(--blue-soft); }
+    .swatch.ai { border-color: var(--red); background: var(--red-soft); }
+    .dataset-note {
+      margin: 14px 4px 0; padding: 11px; border-left: 3px solid var(--ochre);
+      background: #fbf7ef; font-size: 11px; line-height: 1.45; color: #665438;
+    }
+    .matrix-area { min-width: 0; min-height: 0; position: relative; display: grid; grid-template-rows: 48px 1fr; }
+    .matrix-toolbar {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 0 14px; border-bottom: 1px solid var(--line); background: rgba(246, 245, 240, 0.94);
+    }
+    .toolbar-group { display: flex; align-items: center; gap: 7px; }
+    .segmented { display: flex; padding: 2px; border: 1px solid var(--line); background: white; border-radius: 5px; }
+    .segmented button { height: 27px; padding: 0 10px; border: 0; background: transparent; border-radius: 3px; font-size: 11px; cursor: pointer; }
+    .segmented button.active { background: var(--ink); color: white; }
+    .search { position: relative; }
+    .search svg { position: absolute; left: 9px; top: 8px; width: 14px; height: 14px; color: var(--muted); }
+    .search input { width: 150px; height: 30px; border: 1px solid var(--line); border-radius: 4px; padding: 0 8px 0 30px; background: white; font-size: 12px; }
+    .canvas-wrap { min-height: 0; overflow: auto; position: relative; scroll-behavior: smooth; }
+    #matrix { width: 100%; min-width: 520px; height: 1280px; display: block; }
+    .axis-label {
+      position: sticky; left: 12px; z-index: 5; display: inline-flex; align-items: center; gap: 6px;
+      color: var(--muted); font-size: 10px; text-transform: uppercase; font-weight: 800;
+      pointer-events: none;
+    }
+    .axis-label.younger { top: 10px; position: absolute; }
+    .axis-label.older { bottom: 10px; position: absolute; }
+    .phase-band { fill: rgba(255,255,255,.48); }
+    .phase-band.alt { fill: rgba(223,232,220,.32); }
+    .phase-line { stroke: #c8d0ce; stroke-width: 1; stroke-dasharray: 5 5; }
+    .phase-text { fill: #85908f; font: 700 10px "Aptos", "Segoe UI", sans-serif; }
+    .edge { fill: none; stroke: #788785; stroke-width: 1.6; transition: opacity .18s, stroke .18s, stroke-width .18s; }
+    .edge.highlight { stroke: var(--ochre); stroke-width: 3; }
+    .edge.dim { opacity: .14; }
+    .node rect { fill: #fff; stroke: var(--moss); stroke-width: 1.7; rx: 3; transition: all .16s; }
+    .node text.id { fill: var(--ink); font: 700 12px Georgia, "Times New Roman", serif; text-anchor: middle; pointer-events: none; }
+    .node text.type { fill: var(--muted); font: 9px "Aptos", "Segoe UI", sans-serif; text-anchor: middle; pointer-events: none; }
+    .node { cursor: pointer; }
+    .node:hover rect { fill: #edf4ea; stroke-width: 2.5; }
+    .node.selected rect { fill: var(--moss-soft); stroke: #314f38; stroke-width: 2.7; filter: drop-shadow(0 3px 4px rgba(30,45,34,.18)); }
+    .node.dim { opacity: .2; }
+    .node.flag rect { stroke: var(--ochre); stroke-dasharray: 4 3; }
+    .tabs { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--line); }
+    .tab { height: 42px; border: 0; border-bottom: 2px solid transparent; background: white; cursor: pointer; font-size: 12px; color: var(--muted); }
+    .tab.active { color: var(--ink); border-bottom-color: var(--moss); font-weight: 800; }
+    .summary { padding: 17px 18px 14px; border-bottom: 1px solid var(--line); }
+    .summary-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+    .eyebrow { color: var(--muted); font-size: 10px; font-weight: 800; text-transform: uppercase; }
+    .summary h2 { margin: 3px 0 4px; font: 700 24px Georgia, "Times New Roman", serif; }
+    .summary p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.45; }
+    .review-chip { padding: 4px 7px; border: 1px solid #ddb977; color: #735022; background: var(--ochre-soft); border-radius: 3px; font-size: 9px; font-weight: 800; white-space: nowrap; }
+    .tab-content { min-height: 0; overflow-y: auto; padding: 16px 18px 28px; }
+    .field { margin-bottom: 16px; }
+    .field-label { color: var(--muted); font-size: 10px; text-transform: uppercase; font-weight: 800; margin-bottom: 5px; }
+    .field-value { font-size: 12px; line-height: 1.5; }
+    .source-box { padding: 11px; background: #f3f6f4; border: 1px solid #dce3df; border-radius: 4px; font-size: 11px; line-height: 1.5; }
+    .relations { display: flex; flex-wrap: wrap; gap: 5px; }
+    .relation-pill { border: 1px solid var(--line); background: white; border-radius: 3px; padding: 4px 7px; font-size: 10px; cursor: pointer; }
+    .rank-card { border: 1px solid var(--line); border-left: 3px solid var(--ochre); background: white; padding: 12px; margin-bottom: 8px; border-radius: 3px; cursor: pointer; }
+    .rank-card:hover { background: #fbfaf6; }
+    .rank-head { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+    .rank-title { font: 700 14px Georgia, "Times New Roman", serif; }
+    .rank-score { font-size: 11px; color: #754a16; font-weight: 800; }
+    .rank-card p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.4; }
+    .meter { height: 4px; background: #e8e9e5; margin-top: 9px; overflow: hidden; }
+    .meter span { display: block; height: 100%; background: var(--ochre); }
+    .scenario-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; padding: 11px 0; border-bottom: 1px solid #edf0ee; }
+    .scenario-row strong { font-size: 12px; }
+    .scenario-row p { margin: 3px 0 0; color: var(--muted); font-size: 10px; line-height: 1.4; }
+    .toggle { width: 34px; height: 19px; border-radius: 10px; border: 0; background: #bac4c1; padding: 2px; cursor: pointer; }
+    .toggle span { display: block; width: 15px; height: 15px; border-radius: 50%; background: white; transition: transform .16s; }
+    .toggle.on { background: var(--moss); }
+    .toggle.on span { transform: translateX(15px); }
+    .empty { color: var(--muted); font-size: 12px; padding: 20px 0; line-height: 1.5; }
+    .toast { position: fixed; left: 50%; bottom: 18px; transform: translate(-50%, 20px); opacity: 0; background: var(--ink); color: white; padding: 9px 12px; border-radius: 4px; font-size: 11px; z-index: 50; transition: .2s; pointer-events: none; }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+    @media (max-width: 980px) {
+      .workspace { grid-template-columns: 72px minmax(420px, 1fr) 315px; }
+      .topbar { grid-template-columns: 72px 1fr auto; }
+      .brand { padding: 0 22px; }
+      .brand span { display: none; }
+      .sidebar { padding: 14px 9px; }
+      .section-label, .view-button span, .legend-item span:last-child, .dataset-note, .count { display: none; }
+      .view-button { justify-content: center; padding: 0; }
+      .legend-item { justify-content: center; padding: 7px 0; }
+    }
+    @media (max-width: 720px) {
+      body { overflow: auto; }
+      .app { min-height: 100%; height: auto; }
+      .topbar { grid-template-columns: 58px 1fr; }
+      .brand { padding: 0 15px; }
+      .top-actions { display: none; }
+      .project { padding: 0 12px; }
+      .workspace { display: block; }
+      .sidebar { display: none; }
+      .matrix-area { height: 68vh; min-height: 520px; }
+      .matrix-toolbar { padding: 0 8px; }
+      .search { display: none; }
+      .inspector { border-left: 0; border-top: 1px solid var(--line); min-height: 520px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand"><div class="brand-mark"></div><span>HarrisLab</span></div>
+      <div class="project"><strong>Trimmis GR · Profile 19</strong><span>Stratigraphic reasoning workspace · 25 contexts · 28 direct relations</span></div>
+      <div class="top-actions">
+        <div class="status"><span class="status-dot"></span>Extraction pending review</div>
+        <button class="icon-btn" title="Open source record" id="sourceButton"><i data-lucide="external-link"></i></button>
+        <button class="command-btn" id="exportButton"><i data-lucide="download"></i>Export audit</button>
+      </div>
+    </header>
+
+    <div class="workspace">
+      <aside class="sidebar">
+        <div class="section-label">Workspace</div>
+        <button class="view-button active" data-view="matrix"><i data-lucide="git-branch"></i><span>Matrix</span><span class="count">25</span></button>
+        <button class="view-button" data-view="questions"><i data-lucide="circle-help"></i><span>Investigation queue</span><span class="count">3</span></button>
+        <button class="view-button" data-view="scenarios"><i data-lucide="split"></i><span>Interpretations</span><span class="count">2</span></button>
+        <button class="view-button" data-view="sources"><i data-lucide="library"></i><span>Source register</span><span class="count">3</span></button>
+        <div class="divider"></div>
+        <div class="section-label">Relation status</div>
+        <div class="legend-item"><span class="swatch observed"></span><span>Observed</span></div>
+        <div class="legend-item"><span class="swatch disputed"></span><span>Disputed</span></div>
+        <div class="legend-item"><span class="swatch derived"></span><span>Derived</span></div>
+        <div class="legend-item"><span class="swatch ai"></span><span>AI proposed</span></div>
+        <div class="dataset-note"><strong>Research boundary</strong><br>This graph reproduces a published matrix. It is not yet independently approved as benchmark ground truth.</div>
+      </aside>
+
+      <main class="matrix-area">
+        <div class="matrix-toolbar">
+          <div class="toolbar-group">
+            <div class="segmented" id="modeControl">
+              <button class="active" data-mode="sequence">Sequence</button>
+              <button data-mode="impact">Impact</button>
+              <button data-mode="provenance">Provenance</button>
+            </div>
+          </div>
+          <div class="toolbar-group">
+            <div class="search"><i data-lucide="search"></i><input id="searchInput" placeholder="Find context"></div>
+            <button class="icon-btn" id="fitButton" title="Fit matrix"><i data-lucide="scan"></i></button>
+          </div>
+        </div>
+        <div class="canvas-wrap" id="canvasWrap">
+          <span class="axis-label younger"><i data-lucide="arrow-up"></i>Younger</span>
+          <span class="axis-label older"><i data-lucide="arrow-down"></i>Older</span>
+          <svg id="matrix" role="img" aria-label="Interactive Harris matrix for Trimmis Profile 19"></svg>
+        </div>
+      </main>
+
+      <aside class="inspector">
+        <div class="tabs">
+          <button class="tab active" data-tab="inspect">Inspect</button>
+          <button class="tab" data-tab="questions">Questions</button>
+          <button class="tab" data-tab="scenarios">Scenarios</button>
+        </div>
+        <div class="summary" id="summary"></div>
+        <div class="tab-content" id="tabContent"></div>
+      </aside>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <script>
+    const graphUrl = "../data/trimmis_profile19_audit_candidate.json";
+    const ranking = [
+      { edge: ["156", "150"], score: 0.82, title: "Verify 156 before 150", detail: "This bridge controls whether the lower occupation sequence reaches both upper branches." },
+      { edge: ["30", "241"], score: 0.61, title: "Verify 30 before 241", detail: "The branch affects the route from context 30 through context 3." },
+      { edge: ["23", "235"], score: 0.37, title: "Verify 23 before 235", detail: "This relation distinguishes the two lower burning-related deposits." }
+    ];
+    let graph, selectedId = "156", activeTab = "inspect", activeMode = "sequence";
+    const nodePositions = new Map();
+    const descriptions = new Map();
+
+    async function init() {
+      graph = await fetch(graphUrl).then(response => {
+        if (!response.ok) throw new Error("Could not load graph data");
+        return response.json();
+      });
+      graph.nodes.forEach(node => descriptions.set(node.id, node));
+      renderGraph();
+      bindControls();
+      renderInspector();
+      if (window.lucide) lucide.createIcons();
+      document.getElementById("canvasWrap").scrollTop = 430;
+    }
+
+    function svgElement(name, attributes = {}) {
+      const element = document.createElementNS("http://www.w3.org/2000/svg", name);
+      Object.entries(attributes).forEach(([key, value]) => element.setAttribute(key, value));
+      return element;
+    }
+
+    function buildLayout() {
+      const width = Math.max(560, document.getElementById("matrix").clientWidth);
+      const levels = topologicalLevels();
+      const grouped = new Map();
+      graph.nodes.forEach(node => {
+        const level = levels.get(node.id);
+        if (!grouped.has(level)) grouped.set(level, []);
+        grouped.get(level).push(node.id);
+      });
+      const maxLevel = Math.max(...grouped.keys());
+      grouped.forEach((ids, level) => {
+        ids.sort((a, b) => Number(a) - Number(b));
+        const spread = Math.min(width - 170, Math.max(90, ids.length * 135));
+        ids.forEach((id, index) => {
+          const x = width / 2 + (index - (ids.length - 1) / 2) * (spread / Math.max(1, ids.length - 1));
+          const y = 70 + (maxLevel - level) * (1120 / maxLevel);
+          nodePositions.set(id, { x, y });
+        });
+      });
+      return { width, maxLevel };
+    }
+
+    function topologicalLevels() {
+      const incoming = new Map(graph.nodes.map(node => [node.id, []]));
+      graph.edges.forEach(edge => incoming.get(edge.later).push(edge.earlier));
+      const memo = new Map();
+      function level(id) {
+        if (memo.has(id)) return memo.get(id);
+        const parents = incoming.get(id);
+        const result = parents.length ? 1 + Math.max(...parents.map(level)) : 0;
+        memo.set(id, result);
+        return result;
+      }
+      graph.nodes.forEach(node => level(node.id));
+      return memo;
+    }
+
+    function renderGraph() {
+      const svg = document.getElementById("matrix");
+      svg.replaceChildren();
+      const { width } = buildLayout();
+      svg.setAttribute("viewBox", `0 0 ${width} 1280`);
+      const phases = [
+        { label: "Phase A-B", y: 36, h: 210 },
+        { label: "Phase C", y: 246, h: 280, alt: true },
+        { label: "Phase D", y: 526, h: 310 },
+        { label: "Phase E-F", y: 836, h: 410, alt: true }
+      ];
+      phases.forEach(phase => {
+        svg.append(svgElement("rect", { x: 0, y: phase.y, width, height: phase.h, class: `phase-band${phase.alt ? " alt" : ""}` }));
+        svg.append(svgElement("line", { x1: 0, y1: phase.y, x2: width, y2: phase.y, class: "phase-line" }));
+        const label = svgElement("text", { x: 46, y: phase.y + 18, class: "phase-text" });
+        label.textContent = phase.label;
+        svg.append(label);
+      });
+      const edgeLayer = svgElement("g", { class: "edges" });
+      graph.edges.forEach(edge => {
+        const earlier = nodePositions.get(edge.earlier), later = nodePositions.get(edge.later);
+        const middle = (earlier.y + later.y) / 2;
+        const path = svgElement("path", {
+          d: `M ${earlier.x} ${earlier.y - 22} V ${middle} H ${later.x} V ${later.y + 22}`,
+          class: "edge", "data-earlier": edge.earlier, "data-later": edge.later
+        });
+        path.addEventListener("click", () => selectRelation(edge));
+        edgeLayer.append(path);
+      });
+      svg.append(edgeLayer);
+      const nodeLayer = svgElement("g", { class: "nodes" });
+      graph.nodes.forEach(node => {
+        const position = nodePositions.get(node.id);
+        const group = svgElement("g", { class: `node${node.id === selectedId ? " selected" : ""}`, transform: `translate(${position.x},${position.y})`, "data-id": node.id });
+        group.append(svgElement("rect", { x: -49, y: -22, width: 98, height: 44 }));
+        const id = svgElement("text", { x: 0, y: 1, class: "id" }); id.textContent = node.id; group.append(id);
+        const type = svgElement("text", { x: 0, y: 14, class: "type" }); type.textContent = shortType(node.description_de); group.append(type);
+        group.addEventListener("click", () => selectNode(node.id));
+        nodeLayer.append(group);
+      });
+      svg.append(nodeLayer);
+      applyMode();
+    }
+
+    function shortType(text) {
+      const lower = text.toLowerCase();
+      if (lower.includes("grube")) return "cut / pit";
+      if (lower.includes("holzkohle") || lower.includes("brand")) return "burnt deposit";
+      if (lower.includes("stein")) return "stone deposit";
+      if (lower.includes("lehm")) return "clay deposit";
+      return "stratigraphic unit";
+    }
+
+    function selectNode(id) {
+      selectedId = id; activeTab = "inspect";
+      document.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.tab === activeTab));
+      renderGraph(); renderInspector();
+    }
+
+    function selectRelation(edge) {
+      selectedId = edge.earlier; activeTab = "inspect";
+      renderGraph(); renderInspector();
+      toast(`Relation ${edge.earlier} → ${edge.later} · source path ${edge.pdf_path_index}`);
+    }
+
+    function renderInspector() {
+      const summary = document.getElementById("summary");
+      const content = document.getElementById("tabContent");
+      if (activeTab === "questions") { renderQuestions(summary, content); return; }
+      if (activeTab === "scenarios") { renderScenarios(summary, content); return; }
+      const node = descriptions.get(selectedId);
+      const incoming = graph.edges.filter(edge => edge.later === selectedId);
+      const outgoing = graph.edges.filter(edge => edge.earlier === selectedId);
+      summary.innerHTML = `<div class="summary-top"><div><div class="eyebrow">Selected context</div><h2>${node.id}</h2></div><span class="review-chip">PENDING REVIEW</span></div><p>${escapeHtml(node.description_de)}</p>`;
+      content.innerHTML = `
+        <div class="field"><div class="field-label">Source identity</div><div class="field-value">Catalog row ${node.catalog_row} · printed as ${escapeHtml(node.catalog_notation)}</div></div>
+        <div class="field"><div class="field-label">Matrix geometry</div><div class="field-value">Page ${node.matrix_page} · [${node.matrix_rectangle.map(value => value.toFixed(1)).join(", ")}]</div></div>
+        <div class="field"><div class="field-label">Earlier than</div><div class="relations">${outgoing.length ? outgoing.map(edge => relationPill(edge.later, edge.pdf_path_index)).join("") : "<span class='field-value'>No direct successor</span>"}</div></div>
+        <div class="field"><div class="field-label">Later than</div><div class="relations">${incoming.length ? incoming.map(edge => relationPill(edge.earlier, edge.pdf_path_index)).join("") : "<span class='field-value'>No direct predecessor</span>"}</div></div>
+        <div class="field"><div class="field-label">Evidence</div><div class="source-box"><strong>Synoptic Harris matrix</strong><br>Zenodo 4461075 · CC BY 3.0<br>Connector geometry and catalog record retained for audit.</div></div>`;
+      content.querySelectorAll(".relation-pill").forEach(button => button.addEventListener("click", () => selectNode(button.dataset.id)));
+    }
+
+    function relationPill(id, path) { return `<button class="relation-pill" data-id="${id}" title="PDF path ${path}">${id}</button>`; }
+
+    function renderQuestions(summary, content) {
+      summary.innerHTML = `<div class="eyebrow">Retrospective demonstration</div><h2>Next questions</h2><p>Published reference edges are temporarily withheld to demonstrate investigation ranking.</p>`;
+      content.innerHTML = `<div class="source-box" style="margin-bottom:14px"><strong>Demonstration only</strong><br>These are not documented Trimmis disputes. The app asks which hidden reference edge would restore the most chronological information first.</div>` + ranking.map((item, index) => `
+        <div class="rank-card" data-edge="${item.edge.join("|")}"><div class="rank-head"><span class="rank-title">${index + 1}. ${item.title}</span><span class="rank-score">${Math.round(item.score * 100)} impact</span></div><p>${item.detail}</p><div class="meter"><span style="width:${item.score * 100}%"></span></div></div>`).join("");
+      content.querySelectorAll(".rank-card").forEach(card => card.addEventListener("click", () => {
+        const [earlier, later] = card.dataset.edge.split("|"); selectedId = earlier; activeMode = "impact"; renderGraph(); toast(`Highlighted candidate ${earlier} → ${later}`);
+      }));
+    }
+
+    function renderScenarios(summary, content) {
+      summary.innerHTML = `<div class="eyebrow">Interpretation comparison</div><h2>Two live readings</h2><p>Keep alternatives visible instead of overwriting the accepted graph.</p>`;
+      content.innerHTML = `
+        <div class="scenario-row"><div><strong>Published sequence</strong><p>All 28 extracted direct relations retained as the reference reading.</p></div><button class="toggle on" aria-label="Published sequence enabled"><span></span></button></div>
+        <div class="scenario-row"><div><strong>Branch 241 unresolved</strong><p>Treat 30 → 241 as disputed and inspect the conclusions that depend on it.</p></div><button class="toggle" aria-label="Alternative scenario disabled"><span></span></button></div>
+        <div class="field" style="margin-top:18px"><div class="field-label">Comparison preview</div><div class="source-box"><strong>1 direct relation changes</strong><br>4 downstream chronological conclusions become unsupported.<br><br>No contradiction is introduced.</div></div>`;
+      content.querySelectorAll(".toggle").forEach(toggle => toggle.addEventListener("click", () => { toggle.classList.toggle("on"); toast("Scenario preview updated"); }));
+    }
+
+    function applyMode() {
+      const focusEdges = activeMode === "impact" ? new Set(ranking.flatMap(item => [`${item.edge[0]}|${item.edge[1]}`])) : null;
+      document.querySelectorAll(".edge").forEach(edge => {
+        const key = `${edge.dataset.earlier}|${edge.dataset.later}`;
+        edge.classList.toggle("highlight", Boolean(focusEdges && focusEdges.has(key)));
+        edge.classList.toggle("dim", Boolean(focusEdges && !focusEdges.has(key)));
+      });
+      if (activeMode === "provenance") {
+        document.querySelectorAll(".node").forEach(node => node.classList.add("flag"));
+      }
+    }
+
+    function bindControls() {
+      document.querySelectorAll(".tab").forEach(tab => tab.addEventListener("click", () => { activeTab = tab.dataset.tab; document.querySelectorAll(".tab").forEach(item => item.classList.toggle("active", item === tab)); renderInspector(); }));
+      document.querySelectorAll("#modeControl button").forEach(button => button.addEventListener("click", () => { activeMode = button.dataset.mode; document.querySelectorAll("#modeControl button").forEach(item => item.classList.toggle("active", item === button)); renderGraph(); }));
+      document.querySelectorAll(".view-button").forEach(button => button.addEventListener("click", () => { document.querySelectorAll(".view-button").forEach(item => item.classList.toggle("active", item === button)); if (button.dataset.view === "questions" || button.dataset.view === "scenarios") { activeTab = button.dataset.view; document.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.tab === activeTab)); renderInspector(); } else if (button.dataset.view === "sources") { activeTab = "inspect"; renderInspector(); toast("Three provenance sources are linked to this graph"); } }));
+      document.getElementById("searchInput").addEventListener("input", event => { const query = event.target.value.toLowerCase().trim(); document.querySelectorAll(".node").forEach(node => { const record = descriptions.get(node.dataset.id); node.classList.toggle("dim", Boolean(query && !node.dataset.id.includes(query) && !record.description_de.toLowerCase().includes(query))); }); });
+      document.getElementById("fitButton").addEventListener("click", () => { document.getElementById("canvasWrap").scrollTo({ top: 0, behavior: "smooth" }); toast("Matrix returned to youngest context"); });
+      document.getElementById("sourceButton").addEventListener("click", () => window.open("https://doi.org/10.5281/zenodo.4461075", "_blank"));
+      document.getElementById("exportButton").addEventListener("click", () => toast("Prototype only · export will preserve graph, evidence, and review status"));
+      window.addEventListener("resize", () => renderGraph());
+    }
+
+    function escapeHtml(value) { const div = document.createElement("div"); div.textContent = value; return div.innerHTML; }
+    function toast(message) { const element = document.getElementById("toast"); element.textContent = message; element.classList.add("show"); clearTimeout(window.toastTimer); window.toastTimer = setTimeout(() => element.classList.remove("show"), 2400); }
+
+    init().catch(error => {
+      document.getElementById("summary").innerHTML = `<div class="eyebrow">Load error</div><h2>Graph unavailable</h2><p>${escapeHtml(error.message)}</p>`;
+      document.getElementById("tabContent").innerHTML = `<div class="empty">Run this prototype through the local HTTP server so it can load the candidate JSON.</div>`;
+    });
+  </script>
+</body>
+</html>

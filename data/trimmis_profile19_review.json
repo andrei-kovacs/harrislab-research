@@ -1,0 +1,280 @@
+{
+  "candidate_sha256": "010f2e414e431a4e2451db0cfa413f93563ad5b85ffb8cbfd469b07fd49d3338",
+  "direction_confirmation": "pending",
+  "edge_reviews": [
+    {
+      "id": "p19-path-34",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "p19-path-319",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "p19-path-320",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "p19-path-440",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "p19-path-512",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "p19-path-321",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "p19-path-322",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "p19-path-35",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "p19-path-36",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "p19-path-213",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "p19-path-136",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "p19-path-37",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "p19-path-38",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "p19-path-39",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "p19-path-40",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "p19-path-137",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "p19-path-138",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "p19-path-139",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "p19-path-140",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "p19-path-513",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "p19-path-214",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "p19-path-323",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "p19-path-514",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "p19-path-441",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "p19-path-442",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "p19-path-443",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "p19-path-41",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "p19-path-42",
+      "note": "",
+      "status": "pending"
+    }
+  ],
+  "node_reviews": [
+    {
+      "id": "102",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "104",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "150",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "153",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "155",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "156",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "164",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "165",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "170",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "22",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "222",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "223",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "224",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "228",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "23",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "235",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "240",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "241",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "26",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "267",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "3",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "30",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "50",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "98",
+      "note": "",
+      "status": "pending"
+    },
+    {
+      "id": "99",
+      "note": "",
+      "status": "pending"
+    }
+  ],
+  "reviewer": {
+    "affiliation": "",
+    "independent_from_extraction": false,
+    "name": "",
+    "reviewed_at": ""
+  },
+  "schema": "harrislab.independent-review.v1"
+}

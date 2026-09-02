@@ -1,0 +1,7 @@
+.local-data/
+.venv/
+review-outreach/
+__pycache__/
+*.py[cod]
+build/
+*.egg-info/

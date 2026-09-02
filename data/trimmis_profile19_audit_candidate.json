@@ -1,0 +1,1140 @@
+{
+  "approval_status": "pending_visual_review",
+  "edge_count": 28,
+  "edges": [
+    {
+      "audit_status": "pending_visual_review",
+      "earlier": "102",
+      "id": "p19-path-34",
+      "later": "104",
+      "matrix_page": 1,
+      "pdf_path_index": 34,
+      "polyline_segments": [
+        [
+          [
+            1022.273,
+            55.544
+          ],
+          [
+            1022.273,
+            58.627
+          ]
+        ]
+      ]
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "earlier": "150",
+      "id": "p19-path-319",
+      "later": "153",
+      "matrix_page": 1,
+      "pdf_path_index": 319,
+      "polyline_segments": [
+        [
+          [
+            1048.471,
+            311.828
+          ],
+          [
+            1048.471,
+            437.405
+          ]
+        ],
+        [
+          [
+            1048.471,
+            437.405
+          ],
+          [
+            1022.906,
+            437.405
+          ]
+        ],
+        [
+          [
+            1022.906,
+            437.405
+          ],
+          [
+            1022.906,
+            447.362
+          ]
+        ]
+      ]
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "earlier": "150",
+      "id": "p19-path-320",
+      "later": "50",
+      "matrix_page": 1,
+      "pdf_path_index": 320,
+      "polyline_segments": [
+        [
+          [
+            1019.562,
+            311.828
+          ],
+          [
+            1019.562,
+            447.362
+          ]
+        ]
+      ]
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "earlier": "153",
+      "id": "p19-path-440",
+      "later": "30",
+      "matrix_page": 1,
+      "pdf_path_index": 440,
+      "polyline_segments": [
+        [
+          [
+            1024.191,
+            252.486
+          ],
+          [
+            1024.191,
+            299.941
+          ]
+        ],
+        [
+          [
+            1024.191,
+            299.941
+          ],
+          [
+            1051.816,
+            299.941
+          ]
+        ],
+        [
+          [
+            1051.816,
+            299.941
+          ],
+          [
+            1051.816,
+            302.586
+          ]
+        ]
+      ]
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "earlier": "155",
+      "id": "p19-path-512",
+      "later": "3",
+      "matrix_page": 1,
+      "pdf_path_index": 512,
+      "polyline_segments": [
+        [
+          [
+            1019.562,
+            182.517
+          ],
+          [
+            1019.562,
+            216.969
+          ]
+        ]
+      ]
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "earlier": "156",
+      "id": "p19-path-321",
+      "later": "150",
+      "matrix_page": 1,
+      "pdf_path_index": 321,
+      "polyline_segments": [
+        [
+          [
+            1019.562,
+            456.607
+          ],
+          [
+            1019.562,
+            543.082
+          ]
+        ]
+      ]
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "earlier": "156",
+      "id": "p19-path-322",
+      "later": "267",
+      "matrix_page": 1,
+      "pdf_path_index": 322,
+      "polyline_segments": [
+        [
+          [
+            1051.817,
+            474.54
+          ],
+          [
+            1051.817,
+            477.873
+          ]
+        ],
+        [
+          [
+            1051.817,
+            477.873
+          ],
+          [
+            1023.551,
+            477.873
+          ]
+        ],
+        [
+          [
+            1023.551,
+            477.873
+          ],
+          [
+            1023.551,
+            543.081
+          ]
+        ]
+      ]
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "earlier": "164",
+      "id": "p19-path-35",
+      "later": "165",
+      "matrix_page": 1,
+      "pdf_path_index": 35,
+      "polyline_segments": [
+        [
+          [
+            1022.273,
+            154.159
+          ],
+          [
+            1022.273,
+            157.241
+          ]
+        ]
+      ]
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "earlier": "165",
+      "id": "p19-path-36",
+      "later": "98",
+      "matrix_page": 1,
+      "pdf_path_index": 36,
+      "polyline_segments": [
+        [
+          [
+            1022.273,
+            141.833
+          ],
+          [
+            1022.273,
+            144.912
+          ]
+        ]
+      ]
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "earlier": "170",
+      "id": "p19-path-213",
+      "later": "156",
+      "matrix_page": 1,
+      "pdf_path_index": 213,
+      "polyline_segments": [
+        [
+          [
+            1019.502,
+            576.151
+          ],
+          [
+            1019.563,
+            555.409
+          ]
+        ],
+        [
+          [
+            1019.563,
+            555.409
+          ],
+          [
+            1019.563,
+            552.326
+          ]
+        ]
+      ]
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "earlier": "22",
+      "id": "p19-path-136",
+      "later": "23",
+      "matrix_page": 1,
+      "pdf_path_index": 136,
+      "polyline_segments": [
+        [
+          [
+            1019.562,
+            761.902
+          ],
+          [
+            1019.562,
+            767.304
+          ]
+        ]
+      ]
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "earlier": "222",
+      "id": "p19-path-37",
+      "later": "228",
+      "matrix_page": 1,
+      "pdf_path_index": 37,
+      "polyline_segments": [
+        [
+          [
+            1022.273,
+            92.525
+          ],
+          [
+            1022.273,
+            95.608
+          ]
+        ]
+      ]
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "earlier": "223",
+      "id": "p19-path-38",
+      "later": "222",
+      "matrix_page": 1,
+      "pdf_path_index": 38,
+      "polyline_segments": [
+        [
+          [
+            1022.273,
+            104.851
+          ],
+          [
+            1022.273,
+            107.933
+          ]
+        ]
+      ]
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "earlier": "224",
+      "id": "p19-path-39",
+      "later": "223",
+      "matrix_page": 1,
+      "pdf_path_index": 39,
+      "polyline_segments": [
+        [
+          [
+            1022.273,
+            117.177
+          ],
+          [
+            1022.273,
+            120.259
+          ]
+        ]
+      ]
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "earlier": "228",
+      "id": "p19-path-40",
+      "later": "99",
+      "matrix_page": 1,
+      "pdf_path_index": 40,
+      "polyline_segments": [
+        [
+          [
+            1022.273,
+            80.2
+          ],
+          [
+            1022.273,
+            83.279
+          ]
+        ]
+      ]
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "earlier": "23",
+      "id": "p19-path-137",
+      "later": "235",
+      "matrix_page": 1,
+      "pdf_path_index": 137,
+      "polyline_segments": [
+        [
+          [
+            1003.643,
+            711.804
+          ],
+          [
+            1003.643,
+            714.886
+          ]
+        ],
+        [
+          [
+            1003.643,
+            714.886
+          ],
+          [
+            1016.482,
+            714.886
+          ]
+        ],
+        [
+          [
+            1016.482,
+            714.886
+          ],
+          [
+            1016.482,
+            752.658
+          ]
+        ]
+      ]
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "earlier": "23",
+      "id": "p19-path-138",
+      "later": "240",
+      "matrix_page": 1,
+      "pdf_path_index": 138,
+      "polyline_segments": [
+        [
+          [
+            1019.562,
+            711.804
+          ],
+          [
+            1019.562,
+            752.658
+          ]
+        ]
+      ]
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "earlier": "235",
+      "id": "p19-path-139",
+      "later": "26",
+      "matrix_page": 1,
+      "pdf_path_index": 139,
+      "polyline_segments": [
+        [
+          [
+            1016.481,
+            670.702
+          ],
+          [
+            1016.481,
+            673.783
+          ]
+        ],
+        [
+          [
+            1016.481,
+            673.783
+          ],
+          [
+            1003.642,
+            673.783
+          ]
+        ],
+        [
+          [
+            1003.642,
+            673.783
+          ],
+          [
+            1003.642,
+            702.56
+          ]
+        ]
+      ]
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "earlier": "240",
+      "id": "p19-path-140",
+      "later": "26",
+      "matrix_page": 1,
+      "pdf_path_index": 140,
+      "polyline_segments": [
+        [
+          [
+            1019.562,
+            670.702
+          ],
+          [
+            1019.562,
+            702.56
+          ]
+        ]
+      ]
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "earlier": "241",
+      "id": "p19-path-513",
+      "later": "3",
+      "matrix_page": 1,
+      "pdf_path_index": 513,
+      "polyline_segments": [
+        [
+          [
+            1016.481,
+            182.517
+          ],
+          [
+            1016.481,
+            213.886
+          ]
+        ],
+        [
+          [
+            1016.481,
+            213.886
+          ],
+          [
+            1003.642,
+            213.886
+          ]
+        ],
+        [
+          [
+            1003.642,
+            213.886
+          ],
+          [
+            1003.642,
+            216.969
+          ]
+        ]
+      ]
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "earlier": "26",
+      "id": "p19-path-214",
+      "later": "170",
+      "matrix_page": 1,
+      "pdf_path_index": 214,
+      "polyline_segments": [
+        [
+          [
+            1019.487,
+            585.395
+          ],
+          [
+            1019.561,
+            661.457
+          ]
+        ]
+      ]
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "earlier": "267",
+      "id": "p19-path-323",
+      "later": "153",
+      "matrix_page": 1,
+      "pdf_path_index": 323,
+      "polyline_segments": [
+        [
+          [
+            1051.817,
+            311.828
+          ],
+          [
+            1051.817,
+            465.297
+          ]
+        ]
+      ]
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "earlier": "3",
+      "id": "p19-path-514",
+      "later": "164",
+      "matrix_page": 1,
+      "pdf_path_index": 514,
+      "polyline_segments": [
+        [
+          [
+            1022.275,
+            166.356
+          ],
+          [
+            1022.275,
+            173.276
+          ]
+        ]
+      ]
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "earlier": "30",
+      "id": "p19-path-441",
+      "later": "155",
+      "matrix_page": 1,
+      "pdf_path_index": 441,
+      "polyline_segments": [
+        [
+          [
+            1019.562,
+            226.213
+          ],
+          [
+            1019.562,
+            243.249
+          ]
+        ]
+      ]
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "earlier": "30",
+      "id": "p19-path-442",
+      "later": "241",
+      "matrix_page": 1,
+      "pdf_path_index": 442,
+      "polyline_segments": [
+        [
+          [
+            1003.643,
+            226.213
+          ],
+          [
+            1003.643,
+            229.295
+          ]
+        ],
+        [
+          [
+            1003.643,
+            229.295
+          ],
+          [
+            1016.482,
+            229.295
+          ]
+        ],
+        [
+          [
+            1016.482,
+            229.295
+          ],
+          [
+            1016.482,
+            243.249
+          ]
+        ]
+      ]
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "earlier": "50",
+      "id": "p19-path-443",
+      "later": "30",
+      "matrix_page": 1,
+      "pdf_path_index": 443,
+      "polyline_segments": [
+        [
+          [
+            1019.562,
+            252.486
+          ],
+          [
+            1019.562,
+            302.586
+          ]
+        ]
+      ]
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "earlier": "98",
+      "id": "p19-path-41",
+      "later": "224",
+      "matrix_page": 1,
+      "pdf_path_index": 41,
+      "polyline_segments": [
+        [
+          [
+            1022.273,
+            129.503
+          ],
+          [
+            1022.273,
+            132.586
+          ]
+        ]
+      ]
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "earlier": "99",
+      "id": "p19-path-42",
+      "later": "102",
+      "matrix_page": 1,
+      "pdf_path_index": 42,
+      "polyline_segments": [
+        [
+          [
+            1022.273,
+            67.87
+          ],
+          [
+            1022.273,
+            70.953
+          ]
+        ]
+      ]
+    }
+  ],
+  "node_count": 25,
+  "nodes": [
+    {
+      "audit_status": "pending_visual_review",
+      "catalog_notation": "(102):",
+      "catalog_row": 100,
+      "description_de": "Steinig-humose Schicht.",
+      "id": "102",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        1011.225,
+        58.627,
+        1032.034,
+        67.871
+      ],
+      "printed_label": "102"
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "catalog_notation": "(104):",
+      "catalog_row": 102,
+      "description_de": "Grasnarbe \u00fcber Kiesbett (103).",
+      "id": "104",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        1011.225,
+        46.3,
+        1059.004,
+        55.544
+      ],
+      "printed_label": "104"
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "catalog_notation": "(150):",
+      "catalog_row": 146,
+      "description_de": "Schicht z.T. mit holzkohlehaltiger OK.",
+      "id": "150",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        1012.371,
+        447.363,
+        1030.61,
+        456.607
+      ],
+      "printed_label": "150"
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "catalog_notation": "(153) = (50):",
+      "catalog_row": 149,
+      "description_de": "Steinpackung in Einschnitt (154).",
+      "id": "153",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        1040.771,
+        302.585,
+        1059.006,
+        311.828
+      ],
+      "printed_label": "153"
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "catalog_notation": "(155):",
+      "catalog_row": 151,
+      "description_de": "Stein- Holzkohleansammlung; Pfostenloch?",
+      "id": "155",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        1012.371,
+        216.969,
+        1030.61,
+        226.213
+      ],
+      "printed_label": "155"
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "catalog_notation": "(284) =(90) = (156):",
+      "catalog_row": 276,
+      "description_de": "Steinige, dunkel humose Schicht mit Holzkohlest\u00fccken.",
+      "id": "156",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        943.275,
+        543.082,
+        1059.442,
+        552.326
+      ],
+      "printed_label": "156"
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "catalog_notation": "(164):",
+      "catalog_row": 156,
+      "description_de": "R\u00f6tlich verbrannte Lehmfl\u00e4che.",
+      "id": "164",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        1011.225,
+        157.241,
+        1032.034,
+        166.485
+      ],
+      "printed_label": "164"
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "catalog_notation": "(165):",
+      "catalog_row": 157,
+      "description_de": "Humose, schwach lehmige, steinige Schicht.",
+      "id": "165",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        942.511,
+        144.911,
+        1059.008,
+        154.158
+      ],
+      "printed_label": "165"
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "catalog_notation": "(204) = (170):",
+      "catalog_row": 197,
+      "description_de": "Humoser Bereich.",
+      "id": "170",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        943.182,
+        576.151,
+        1059.227,
+        585.394
+      ],
+      "printed_label": "170"
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "catalog_notation": "(22):",
+      "catalog_row": 22,
+      "description_de": "Grobes Geschiebe mit lokal hohem Sandanteil.",
+      "id": "22",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        943.297,
+        767.5,
+        1059.417,
+        776.743
+      ],
+      "printed_label": "22"
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "catalog_notation": "(222):",
+      "catalog_row": 213,
+      "description_de": "Steinband mit runden kleinen Steinen.",
+      "id": "222",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        1011.225,
+        95.608,
+        1032.034,
+        104.851
+      ],
+      "printed_label": "222"
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "catalog_notation": "(223):",
+      "catalog_row": 214,
+      "description_de": "Humose Schicht.",
+      "id": "223",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        1011.225,
+        107.933,
+        1032.034,
+        117.177
+      ],
+      "printed_label": "223"
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "catalog_notation": "(224):",
+      "catalog_row": 215,
+      "description_de": "Steinschicht mit flachen l\u00e4nglichen Steinen.",
+      "id": "224",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        1011.225,
+        120.26,
+        1032.034,
+        129.504
+      ],
+      "printed_label": "224"
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "catalog_notation": "(228):",
+      "catalog_row": 219,
+      "description_de": "Schicht mit Steinen und M\u00f6rtelst\u00fccken mit Ziegel.",
+      "id": "228",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        1011.225,
+        83.278,
+        1032.034,
+        92.525
+      ],
+      "printed_label": "228"
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "catalog_notation": "(203) = (23)?:",
+      "catalog_row": 196,
+      "description_de": "Kiesige Schicht.",
+      "id": "23",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        943.322,
+        752.659,
+        1059.442,
+        761.902
+      ],
+      "printed_label": "23"
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "catalog_notation": "(235):",
+      "catalog_row": 226,
+      "description_de": "Brandige Grube mit Holzkohle.",
+      "id": "235",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        992.594,
+        702.56,
+        1010.831,
+        711.805
+      ],
+      "printed_label": "235"
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "catalog_notation": "(240):",
+      "catalog_row": 232,
+      "description_de": "Schicht mit Holzkohlereste, H\u00fcttenlehmst\u00fccke und brandigen Flecken.",
+      "id": "240",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        1012.371,
+        702.56,
+        1030.61,
+        711.805
+      ],
+      "printed_label": "240"
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "catalog_notation": "(241):",
+      "catalog_row": 233,
+      "description_de": "Grube.",
+      "id": "241",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        992.594,
+        216.969,
+        1010.831,
+        226.213
+      ],
+      "printed_label": "241"
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "catalog_notation": "(42) = (26):",
+      "catalog_row": 47,
+      "description_de": "Lehmig-sandige Ablagerung von gelblicher Farbe mit Stellen und Knollen von grauem Lehm.",
+      "id": "26",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        943.232,
+        661.457,
+        1059.445,
+        670.702
+      ],
+      "printed_label": "26"
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "catalog_notation": "(281) = (256) / (267):",
+      "catalog_row": 273,
+      "description_de": "Steinlage; bestehend aus gebrannten Steinen, d.h. kleinere gestellte, wie auch ein flacher, liegender Stein.",
+      "id": "267",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        942.663,
+        465.298,
+        1059.006,
+        474.54
+      ],
+      "printed_label": "267"
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "catalog_notation": "(3):",
+      "catalog_row": 1,
+      "description_de": "Helle, lehmige Schicht.",
+      "id": "3",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        943.301,
+        173.274,
+        1058.867,
+        182.518
+      ],
+      "printed_label": "3"
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "catalog_notation": "(30):",
+      "catalog_row": 34,
+      "description_de": "Steinig-braunhumose Schicht.",
+      "id": "30",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        943.697,
+        243.247,
+        1058.51,
+        252.486
+      ],
+      "printed_label": "30"
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "catalog_notation": "(153) = (50):",
+      "catalog_row": 149,
+      "description_de": "Steinpackung in Einschnitt (154).",
+      "id": "50",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        943.393,
+        302.585,
+        1030.611,
+        311.828
+      ],
+      "printed_label": "50"
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "catalog_notation": "(167) = (98) oder (224):",
+      "catalog_row": 159,
+      "description_de": "Steiniges Paket.",
+      "id": "98",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        1011.225,
+        132.585,
+        1032.034,
+        141.831
+      ],
+      "printed_label": "98"
+    },
+    {
+      "audit_status": "pending_visual_review",
+      "catalog_notation": "(99):",
+      "catalog_row": 98,
+      "description_de": "Humusschicht.",
+      "id": "99",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        1011.225,
+        70.953,
+        1032.034,
+        80.199
+      ],
+      "printed_label": "99"
+    }
+  ],
+  "profile": "P19",
+  "relation_direction": "older_to_younger",
+  "schema": "harrislab.trimmis.profile19.audit-candidate.v1",
+  "source": {
+    "catalog_file": "Katalog_Positionen.xlsx",
+    "catalog_md5": "75983db690194fb562ba0378ebd627a3",
+    "doi": "10.5281/zenodo.4461075",
+    "license": "CC-BY-3.0",
+    "matrix_file": "Harris_Matrix.pdf",
+    "matrix_md5": "9ece18c188763350f16e164f441a927e",
+    "profile_file": "P19.pdf",
+    "profile_md5": "53ccf16a523e986ead69a30fc3f8dc24"
+  },
+  "source_profile_comparison": {
+    "matrix_only_labels": [],
+    "profile_only_labels": [
+      "199"
+    ],
+    "shared_labels": [
+      "102",
+      "104",
+      "150",
+      "153",
+      "155",
+      "156",
+      "164",
+      "165",
+      "170",
+      "22",
+      "222",
+      "223",
+      "224",
+      "228",
+      "23",
+      "235",
+      "240",
+      "241",
+      "26",
+      "267",
+      "3",
+      "30",
+      "50",
+      "98",
+      "99"
+    ]
+  }
+}

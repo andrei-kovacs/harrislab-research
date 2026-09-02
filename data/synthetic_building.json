@@ -1,0 +1,43 @@
+{
+  "title": "Synthetic building sequence",
+  "description": "A fictional dataset for software validation, not an archaeological claim.",
+  "evidence": [
+    {
+      "id": "E1",
+      "kind": "context_sheet",
+      "description": "Synthetic context sheets 100-107",
+      "source": "synthetic://field-register/contexts"
+    },
+    {
+      "id": "E2",
+      "kind": "drawing",
+      "description": "Synthetic section drawing showing foundation relationships",
+      "source": "synthetic://drawings/section-1"
+    },
+    {
+      "id": "E3",
+      "kind": "specialist_report",
+      "description": "Synthetic review proposing an order for the two foundation fills",
+      "source": "synthetic://reports/foundation-review"
+    }
+  ],
+  "contexts": [
+    {"id": "100", "label": "Natural subsoil"},
+    {"id": "105", "label": "Foundation cut"},
+    {"id": "106", "label": "Western foundation fill"},
+    {"id": "107", "label": "Eastern foundation fill"},
+    {"id": "110", "label": "Masonry wall"},
+    {"id": "120", "label": "Demolition deposit"},
+    {"id": "130", "label": "Topsoil"}
+  ],
+  "relations": [
+    {"earlier": "100", "later": "105", "status": "observed", "evidence_ids": ["E1", "E2"]},
+    {"earlier": "105", "later": "106", "status": "observed", "evidence_ids": ["E1"]},
+    {"earlier": "105", "later": "107", "status": "observed", "evidence_ids": ["E1"]},
+    {"earlier": "106", "later": "107", "status": "disputed", "evidence_ids": ["E3"]},
+    {"earlier": "106", "later": "110", "status": "observed", "evidence_ids": ["E2"]},
+    {"earlier": "107", "later": "110", "status": "observed", "evidence_ids": ["E2"]},
+    {"earlier": "110", "later": "120", "status": "observed", "evidence_ids": ["E1"]},
+    {"earlier": "120", "later": "130", "status": "observed", "evidence_ids": ["E1"]}
+  ]
+}

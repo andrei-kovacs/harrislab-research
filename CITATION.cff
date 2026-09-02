@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use HarrisLab, please cite this software and the underlying source datasets you use."
+title: "HarrisLab Research"
+type: software
+authors:
+  - family-names: "Kovacs"
+    given-names: "Andrei"
+repository-code: "https://github.com/andrei-kovacs/harrislab-research"
+url: "https://andrei-kovacs.github.io/harrislab-research/"
+version: 0.1.0
+date-released: 2026-09-02
+license: MIT
+keywords:
+  - archaeology
+  - Harris matrix
+  - stratigraphy
+  - provenance
+  - chronological reasoning
