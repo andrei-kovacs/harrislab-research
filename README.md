@@ -51,6 +51,7 @@ provisional pending a systematic literature review.
 - Trace chronological conclusions through supporting relations to evidence.
 - Benchmark hidden-relation recovery against deterministic and seeded controls.
 - Compare matrix and source-drawing provenance without auto-accepting inferred edges.
+- Validate hash-bound archaeological drawing reviews without mutating the accepted graph.
 - Surface literal catalogue relation mentions as review-only proposals.
 - Preregister synthetic formation-process comparisons against matched controls.
 - Load a reproducible JSON dataset and emit a command-line audit report.
@@ -107,6 +108,18 @@ The downloaded source artifacts are checksum-verified and should remain outside
 version control. Qualification does not approve an extracted relation graph;
 that graph requires a separate geometry-conversion and visual-audit step.
 
+Create the public blank P19 drawing-review checklist, or validate a completed
+copy returned by a qualified independent reviewer:
+
+```powershell
+python scripts/drawing_review_workflow.py
+python scripts/drawing_review_workflow.py --validate path/to/completed_checklist.csv
+```
+
+Validation is bound to the comparison SHA-256 and fails on missing, duplicate,
+unknown, or pending decisions. Its output classifies drawing evidence only and
+never mutates the accepted chronology.
+
 ## Research documents
 
 - [Project charter](docs/PROJECT_CHARTER.md)
@@ -117,6 +130,7 @@ that graph requires a separate geometry-conversion and visual-audit step.
 - [Dataset qualification sprint](docs/DATASET_QUALIFICATION.md)
 - [Trimmis Profile 19 extraction audit](docs/TRIMMIS_PROFILE19_AUDIT.md)
 - [Trimmis Profile 19 drawing comparison](docs/TRIMMIS_DRAWING_COMPARISON.md)
+- [Trimmis Profile 19 drawing-review workflow](docs/DRAWING_REVIEW_WORKFLOW.md)
 - [Trimmis Profile 19 text-extraction pilot](docs/TRIMMIS_TEXT_EXTRACTION_PILOT.md)
 - [Synthetic formation-process benchmark preregistration](docs/FORMATION_PROCESS_PREREGISTRATION.md)
 - [Synthetic formation-process benchmark result](docs/FORMATION_PROCESS_BENCHMARK.md)

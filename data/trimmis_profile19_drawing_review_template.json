@@ -1,0 +1,176 @@
+{
+  "schema": "harrislab.drawing-evidence-review.v1",
+  "comparison_sha256": "27f43aaefbfa9176a78161349b3d73252bbb9e2ee45d5f926107174bbcc6d3cc",
+  "reviewer": {
+    "public_label": "",
+    "reviewed_at": "",
+    "qualified_for_drawing_review": false,
+    "independent_from_matrix_extraction": false
+  },
+  "direction_confirmation": "pending",
+  "relation_reviews": [
+    {
+      "earlier": "102",
+      "later": "104",
+      "decision": "pending",
+      "note": ""
+    },
+    {
+      "earlier": "150",
+      "later": "153",
+      "decision": "pending",
+      "note": ""
+    },
+    {
+      "earlier": "150",
+      "later": "50",
+      "decision": "pending",
+      "note": ""
+    },
+    {
+      "earlier": "153",
+      "later": "30",
+      "decision": "pending",
+      "note": ""
+    },
+    {
+      "earlier": "155",
+      "later": "3",
+      "decision": "pending",
+      "note": ""
+    },
+    {
+      "earlier": "156",
+      "later": "150",
+      "decision": "pending",
+      "note": ""
+    },
+    {
+      "earlier": "156",
+      "later": "267",
+      "decision": "pending",
+      "note": ""
+    },
+    {
+      "earlier": "164",
+      "later": "165",
+      "decision": "pending",
+      "note": ""
+    },
+    {
+      "earlier": "165",
+      "later": "98",
+      "decision": "pending",
+      "note": ""
+    },
+    {
+      "earlier": "170",
+      "later": "156",
+      "decision": "pending",
+      "note": ""
+    },
+    {
+      "earlier": "22",
+      "later": "23",
+      "decision": "pending",
+      "note": ""
+    },
+    {
+      "earlier": "222",
+      "later": "228",
+      "decision": "pending",
+      "note": ""
+    },
+    {
+      "earlier": "223",
+      "later": "222",
+      "decision": "pending",
+      "note": ""
+    },
+    {
+      "earlier": "224",
+      "later": "223",
+      "decision": "pending",
+      "note": ""
+    },
+    {
+      "earlier": "228",
+      "later": "99",
+      "decision": "pending",
+      "note": ""
+    },
+    {
+      "earlier": "23",
+      "later": "235",
+      "decision": "pending",
+      "note": ""
+    },
+    {
+      "earlier": "23",
+      "later": "240",
+      "decision": "pending",
+      "note": ""
+    },
+    {
+      "earlier": "235",
+      "later": "26",
+      "decision": "pending",
+      "note": ""
+    },
+    {
+      "earlier": "240",
+      "later": "26",
+      "decision": "pending",
+      "note": ""
+    },
+    {
+      "earlier": "241",
+      "later": "3",
+      "decision": "pending",
+      "note": ""
+    },
+    {
+      "earlier": "267",
+      "later": "153",
+      "decision": "pending",
+      "note": ""
+    },
+    {
+      "earlier": "3",
+      "later": "164",
+      "decision": "pending",
+      "note": ""
+    },
+    {
+      "earlier": "30",
+      "later": "155",
+      "decision": "pending",
+      "note": ""
+    },
+    {
+      "earlier": "30",
+      "later": "241",
+      "decision": "pending",
+      "note": ""
+    },
+    {
+      "earlier": "50",
+      "later": "30",
+      "decision": "pending",
+      "note": ""
+    },
+    {
+      "earlier": "98",
+      "later": "224",
+      "decision": "pending",
+      "note": ""
+    },
+    {
+      "earlier": "99",
+      "later": "102",
+      "decision": "pending",
+      "note": ""
+    }
+  ],
+  "publication_policy": "Use a non-identifying public label. Keep names, affiliations, email addresses, and correspondence outside this artifact."
+}
