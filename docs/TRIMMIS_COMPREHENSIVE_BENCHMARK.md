@@ -19,6 +19,13 @@ impact enumeration completed for 1 of 10 trials and reached the declared
 exact impact by 0.0313 AURC over lexical order and 0.0172 over the mean of 20
 seeded random orders, but one trial cannot support a general conclusion.
 
+Exact impact is available only when the bounded baseline and candidate order
+counts all complete. Runtime depends on the partial-order structure, not a
+fixed context-count threshold. For this 26-context graph, truncation made exact
+ranking unavailable in nine trials; closure gain and sampled orders remain
+separately labelled descriptive strategies, not replacements for the missing
+primary result. See [Exact Impact and Scalable Ranking Limits](EXACT_IMPACT_LIMITATIONS.md).
+
 ## Descriptive secondary results
 
 Across all ten trials, mean AURC was:

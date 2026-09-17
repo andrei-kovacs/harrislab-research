@@ -38,10 +38,14 @@ provisional pending a systematic literature review.
 - Derive constraints implied by longer paths.
 - Count valid total chronological orders up to a configurable bound.
 - Keep disputed and AI-proposed edges outside the accepted interpretation.
-- Rank unresolved edges by their reduction of valid chronological orders.
-- Rank larger graphs with a calibrated closure-gain surrogate baseline.
-- Approximate order reduction with reproducible linear-extension sampling.
-- Diagnose sampled rankings across chains with split R-hat, ESS, and consensus.
+- Rank unresolved edges by exact reduction of valid chronological orders when
+	every bounded count completes.
+- Rank larger or truncated cases with closure gain as a scalable baseline, not
+	an exact substitute.
+- Approximate order reduction with reproducible linear-extension sampling;
+	finite-run convergence is not established.
+- Report split R-hat, ESS, and consensus as operational sampling warnings, not
+	proof of convergence.
 - Evaluate named interpretations with accepted, rejected, and undecided edges.
 - Compare contradictions, order counts, and implied relations across scenarios.
 - Trace chronological conclusions through supporting relations to evidence.
@@ -119,4 +123,6 @@ that graph requires a separate geometry-conversion and visual-audit step.
 - [Hidden-relation benchmark protocol](docs/BENCHMARK_PROTOCOL.md)
 - [Comprehensive Trimmis benchmark results](docs/TRIMMIS_COMPREHENSIVE_BENCHMARK.md)
 - [Closure-gain surrogate calibration](docs/SURROGATE_CALIBRATION.md)
+- [Exact-impact and scalable-ranking limits](docs/EXACT_IMPACT_LIMITATIONS.md)
 - [Sampled-ranking disagreement analysis](docs/DISAGREEMENT_ANALYSIS.md)
+- [Version 0.1.0 research-seed release notes](docs/RELEASE_NOTES_0.1.0.md)
