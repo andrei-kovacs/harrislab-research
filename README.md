@@ -24,6 +24,12 @@ provisional pending a systematic literature review.
 > research project and is not affiliated with, sponsored by, or endorsed by
 > Microsoft or the source-data authors and institutions.
 
+> **Synthetic benchmark status:** The preregistered depositional-patch
+> automaton comparison is complete. Its directional graph-structure hypothesis
+> was supported on the fixed schedule, with 13 of 100 trials favoring the
+> matched control. This is software validation, not a claim about real site
+> formation.
+
 ## Current capabilities
 
 - Represent contexts, temporal constraints, evidence, and relation status.
@@ -81,6 +87,7 @@ Reproduce the preregistered comprehensive benchmark:
 
 ```powershell
 python scripts/benchmark_trimmis_profile19_comprehensive.py
+python scripts/benchmark_formation_process.py
 ```
 
 Reproduce the qualification screen for the first approved pilot dataset:
@@ -108,6 +115,7 @@ that graph requires a separate geometry-conversion and visual-audit step.
 - [Trimmis Profile 19 drawing comparison](docs/TRIMMIS_DRAWING_COMPARISON.md)
 - [Trimmis Profile 19 text-extraction pilot](docs/TRIMMIS_TEXT_EXTRACTION_PILOT.md)
 - [Synthetic formation-process benchmark preregistration](docs/FORMATION_PROCESS_PREREGISTRATION.md)
+- [Synthetic formation-process benchmark result](docs/FORMATION_PROCESS_BENCHMARK.md)
 - [Hidden-relation benchmark protocol](docs/BENCHMARK_PROTOCOL.md)
 - [Comprehensive Trimmis benchmark results](docs/TRIMMIS_COMPREHENSIVE_BENCHMARK.md)
 - [Closure-gain surrogate calibration](docs/SURROGATE_CALIBRATION.md)

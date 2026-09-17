@@ -141,7 +141,7 @@
     .node.selected rect { fill: var(--moss-soft); stroke: #314f38; stroke-width: 2.7; filter: drop-shadow(0 3px 4px rgba(30,45,34,.18)); }
     .node.dim { opacity: .2; }
     .node.flag rect { stroke: var(--ochre); stroke-dasharray: 4 3; }
-    .tabs { display: grid; grid-template-columns: repeat(5, 1fr); border-bottom: 1px solid var(--line); }
+    .tabs { display: grid; grid-template-columns: repeat(6, 1fr); border-bottom: 1px solid var(--line); }
     .tab { height: 42px; border: 0; border-bottom: 2px solid transparent; background: white; cursor: pointer; font-size: 12px; color: var(--muted); }
     .tab.active { color: var(--ink); border-bottom-color: var(--moss); font-weight: 800; }
     .summary { padding: 17px 18px 14px; border-bottom: 1px solid var(--line); }
@@ -178,6 +178,9 @@
     .profile-figure { margin: 0 0 14px; border: 1px solid var(--line); background: white; }
     .profile-figure img { display: block; width: 100%; height: auto; }
     .profile-figure figcaption { padding: 7px 9px; color: var(--muted); font-size: 9px; line-height: 1.4; }
+    .comparison-row { display: grid; grid-template-columns: 92px 1fr 42px; gap: 8px; align-items: center; margin: 8px 0; font-size: 10px; }
+    .comparison-track { height: 7px; background: #e6e9e6; overflow: hidden; }
+    .comparison-track span { display: block; height: 100%; background: var(--moss); }
     .scenario-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; padding: 11px 0; border-bottom: 1px solid #edf0ee; }
     .scenario-row strong { font-size: 12px; }
     .scenario-row p { margin: 3px 0 0; color: var(--muted); font-size: 10px; line-height: 1.4; }
@@ -233,6 +236,7 @@
         <button class="view-button" data-view="questions"><i data-lucide="circle-help"></i><span>Investigation queue</span><span class="count">3</span></button>
         <button class="view-button" data-view="text"><i data-lucide="text-search"></i><span>Text proposals</span><span class="count">3</span></button>
         <button class="view-button" data-view="drawing"><i data-lucide="scan-line"></i><span>Drawing comparison</span><span class="count">27</span></button>
+        <button class="view-button" data-view="formation"><i data-lucide="grid-3x3"></i><span>Formation benchmark</span><span class="count">100</span></button>
         <button class="view-button" data-view="scenarios"><i data-lucide="split"></i><span>Interpretations</span><span class="count">2</span></button>
         <button class="view-button" data-view="sources"><i data-lucide="library"></i><span>Source register</span><span class="count">4</span></button>
         <div class="divider"></div>
@@ -271,6 +275,7 @@
           <button class="tab" data-tab="questions">Questions</button>
           <button class="tab" data-tab="text">Text</button>
           <button class="tab" data-tab="drawing">Drawing</button>
+          <button class="tab" data-tab="formation">Model</button>
           <button class="tab" data-tab="scenarios">Scenarios</button>
         </div>
         <div class="summary" id="summary"></div>
@@ -287,18 +292,20 @@
     const comprehensiveUrl = "../data/trimmis_profile19_comprehensive_benchmark.json";
     const drawingComparisonUrl = "../data/trimmis_profile19_drawing_comparison.json";
     const textProposalsUrl = "../data/trimmis_profile19_text_relation_proposals.json";
-    let graph, referenceDocument, benchmark, comprehensive, drawingComparison, textProposals, ranking = [];
+    const formationBenchmarkUrl = "../data/formation_process_benchmark.json";
+    let graph, referenceDocument, benchmark, comprehensive, drawingComparison, textProposals, formationBenchmark, ranking = [];
     let selectedId = "156", activeTab = "inspect", activeMode = "sequence";
     const nodePositions = new Map();
     const descriptions = new Map();
 
     async function init() {
-      [referenceDocument, benchmark, comprehensive, drawingComparison, textProposals] = await Promise.all([
+      [referenceDocument, benchmark, comprehensive, drawingComparison, textProposals, formationBenchmark] = await Promise.all([
         loadJson(graphUrl, "graph data"),
         loadJson(benchmarkUrl, "benchmark results"),
         loadJson(comprehensiveUrl, "comprehensive benchmark results"),
         loadJson(drawingComparisonUrl, "drawing comparison"),
-        loadJson(textProposalsUrl, "text proposals")
+        loadJson(textProposalsUrl, "text proposals"),
+        loadJson(formationBenchmarkUrl, "formation benchmark")
       ]);
       graph = {
         nodes: referenceDocument.contexts.map(context => ({ ...context, description_de: context.label })),
@@ -448,6 +455,7 @@
       if (activeTab === "questions") { renderQuestions(summary, content); return; }
       if (activeTab === "text") { renderTextProposals(summary, content); return; }
       if (activeTab === "drawing") { renderDrawingComparison(summary, content); return; }
+      if (activeTab === "formation") { renderFormationBenchmark(summary, content); return; }
       if (activeTab === "scenarios") { renderScenarios(summary, content); return; }
       if (activeTab === "sources") { renderSources(summary, content); return; }
       const node = descriptions.get(selectedId);
@@ -546,6 +554,29 @@
           </article>`).join("")}`;
     }
 
+    function renderFormationBenchmark(summary, content) {
+      const trials = formationBenchmark.trials;
+      const metricMean = (side, key) => trials.reduce((total, trial) => total + trial[side][key], 0) / trials.length;
+      const automatonClosure = metricMean("automaton", "closure_amplification");
+      const controlClosure = metricMean("control", "closure_amplification");
+      const positive = trials.filter(trial => trial.paired_closure_amplification_difference > 0).length;
+      const tied = trials.filter(trial => trial.paired_closure_amplification_difference === 0).length;
+      const negative = trials.length - positive - tied;
+      const scale = Math.max(automatonClosure, controlClosure);
+      summary.innerHTML = `<div class="eyebrow">Synthetic software benchmark</div><h2>Patch automaton</h2><p>One local-growth rule compared with an edge-count-matched null.</p>`;
+      content.innerHTML = `
+        <div class="metric-grid">
+          <div class="metric"><strong>+${formationBenchmark.summary.mean_paired_closure_amplification_difference.toFixed(3)}</strong><span>Mean difference</span></div>
+          <div class="metric"><strong>${positive} / ${trials.length}</strong><span>Trials favor CA</span></div>
+          <div class="metric"><strong>${negative}</strong><span>Favor control</span></div>
+        </div>
+        <div class="field"><div class="field-label">Mean closure amplification</div>
+          <div class="comparison-row"><span>Patch automaton</span><div class="comparison-track"><span style="width:${automatonClosure / scale * 100}%"></span></div><strong>${automatonClosure.toFixed(3)}</strong></div>
+          <div class="comparison-row"><span>Matched control</span><div class="comparison-track"><span style="width:${controlClosure / scale * 100}%"></span></div><strong>${controlClosure.toFixed(3)}</strong></div>
+        </div>
+        <div class="study-box"><strong>Scheduled direction supported, realism untested</strong><br>${positive} trials favored the automaton, ${tied} tied, and ${negative} favored the control. The fixed schedule is not an archaeological population, and this rule is not a calibrated model of site formation.<div class="study-links"><a href="FORMATION_PROCESS_BENCHMARK.md">Read result</a><a href="FORMATION_PROCESS_PREREGISTRATION.md">Frozen design</a><a href="${formationBenchmarkUrl}">All trials</a></div></div>`;
+    }
+
     function renderSources(summary, content) {
       summary.innerHTML = `<div class="eyebrow">Provenance</div><h2>Source register</h2><p>Evidence layers remain distinct and traceable.</p>`;
       content.innerHTML = referenceDocument.evidence.map(item => `
@@ -584,7 +615,7 @@
     function bindControls() {
       document.querySelectorAll(".tab").forEach(tab => tab.addEventListener("click", () => { activeTab = tab.dataset.tab; document.querySelectorAll(".tab").forEach(item => item.classList.toggle("active", item === tab)); renderInspector(); }));
       document.querySelectorAll("#modeControl button").forEach(button => button.addEventListener("click", () => { activeMode = button.dataset.mode; document.querySelectorAll("#modeControl button").forEach(item => item.classList.toggle("active", item === button)); renderGraph(); }));
-      document.querySelectorAll(".view-button").forEach(button => button.addEventListener("click", () => { document.querySelectorAll(".view-button").forEach(item => item.classList.toggle("active", item === button)); if (["questions", "text", "drawing", "scenarios", "sources"].includes(button.dataset.view)) { activeTab = button.dataset.view; document.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.tab === activeTab)); renderInspector(); } }));
+      document.querySelectorAll(".view-button").forEach(button => button.addEventListener("click", () => { document.querySelectorAll(".view-button").forEach(item => item.classList.toggle("active", item === button)); if (["questions", "text", "drawing", "formation", "scenarios", "sources"].includes(button.dataset.view)) { activeTab = button.dataset.view; document.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.tab === activeTab)); renderInspector(); } }));
       document.getElementById("searchInput").addEventListener("input", event => { const query = event.target.value.toLowerCase().trim(); document.querySelectorAll(".node").forEach(node => { const record = descriptions.get(node.dataset.id); node.classList.toggle("dim", Boolean(query && !node.dataset.id.includes(query) && !record.description_de.toLowerCase().includes(query))); }); });
       document.getElementById("fitButton").addEventListener("click", () => { document.getElementById("canvasWrap").scrollTo({ top: 0, behavior: "smooth" }); toast("Matrix returned to youngest context"); });
       document.getElementById("sourceButton").addEventListener("click", () => window.open("https://doi.org/10.5281/zenodo.4461075", "_blank"));
@@ -593,7 +624,7 @@
     }
 
     function exportAudit() {
-      const payload = JSON.stringify({ reference: referenceDocument, text_relation_proposals: textProposals, drawing_comparison: drawingComparison, retrospective_benchmark: benchmark, comprehensive_benchmark: comprehensive }, null, 2);
+      const payload = JSON.stringify({ reference: referenceDocument, text_relation_proposals: textProposals, drawing_comparison: drawingComparison, formation_process_benchmark: formationBenchmark, retrospective_benchmark: benchmark, comprehensive_benchmark: comprehensive }, null, 2);
       const link = document.createElement("a");
       link.href = URL.createObjectURL(new Blob([payload], { type: "application/json" }));
       link.download = "harrislab-trimmis-profile19-audit.json";
