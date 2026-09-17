@@ -17,9 +17,10 @@ extraction as an auditable source snapshot. All novelty claims remain
 provisional pending a systematic literature review.
 
 > **Research status:** The Trimmis extraction passed independent source review
-> on 17 September 2026. This validates transcription fidelity, not HarrisLab's
-> ranking method or any broader archaeological conclusion. Illustrative impact
-> scores are not archaeological results. HarrisLab is an independent personal
+> on 17 September 2026. A reproducible retrospective hidden-relation benchmark
+> now replaces the prototype's illustrative scores. It demonstrates software
+> behavior on one small held-out set, not archaeological importance or broad
+> method validity. HarrisLab is an independent personal
 > research project and is not affiliated with, sponsored by, or endorsed by
 > Microsoft or the source-data authors and institutions.
 
@@ -63,8 +64,15 @@ Then open [the HarrisLab app prototype](http://localhost:8765/docs/app-prototype
 It renders the reviewed 26-context reference graph, context provenance,
 scenario comparison, and a retrospective hidden-relation ranking
 demonstration. The reference includes the confirmed insertion of context 199
-between older context 26 and younger context 170. Displayed impact scores remain
-illustrative rather than archaeological results.
+between older context 26 and younger context 170. The investigation queue loads
+generated exact-impact results and benchmark diagnostics from a committed JSON
+artifact. Held-out relations are known reference edges, not field disputes.
+
+Reproduce that artifact:
+
+```powershell
+python scripts/benchmark_trimmis_profile19.py
+```
 
 Reproduce the qualification screen for the first approved pilot dataset:
 

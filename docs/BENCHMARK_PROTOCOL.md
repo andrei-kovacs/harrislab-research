@@ -1,7 +1,8 @@
 # Hidden-Relation Benchmark Protocol
 
-Status on 2026-09-02: implemented and validated on synthetic software fixtures.
-It has not been run on archaeological evaluation data.
+Status on 2026-09-17: implemented, validated on synthetic software fixtures,
+and run as a transparent retrospective demonstration on the independently
+reviewed Trimmis Profile 19 reference.
 
 ## Question
 
@@ -99,6 +100,43 @@ Before running against a qualified dataset, freeze:
 
 Report every eligible trial, including failures and truncations. Do not tune
 hiding patterns or seeds after observing comparative results.
+
+## Trimmis retrospective demonstration
+
+The first real-data run uses the corrected 26-context, 29-relation Trimmis
+Profile 19 reference with canonical SHA-256
+`4ccd723d9c53a96524b22bf8fa607df59607b1ed3a5467cde2fdf7e73737216a`.
+It hides `156 -> 150`, `30 -> 241`, and `23 -> 235`. These relations appeared
+in the public app prototype before the benchmark was run, preventing selection
+from the observed benchmark outcomes. This is nevertheless retrospective and
+must not be described as preregistered.
+
+Exact impact, closure gain, and sampled-order ranking selected the same order:
+
+1. `156 -> 150`, restoring 16 implications.
+2. `30 -> 241`, restoring 13 implications.
+3. `23 -> 235`, restoring 2 implications.
+
+All three achieved AURC 0.9661, compared with 0.9547 for the lexicographic
+control and 0.9630 for the single seeded random control. Exact enumeration
+completed below the 100,000-order bound. The sampled run used four chains,
+2,000 retained samples per chain, burn-in 2,000, thinning 10, and seed
+20260917. All chains agreed on the top choice at each step, but the second
+selected relation had ESS 116.5, below the protocol's 400 warning threshold.
+The exact result is therefore primary; the sampled agreement is not presented
+as a convergence claim.
+
+Reproduce the committed machine-readable artifact with:
+
+```powershell
+python scripts/benchmark_trimmis_profile19.py
+```
+
+Results are stored in
+[`trimmis_profile19_benchmark.json`](../data/trimmis_profile19_benchmark.json).
+This single, deliberately small held-out set demonstrates the workflow. It
+does not validate general archaeological usefulness or estimate performance
+across sites.
 
 ## Known limitations
 

@@ -165,6 +165,11 @@
     .rank-card p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.4; }
     .meter { height: 4px; background: #e8e9e5; margin-top: 9px; overflow: hidden; }
     .meter span { display: block; height: 100%; background: var(--ochre); }
+    .metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 0 0 14px; }
+    .metric { border-top: 2px solid var(--moss); background: #f3f6f4; padding: 8px; }
+    .metric strong { display: block; font: 700 17px Georgia, "Times New Roman", serif; }
+    .metric span { color: var(--muted); font-size: 9px; text-transform: uppercase; font-weight: 800; }
+    .diagnostic { margin-top: 6px; color: #795119; font-size: 9px; }
     .scenario-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; padding: 11px 0; border-bottom: 1px solid #edf0ee; }
     .scenario-row strong { font-size: 12px; }
     .scenario-row p { margin: 3px 0 0; color: var(--muted); font-size: 10px; line-height: 1.4; }
@@ -266,33 +271,48 @@
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
   <script>
     const graphUrl = "../data/trimmis_profile19_reference.json";
-    const ranking = [
-      { edge: ["156", "150"], score: 0.82, title: "Verify 156 before 150", detail: "This bridge controls whether the lower occupation sequence reaches both upper branches." },
-      { edge: ["30", "241"], score: 0.61, title: "Verify 30 before 241", detail: "The branch affects the route from context 30 through context 3." },
-      { edge: ["23", "235"], score: 0.37, title: "Verify 23 before 235", detail: "This relation distinguishes the two lower burning-related deposits." }
-    ];
-    let graph, selectedId = "156", activeTab = "inspect", activeMode = "sequence";
+    const benchmarkUrl = "../data/trimmis_profile19_benchmark.json";
+    let graph, referenceDocument, benchmark, ranking = [];
+    let selectedId = "156", activeTab = "inspect", activeMode = "sequence";
     const nodePositions = new Map();
     const descriptions = new Map();
 
     async function init() {
-      const reference = await fetch(graphUrl).then(response => {
-        if (!response.ok) throw new Error("Could not load graph data");
-        return response.json();
-      });
+      [referenceDocument, benchmark] = await Promise.all([
+        loadJson(graphUrl, "graph data"),
+        loadJson(benchmarkUrl, "benchmark results")
+      ]);
       graph = {
-        nodes: reference.contexts.map(context => ({ ...context, description_de: context.label })),
-        edges: reference.relations.map(relation => ({
+        nodes: referenceDocument.contexts.map(context => ({ ...context, description_de: context.label })),
+        edges: referenceDocument.relations.map(relation => ({
           ...relation,
           pdf_path_index: relation.source_pdf_path_index ?? null
         }))
       };
+      const exact = benchmark.runs.find(run => run.strategy === "impact");
+      const sampled = benchmark.runs.find(run => run.strategy === "sampled_orders");
+      ranking = exact.steps.map(step => {
+        const sampledStep = sampled.steps.find(item => item.edge.join("|") === step.edge.join("|"));
+        const baselineOrders = step.chronological_orders + step.impact_reduction;
+        return {
+          ...step,
+          sampled: sampledStep,
+          score: step.impact_reduction / baselineOrders,
+          title: `Verify ${step.edge[0]} before ${step.edge[1]}`
+        };
+      });
       graph.nodes.forEach(node => descriptions.set(node.id, node));
       renderGraph();
       bindControls();
       renderInspector();
       if (window.lucide) lucide.createIcons();
       document.getElementById("canvasWrap").scrollTop = 430;
+    }
+
+    async function loadJson(url, label) {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`Could not load ${label}`);
+      return response.json();
     }
 
     function svgElement(name, attributes = {}) {
@@ -409,6 +429,7 @@
       const content = document.getElementById("tabContent");
       if (activeTab === "questions") { renderQuestions(summary, content); return; }
       if (activeTab === "scenarios") { renderScenarios(summary, content); return; }
+      if (activeTab === "sources") { renderSources(summary, content); return; }
       const node = descriptions.get(selectedId);
       const incoming = graph.edges.filter(edge => edge.later === selectedId);
       const outgoing = graph.edges.filter(edge => edge.earlier === selectedId);
@@ -431,21 +452,56 @@
     function relationPill(id, path) { return `<button class="relation-pill" data-id="${id}" title="${path === null ? "Source-author correction" : `PDF path ${path}`}">${id}</button>`; }
 
     function renderQuestions(summary, content) {
-      summary.innerHTML = `<div class="eyebrow">Retrospective demonstration</div><h2>Next questions</h2><p>Published reference edges are temporarily withheld to demonstrate investigation ranking.</p>`;
-      content.innerHTML = `<div class="source-box" style="margin-bottom:14px"><strong>Demonstration only</strong><br>These are not documented Trimmis disputes. The app asks which hidden reference edge would restore the most chronological information first.</div>` + ranking.map((item, index) => `
-        <div class="rank-card" data-edge="${item.edge.join("|")}"><div class="rank-head"><span class="rank-title">${index + 1}. ${item.title}</span><span class="rank-score">${Math.round(item.score * 100)} impact</span></div><p>${item.detail}</p><div class="meter"><span style="width:${item.score * 100}%"></span></div></div>`).join("");
+      const exact = benchmark.runs.find(run => run.strategy === "impact");
+      const lexical = benchmark.runs.find(run => run.strategy === "lexicographic");
+      const sampledWarning = ranking.some(item => item.sampled.sampled_effective_sample_size < 400);
+      summary.innerHTML = `<div class="eyebrow">Computed benchmark</div><h2>Recovery queue</h2><p>Exact impact ranking for three previously declared held-out relations.</p>`;
+      content.innerHTML = `
+        <div class="metric-grid">
+          <div class="metric"><strong>${(exact.area_under_recovery_curve * 100).toFixed(1)}%</strong><span>Exact AURC</span></div>
+          <div class="metric"><strong>${exact.steps[0].recovered_implications}</strong><span>of ${exact.reference_implications} after 1</span></div>
+          <div class="metric"><strong>3 / 3</strong><span>Methods agree</span></div>
+        </div>
+        <div class="source-box" style="margin-bottom:14px"><strong>Retrospective test, not a field claim</strong><br>These are known reference relations temporarily withheld for a reproducible software benchmark. They are not documented archaeological disputes. Exact ranking AURC ${(exact.area_under_recovery_curve * 100).toFixed(1)}%, lexical control ${(lexical.area_under_recovery_curve * 100).toFixed(1)}%.${sampledWarning ? `<div class="diagnostic">Sampling warning: one selected step has ESS below the protocol threshold. Exact enumeration is the primary result.</div>` : ""}</div>` + ranking.map((item, index) => `
+        <div class="rank-card" data-edge="${item.edge.join("|")}"><div class="rank-head"><span class="rank-title">${index + 1}. ${item.title}</span><span class="rank-score">${Math.round(item.score * 100)}% orders removed</span></div><p>Adds ${item.closure_gain} chronological implications, recovering ${item.recovered_implications} of ${item.reference_implications}. ${item.chronological_orders.toLocaleString()} valid orders remain.</p><div class="meter"><span style="width:${item.score * 100}%"></span></div></div>`).join("");
       content.querySelectorAll(".rank-card").forEach(card => card.addEventListener("click", () => {
         const [earlier, later] = card.dataset.edge.split("|"); selectedId = earlier; activeMode = "impact"; renderGraph(); toast(`Highlighted candidate ${earlier} → ${later}`);
       }));
     }
 
     function renderScenarios(summary, content) {
+      const fullClosure = chronologicalClosure(graph.edges);
+      const branchClosure = chronologicalClosure(graph.edges.filter(edge => !(edge.earlier === "30" && edge.later === "241")));
+      const unsupported = [...fullClosure].filter(edge => !branchClosure.has(edge)).length;
       summary.innerHTML = `<div class="eyebrow">Interpretation comparison</div><h2>Two live readings</h2><p>Keep alternatives visible instead of overwriting the accepted graph.</p>`;
       content.innerHTML = `
         <div class="scenario-row"><div><strong>Reviewed reference</strong><p>All 29 direct relations retained, including the confirmed insertion of context 199.</p></div><button class="toggle on" aria-label="Reviewed reference enabled"><span></span></button></div>
         <div class="scenario-row"><div><strong>Branch 241 unresolved</strong><p>Treat 30 → 241 as disputed and inspect the conclusions that depend on it.</p></div><button class="toggle" aria-label="Alternative scenario disabled"><span></span></button></div>
-        <div class="field" style="margin-top:18px"><div class="field-label">Comparison preview</div><div class="source-box"><strong>1 direct relation changes</strong><br>4 downstream chronological conclusions become unsupported.<br><br>No contradiction is introduced.</div></div>`;
+        <div class="field" style="margin-top:18px"><div class="field-label">Comparison preview</div><div class="source-box"><strong>1 direct relation changes</strong><br>${unsupported} chronological conclusions become unsupported.<br><br>No contradiction is introduced.</div></div>`;
       content.querySelectorAll(".toggle").forEach(toggle => toggle.addEventListener("click", () => { toggle.classList.toggle("on"); toast("Scenario preview updated"); }));
+    }
+
+    function renderSources(summary, content) {
+      summary.innerHTML = `<div class="eyebrow">Provenance</div><h2>Source register</h2><p>Evidence layers remain distinct and traceable.</p>`;
+      content.innerHTML = referenceDocument.evidence.map(item => `
+        <div class="field"><div class="field-label">${escapeHtml(item.kind.replaceAll("_", " "))}</div><div class="source-box"><strong>${escapeHtml(item.description)}</strong><br><a href="${escapeHtml(item.source)}" target="_blank" rel="noopener">Open source record</a></div></div>`).join("");
+    }
+
+    function chronologicalClosure(edges) {
+      const successors = new Map(graph.nodes.map(node => [node.id, new Set()]));
+      edges.forEach(edge => successors.get(edge.earlier).add(edge.later));
+      graph.nodes.forEach(node => {
+        const pending = [...successors.get(node.id)];
+        for (let index = 0; index < pending.length; index += 1) {
+          successors.get(pending[index]).forEach(later => {
+            if (!successors.get(node.id).has(later)) {
+              successors.get(node.id).add(later);
+              pending.push(later);
+            }
+          });
+        }
+      });
+      return new Set([...successors].flatMap(([earlier, laterIds]) => [...laterIds].map(later => `${earlier}|${later}`)));
     }
 
     function applyMode() {
@@ -463,12 +519,22 @@
     function bindControls() {
       document.querySelectorAll(".tab").forEach(tab => tab.addEventListener("click", () => { activeTab = tab.dataset.tab; document.querySelectorAll(".tab").forEach(item => item.classList.toggle("active", item === tab)); renderInspector(); }));
       document.querySelectorAll("#modeControl button").forEach(button => button.addEventListener("click", () => { activeMode = button.dataset.mode; document.querySelectorAll("#modeControl button").forEach(item => item.classList.toggle("active", item === button)); renderGraph(); }));
-      document.querySelectorAll(".view-button").forEach(button => button.addEventListener("click", () => { document.querySelectorAll(".view-button").forEach(item => item.classList.toggle("active", item === button)); if (button.dataset.view === "questions" || button.dataset.view === "scenarios") { activeTab = button.dataset.view; document.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.tab === activeTab)); renderInspector(); } else if (button.dataset.view === "sources") { activeTab = "inspect"; renderInspector(); toast("Three provenance sources are linked to this graph"); } }));
+      document.querySelectorAll(".view-button").forEach(button => button.addEventListener("click", () => { document.querySelectorAll(".view-button").forEach(item => item.classList.toggle("active", item === button)); if (["questions", "scenarios", "sources"].includes(button.dataset.view)) { activeTab = button.dataset.view; document.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.tab === activeTab)); renderInspector(); } }));
       document.getElementById("searchInput").addEventListener("input", event => { const query = event.target.value.toLowerCase().trim(); document.querySelectorAll(".node").forEach(node => { const record = descriptions.get(node.dataset.id); node.classList.toggle("dim", Boolean(query && !node.dataset.id.includes(query) && !record.description_de.toLowerCase().includes(query))); }); });
       document.getElementById("fitButton").addEventListener("click", () => { document.getElementById("canvasWrap").scrollTo({ top: 0, behavior: "smooth" }); toast("Matrix returned to youngest context"); });
       document.getElementById("sourceButton").addEventListener("click", () => window.open("https://doi.org/10.5281/zenodo.4461075", "_blank"));
-      document.getElementById("exportButton").addEventListener("click", () => toast("Prototype only · export will preserve graph, evidence, review, and correction status"));
+      document.getElementById("exportButton").addEventListener("click", exportAudit);
       window.addEventListener("resize", () => renderGraph());
+    }
+
+    function exportAudit() {
+      const payload = JSON.stringify({ reference: referenceDocument, benchmark }, null, 2);
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(new Blob([payload], { type: "application/json" }));
+      link.download = "harrislab-trimmis-profile19-audit.json";
+      link.click();
+      URL.revokeObjectURL(link.href);
+      toast("Audit bundle exported");
     }
 
     function escapeHtml(value) { const div = document.createElement("div"); div.textContent = value; return div.innerHTML; }

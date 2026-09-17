@@ -1,0 +1,335 @@
+{
+  "schema": "harrislab.hidden-relation-benchmark.v1",
+  "experiment_id": "trimmis-profile19-retrospective-v1",
+  "design": "retrospective demonstration",
+  "reference": {
+    "path": "trimmis_profile19_reference.json",
+    "sha256": "4ccd723d9c53a96524b22bf8fa607df59607b1ed3a5467cde2fdf7e73737216a",
+    "context_count": 26,
+    "direct_relation_count": 29
+  },
+  "hidden_edges": [
+    [
+      "156",
+      "150"
+    ],
+    [
+      "30",
+      "241"
+    ],
+    [
+      "23",
+      "235"
+    ]
+  ],
+  "selection_note": "These three edges were published in the app prototype before the benchmark was run; they were not selected from benchmark outcomes.",
+  "settings": {
+    "order_limit": 100000,
+    "sample_count_per_chain": 2000,
+    "burn_in": 2000,
+    "thinning": 10,
+    "chain_count": 4
+  },
+  "runs": [
+    {
+      "strategy": "impact",
+      "seed": null,
+      "reference_implications": 320,
+      "initial_recovered_implications": 289,
+      "area_under_recovery_curve": 0.9661458333333334,
+      "steps": [
+        {
+          "step": 1,
+          "impact_reduction": 3600,
+          "closure_gain": 16,
+          "sampled_reduction_fraction": null,
+          "sampled_split_r_hat": null,
+          "sampled_effective_sample_size": null,
+          "sampled_top_choice_consensus": null,
+          "recovered_implications": 305,
+          "reference_implications": 320,
+          "chronological_orders": 300,
+          "edge": [
+            "156",
+            "150"
+          ],
+          "implication_recall": 0.953125
+        },
+        {
+          "step": 2,
+          "impact_reduction": 260,
+          "closure_gain": 13,
+          "sampled_reduction_fraction": null,
+          "sampled_split_r_hat": null,
+          "sampled_effective_sample_size": null,
+          "sampled_top_choice_consensus": null,
+          "recovered_implications": 318,
+          "reference_implications": 320,
+          "chronological_orders": 40,
+          "edge": [
+            "30",
+            "241"
+          ],
+          "implication_recall": 0.99375
+        },
+        {
+          "step": 3,
+          "impact_reduction": 20,
+          "closure_gain": 2,
+          "sampled_reduction_fraction": null,
+          "sampled_split_r_hat": null,
+          "sampled_effective_sample_size": null,
+          "sampled_top_choice_consensus": null,
+          "recovered_implications": 320,
+          "reference_implications": 320,
+          "chronological_orders": 20,
+          "edge": [
+            "23",
+            "235"
+          ],
+          "implication_recall": 1.0
+        }
+      ]
+    },
+    {
+      "strategy": "closure_gain",
+      "seed": null,
+      "reference_implications": 320,
+      "initial_recovered_implications": 289,
+      "area_under_recovery_curve": 0.9661458333333334,
+      "steps": [
+        {
+          "step": 1,
+          "impact_reduction": null,
+          "closure_gain": 16,
+          "sampled_reduction_fraction": null,
+          "sampled_split_r_hat": null,
+          "sampled_effective_sample_size": null,
+          "sampled_top_choice_consensus": null,
+          "recovered_implications": 305,
+          "reference_implications": 320,
+          "chronological_orders": null,
+          "edge": [
+            "156",
+            "150"
+          ],
+          "implication_recall": 0.953125
+        },
+        {
+          "step": 2,
+          "impact_reduction": null,
+          "closure_gain": 13,
+          "sampled_reduction_fraction": null,
+          "sampled_split_r_hat": null,
+          "sampled_effective_sample_size": null,
+          "sampled_top_choice_consensus": null,
+          "recovered_implications": 318,
+          "reference_implications": 320,
+          "chronological_orders": null,
+          "edge": [
+            "30",
+            "241"
+          ],
+          "implication_recall": 0.99375
+        },
+        {
+          "step": 3,
+          "impact_reduction": null,
+          "closure_gain": 2,
+          "sampled_reduction_fraction": null,
+          "sampled_split_r_hat": null,
+          "sampled_effective_sample_size": null,
+          "sampled_top_choice_consensus": null,
+          "recovered_implications": 320,
+          "reference_implications": 320,
+          "chronological_orders": null,
+          "edge": [
+            "23",
+            "235"
+          ],
+          "implication_recall": 1.0
+        }
+      ]
+    },
+    {
+      "strategy": "sampled_orders",
+      "seed": 20260917,
+      "reference_implications": 320,
+      "initial_recovered_implications": 289,
+      "area_under_recovery_curve": 0.9661458333333334,
+      "steps": [
+        {
+          "step": 1,
+          "impact_reduction": null,
+          "closure_gain": 16,
+          "sampled_reduction_fraction": 0.96275,
+          "sampled_split_r_hat": 1.0182696522509445,
+          "sampled_effective_sample_size": 669.328439553066,
+          "sampled_top_choice_consensus": 1.0,
+          "recovered_implications": 305,
+          "reference_implications": 320,
+          "chronological_orders": null,
+          "edge": [
+            "156",
+            "150"
+          ],
+          "implication_recall": 0.953125
+        },
+        {
+          "step": 2,
+          "impact_reduction": null,
+          "closure_gain": 13,
+          "sampled_reduction_fraction": 0.863,
+          "sampled_split_r_hat": 1.0488602733484407,
+          "sampled_effective_sample_size": 116.52485613877887,
+          "sampled_top_choice_consensus": 1.0,
+          "recovered_implications": 318,
+          "reference_implications": 320,
+          "chronological_orders": null,
+          "edge": [
+            "30",
+            "241"
+          ],
+          "implication_recall": 0.99375
+        },
+        {
+          "step": 3,
+          "impact_reduction": null,
+          "closure_gain": 2,
+          "sampled_reduction_fraction": 0.500375,
+          "sampled_split_r_hat": 1.0040039954958262,
+          "sampled_effective_sample_size": 468.4630778986864,
+          "sampled_top_choice_consensus": 1.0,
+          "recovered_implications": 320,
+          "reference_implications": 320,
+          "chronological_orders": null,
+          "edge": [
+            "23",
+            "235"
+          ],
+          "implication_recall": 1.0
+        }
+      ]
+    },
+    {
+      "strategy": "lexicographic",
+      "seed": null,
+      "reference_implications": 320,
+      "initial_recovered_implications": 289,
+      "area_under_recovery_curve": 0.9546875,
+      "steps": [
+        {
+          "step": 1,
+          "impact_reduction": null,
+          "closure_gain": 16,
+          "sampled_reduction_fraction": null,
+          "sampled_split_r_hat": null,
+          "sampled_effective_sample_size": null,
+          "sampled_top_choice_consensus": null,
+          "recovered_implications": 305,
+          "reference_implications": 320,
+          "chronological_orders": null,
+          "edge": [
+            "156",
+            "150"
+          ],
+          "implication_recall": 0.953125
+        },
+        {
+          "step": 2,
+          "impact_reduction": null,
+          "closure_gain": 2,
+          "sampled_reduction_fraction": null,
+          "sampled_split_r_hat": null,
+          "sampled_effective_sample_size": null,
+          "sampled_top_choice_consensus": null,
+          "recovered_implications": 307,
+          "reference_implications": 320,
+          "chronological_orders": null,
+          "edge": [
+            "23",
+            "235"
+          ],
+          "implication_recall": 0.959375
+        },
+        {
+          "step": 3,
+          "impact_reduction": null,
+          "closure_gain": 13,
+          "sampled_reduction_fraction": null,
+          "sampled_split_r_hat": null,
+          "sampled_effective_sample_size": null,
+          "sampled_top_choice_consensus": null,
+          "recovered_implications": 320,
+          "reference_implications": 320,
+          "chronological_orders": null,
+          "edge": [
+            "30",
+            "241"
+          ],
+          "implication_recall": 1.0
+        }
+      ]
+    },
+    {
+      "strategy": "random",
+      "seed": 20260917,
+      "reference_implications": 320,
+      "initial_recovered_implications": 289,
+      "area_under_recovery_curve": 0.9630208333333332,
+      "steps": [
+        {
+          "step": 1,
+          "impact_reduction": null,
+          "closure_gain": 13,
+          "sampled_reduction_fraction": null,
+          "sampled_split_r_hat": null,
+          "sampled_effective_sample_size": null,
+          "sampled_top_choice_consensus": null,
+          "recovered_implications": 302,
+          "reference_implications": 320,
+          "chronological_orders": null,
+          "edge": [
+            "30",
+            "241"
+          ],
+          "implication_recall": 0.94375
+        },
+        {
+          "step": 2,
+          "impact_reduction": null,
+          "closure_gain": 16,
+          "sampled_reduction_fraction": null,
+          "sampled_split_r_hat": null,
+          "sampled_effective_sample_size": null,
+          "sampled_top_choice_consensus": null,
+          "recovered_implications": 318,
+          "reference_implications": 320,
+          "chronological_orders": null,
+          "edge": [
+            "156",
+            "150"
+          ],
+          "implication_recall": 0.99375
+        },
+        {
+          "step": 3,
+          "impact_reduction": null,
+          "closure_gain": 2,
+          "sampled_reduction_fraction": null,
+          "sampled_split_r_hat": null,
+          "sampled_effective_sample_size": null,
+          "sampled_top_choice_consensus": null,
+          "recovered_implications": 320,
+          "reference_implications": 320,
+          "chronological_orders": null,
+          "edge": [
+            "23",
+            "235"
+          ],
+          "implication_recall": 1.0
+        }
+      ]
+    }
+  ]
+}
