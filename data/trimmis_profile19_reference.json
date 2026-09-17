@@ -1,0 +1,669 @@
+{
+  "approval": {
+    "candidate_sha256": "5a18b403f7e0a3db422669ec94de2b21b640044dcb315356e158cbe9b4dfc8b4",
+    "direction_confirmation": "older_to_younger",
+    "profile_only_labels": [
+      "199"
+    ],
+    "reviewer": {
+      "affiliation": "",
+      "independent_from_extraction": true,
+      "name": "Source author (identity retained privately)",
+      "reviewed_at": "2026-09-17"
+    }
+  },
+  "contexts": [
+    {
+      "catalog_notation": "(102):",
+      "catalog_row": 100,
+      "id": "102",
+      "label": "Steinig-humose Schicht.",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        1011.225,
+        58.627,
+        1032.034,
+        67.871
+      ],
+      "printed_label": "102"
+    },
+    {
+      "catalog_notation": "(104):",
+      "catalog_row": 102,
+      "id": "104",
+      "label": "Grasnarbe \u00fcber Kiesbett (103).",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        1011.225,
+        46.3,
+        1059.004,
+        55.544
+      ],
+      "printed_label": "104"
+    },
+    {
+      "catalog_notation": "(150):",
+      "catalog_row": 146,
+      "id": "150",
+      "label": "Schicht z.T. mit holzkohlehaltiger OK.",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        1012.371,
+        447.363,
+        1030.61,
+        456.607
+      ],
+      "printed_label": "150"
+    },
+    {
+      "catalog_notation": "(153) = (50):",
+      "catalog_row": 149,
+      "id": "153",
+      "label": "Steinpackung in Einschnitt (154).",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        1040.771,
+        302.585,
+        1059.006,
+        311.828
+      ],
+      "printed_label": "153"
+    },
+    {
+      "catalog_notation": "(155):",
+      "catalog_row": 151,
+      "id": "155",
+      "label": "Stein- Holzkohleansammlung; Pfostenloch?",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        1012.371,
+        216.969,
+        1030.61,
+        226.213
+      ],
+      "printed_label": "155"
+    },
+    {
+      "catalog_notation": "(284) =(90) = (156):",
+      "catalog_row": 276,
+      "id": "156",
+      "label": "Steinige, dunkel humose Schicht mit Holzkohlest\u00fccken.",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        943.275,
+        543.082,
+        1059.442,
+        552.326
+      ],
+      "printed_label": "156"
+    },
+    {
+      "catalog_notation": "(164):",
+      "catalog_row": 156,
+      "id": "164",
+      "label": "R\u00f6tlich verbrannte Lehmfl\u00e4che.",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        1011.225,
+        157.241,
+        1032.034,
+        166.485
+      ],
+      "printed_label": "164"
+    },
+    {
+      "catalog_notation": "(165):",
+      "catalog_row": 157,
+      "id": "165",
+      "label": "Humose, schwach lehmige, steinige Schicht.",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        942.511,
+        144.911,
+        1059.008,
+        154.158
+      ],
+      "printed_label": "165"
+    },
+    {
+      "catalog_notation": "(204) = (170):",
+      "catalog_row": 197,
+      "id": "170",
+      "label": "Humoser Bereich.",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        943.182,
+        576.151,
+        1059.227,
+        585.394
+      ],
+      "printed_label": "170"
+    },
+    {
+      "id": "199",
+      "label": "Furrow-like depression or plough marks"
+    },
+    {
+      "catalog_notation": "(22):",
+      "catalog_row": 22,
+      "id": "22",
+      "label": "Grobes Geschiebe mit lokal hohem Sandanteil.",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        943.297,
+        767.5,
+        1059.417,
+        776.743
+      ],
+      "printed_label": "22"
+    },
+    {
+      "catalog_notation": "(222):",
+      "catalog_row": 213,
+      "id": "222",
+      "label": "Steinband mit runden kleinen Steinen.",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        1011.225,
+        95.608,
+        1032.034,
+        104.851
+      ],
+      "printed_label": "222"
+    },
+    {
+      "catalog_notation": "(223):",
+      "catalog_row": 214,
+      "id": "223",
+      "label": "Humose Schicht.",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        1011.225,
+        107.933,
+        1032.034,
+        117.177
+      ],
+      "printed_label": "223"
+    },
+    {
+      "catalog_notation": "(224):",
+      "catalog_row": 215,
+      "id": "224",
+      "label": "Steinschicht mit flachen l\u00e4nglichen Steinen.",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        1011.225,
+        120.26,
+        1032.034,
+        129.504
+      ],
+      "printed_label": "224"
+    },
+    {
+      "catalog_notation": "(228):",
+      "catalog_row": 219,
+      "id": "228",
+      "label": "Schicht mit Steinen und M\u00f6rtelst\u00fccken mit Ziegel.",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        1011.225,
+        83.278,
+        1032.034,
+        92.525
+      ],
+      "printed_label": "228"
+    },
+    {
+      "catalog_notation": "(203) = (23)?:",
+      "catalog_row": 196,
+      "id": "23",
+      "label": "Kiesige Schicht.",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        943.322,
+        752.659,
+        1059.442,
+        761.902
+      ],
+      "printed_label": "23"
+    },
+    {
+      "catalog_notation": "(235):",
+      "catalog_row": 226,
+      "id": "235",
+      "label": "Brandige Grube mit Holzkohle.",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        992.594,
+        702.56,
+        1010.831,
+        711.805
+      ],
+      "printed_label": "235"
+    },
+    {
+      "catalog_notation": "(240):",
+      "catalog_row": 232,
+      "id": "240",
+      "label": "Schicht mit Holzkohlereste, H\u00fcttenlehmst\u00fccke und brandigen Flecken.",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        1012.371,
+        702.56,
+        1030.61,
+        711.805
+      ],
+      "printed_label": "240"
+    },
+    {
+      "catalog_notation": "(241):",
+      "catalog_row": 233,
+      "id": "241",
+      "label": "Grube.",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        992.594,
+        216.969,
+        1010.831,
+        226.213
+      ],
+      "printed_label": "241"
+    },
+    {
+      "catalog_notation": "(42) = (26):",
+      "catalog_row": 47,
+      "id": "26",
+      "label": "Lehmig-sandige Ablagerung von gelblicher Farbe mit Stellen und Knollen von grauem Lehm.",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        943.232,
+        661.457,
+        1059.445,
+        670.702
+      ],
+      "printed_label": "26"
+    },
+    {
+      "catalog_notation": "(281) = (256) / (267):",
+      "catalog_row": 273,
+      "id": "267",
+      "label": "Steinlage; bestehend aus gebrannten Steinen, d.h. kleinere gestellte, wie auch ein flacher, liegender Stein.",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        942.663,
+        465.298,
+        1059.006,
+        474.54
+      ],
+      "printed_label": "267"
+    },
+    {
+      "catalog_notation": "(3):",
+      "catalog_row": 1,
+      "id": "3",
+      "label": "Helle, lehmige Schicht.",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        943.301,
+        173.274,
+        1058.867,
+        182.518
+      ],
+      "printed_label": "3"
+    },
+    {
+      "catalog_notation": "(30):",
+      "catalog_row": 34,
+      "id": "30",
+      "label": "Steinig-braunhumose Schicht.",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        943.697,
+        243.247,
+        1058.51,
+        252.486
+      ],
+      "printed_label": "30"
+    },
+    {
+      "catalog_notation": "(153) = (50):",
+      "catalog_row": 149,
+      "id": "50",
+      "label": "Steinpackung in Einschnitt (154).",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        943.393,
+        302.585,
+        1030.611,
+        311.828
+      ],
+      "printed_label": "50"
+    },
+    {
+      "catalog_notation": "(167) = (98) oder (224):",
+      "catalog_row": 159,
+      "id": "98",
+      "label": "Steiniges Paket.",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        1011.225,
+        132.585,
+        1032.034,
+        141.831
+      ],
+      "printed_label": "98"
+    },
+    {
+      "catalog_notation": "(99):",
+      "catalog_row": 98,
+      "id": "99",
+      "label": "Humusschicht.",
+      "matrix_page": 1,
+      "matrix_rectangle": [
+        1011.225,
+        70.953,
+        1032.034,
+        80.199
+      ],
+      "printed_label": "99"
+    }
+  ],
+  "correction": {
+    "manifest_sha256": "fcdebded2bbb4eb17654ca78812833603be11f8a605c986dcb5c6fef9b22b873",
+    "reviewed_at": "2026-09-17",
+    "status": "confirmed",
+    "summary": "Insert context 199 between older context 26 and younger context 170."
+  },
+  "description": "Independently reviewed extraction with a source-author correction for context 199.",
+  "evidence": [
+    {
+      "description": "Trimmis position catalog used for context labels",
+      "id": "trimmis-catalog",
+      "kind": "context_sheet",
+      "source": "https://doi.org/10.5281/zenodo.4461075#Katalog_Positionen.xlsx"
+    },
+    {
+      "description": "Published synoptic Harris matrix for extracted relations",
+      "id": "trimmis-matrix",
+      "kind": "drawing",
+      "source": "https://doi.org/10.5281/zenodo.4461075#Harris_Matrix.pdf"
+    },
+    {
+      "description": "Profile P19 source drawing used for identifier comparison",
+      "id": "trimmis-p19",
+      "kind": "drawing",
+      "source": "https://doi.org/10.5281/zenodo.4461075#P19.pdf"
+    },
+    {
+      "description": "Source-author correction placing context 199 between contexts 26 and 170",
+      "id": "trimmis-author-correction-2026-09-17",
+      "kind": "other",
+      "source": "Source-author correspondence retained privately (2026-09-17); related published profile: https://doi.org/10.5169/seals-1006114"
+    }
+  ],
+  "license": "CC-BY-3.0",
+  "relations": [
+    {
+      "earlier": "102",
+      "evidence_ids": [
+        "trimmis-matrix"
+      ],
+      "later": "104",
+      "source_pdf_path_index": 34,
+      "status": "observed"
+    },
+    {
+      "earlier": "150",
+      "evidence_ids": [
+        "trimmis-matrix"
+      ],
+      "later": "153",
+      "source_pdf_path_index": 319,
+      "status": "observed"
+    },
+    {
+      "earlier": "150",
+      "evidence_ids": [
+        "trimmis-matrix"
+      ],
+      "later": "50",
+      "source_pdf_path_index": 320,
+      "status": "observed"
+    },
+    {
+      "earlier": "153",
+      "evidence_ids": [
+        "trimmis-matrix"
+      ],
+      "later": "30",
+      "source_pdf_path_index": 440,
+      "status": "observed"
+    },
+    {
+      "earlier": "155",
+      "evidence_ids": [
+        "trimmis-matrix"
+      ],
+      "later": "3",
+      "source_pdf_path_index": 512,
+      "status": "observed"
+    },
+    {
+      "earlier": "156",
+      "evidence_ids": [
+        "trimmis-matrix"
+      ],
+      "later": "150",
+      "source_pdf_path_index": 321,
+      "status": "observed"
+    },
+    {
+      "earlier": "156",
+      "evidence_ids": [
+        "trimmis-matrix"
+      ],
+      "later": "267",
+      "source_pdf_path_index": 322,
+      "status": "observed"
+    },
+    {
+      "earlier": "164",
+      "evidence_ids": [
+        "trimmis-matrix"
+      ],
+      "later": "165",
+      "source_pdf_path_index": 35,
+      "status": "observed"
+    },
+    {
+      "earlier": "165",
+      "evidence_ids": [
+        "trimmis-matrix"
+      ],
+      "later": "98",
+      "source_pdf_path_index": 36,
+      "status": "observed"
+    },
+    {
+      "earlier": "170",
+      "evidence_ids": [
+        "trimmis-matrix"
+      ],
+      "later": "156",
+      "source_pdf_path_index": 213,
+      "status": "observed"
+    },
+    {
+      "earlier": "199",
+      "evidence_ids": [
+        "trimmis-author-correction-2026-09-17"
+      ],
+      "later": "170",
+      "status": "observed"
+    },
+    {
+      "earlier": "22",
+      "evidence_ids": [
+        "trimmis-matrix"
+      ],
+      "later": "23",
+      "source_pdf_path_index": 136,
+      "status": "observed"
+    },
+    {
+      "earlier": "222",
+      "evidence_ids": [
+        "trimmis-matrix"
+      ],
+      "later": "228",
+      "source_pdf_path_index": 37,
+      "status": "observed"
+    },
+    {
+      "earlier": "223",
+      "evidence_ids": [
+        "trimmis-matrix"
+      ],
+      "later": "222",
+      "source_pdf_path_index": 38,
+      "status": "observed"
+    },
+    {
+      "earlier": "224",
+      "evidence_ids": [
+        "trimmis-matrix"
+      ],
+      "later": "223",
+      "source_pdf_path_index": 39,
+      "status": "observed"
+    },
+    {
+      "earlier": "228",
+      "evidence_ids": [
+        "trimmis-matrix"
+      ],
+      "later": "99",
+      "source_pdf_path_index": 40,
+      "status": "observed"
+    },
+    {
+      "earlier": "23",
+      "evidence_ids": [
+        "trimmis-matrix"
+      ],
+      "later": "235",
+      "source_pdf_path_index": 137,
+      "status": "observed"
+    },
+    {
+      "earlier": "23",
+      "evidence_ids": [
+        "trimmis-matrix"
+      ],
+      "later": "240",
+      "source_pdf_path_index": 138,
+      "status": "observed"
+    },
+    {
+      "earlier": "235",
+      "evidence_ids": [
+        "trimmis-matrix"
+      ],
+      "later": "26",
+      "source_pdf_path_index": 139,
+      "status": "observed"
+    },
+    {
+      "earlier": "240",
+      "evidence_ids": [
+        "trimmis-matrix"
+      ],
+      "later": "26",
+      "source_pdf_path_index": 140,
+      "status": "observed"
+    },
+    {
+      "earlier": "241",
+      "evidence_ids": [
+        "trimmis-matrix"
+      ],
+      "later": "3",
+      "source_pdf_path_index": 513,
+      "status": "observed"
+    },
+    {
+      "earlier": "26",
+      "evidence_ids": [
+        "trimmis-author-correction-2026-09-17"
+      ],
+      "later": "199",
+      "status": "observed"
+    },
+    {
+      "earlier": "267",
+      "evidence_ids": [
+        "trimmis-matrix"
+      ],
+      "later": "153",
+      "source_pdf_path_index": 323,
+      "status": "observed"
+    },
+    {
+      "earlier": "3",
+      "evidence_ids": [
+        "trimmis-matrix"
+      ],
+      "later": "164",
+      "source_pdf_path_index": 514,
+      "status": "observed"
+    },
+    {
+      "earlier": "30",
+      "evidence_ids": [
+        "trimmis-matrix"
+      ],
+      "later": "155",
+      "source_pdf_path_index": 441,
+      "status": "observed"
+    },
+    {
+      "earlier": "30",
+      "evidence_ids": [
+        "trimmis-matrix"
+      ],
+      "later": "241",
+      "source_pdf_path_index": 442,
+      "status": "observed"
+    },
+    {
+      "earlier": "50",
+      "evidence_ids": [
+        "trimmis-matrix"
+      ],
+      "later": "30",
+      "source_pdf_path_index": 443,
+      "status": "observed"
+    },
+    {
+      "earlier": "98",
+      "evidence_ids": [
+        "trimmis-matrix"
+      ],
+      "later": "224",
+      "source_pdf_path_index": 41,
+      "status": "observed"
+    },
+    {
+      "earlier": "99",
+      "evidence_ids": [
+        "trimmis-matrix"
+      ],
+      "later": "102",
+      "source_pdf_path_index": 42,
+      "status": "observed"
+    }
+  ],
+  "schema": "harrislab.corrected-reference.v1",
+  "source_doi": "10.5281/zenodo.4461075",
+  "title": "Trimmis Profile 19 corrected reference graph"
+}

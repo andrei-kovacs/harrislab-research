@@ -61,23 +61,23 @@ Directly verified from the Zenodo record and checksum-matched files:
 - The matrix and catalog MD5 checksums match the values published by Zenodo.
 - The required attribution is the dataset citation and CC BY 3.0 notice.
 
-The pilot will use a connected subset from a deposited profile, initially
-Profile 19, rather than treating all 308 catalog positions as one graph. The
-matrix encodes relations graphically rather than as a relation table. This
-satisfies the direct-relations source gate, but the derived edge list remains
-unapproved until vector geometry is converted deterministically and every edge
-is visually audited against the deposited matrix.
+The pilot uses a connected subset from Profile 19 rather than treating all 308
+catalog positions as one graph. The matrix encodes relations graphically rather
+than as a relation table. The deterministic extraction was independently
+reviewed against the deposited matrix on 17 September 2026.
 
-The first deterministic extraction found 25 matrix nodes and 28 direct edges.
-All connector overlays coincide with printed matrix paths. The standalone P19
-section and synoptic matrix share those 25 identifiers. Identifier `199` occurs
-only in the section; catalog row 206 describes it as a furrow-like depression
-or plough marks. Because the expert synoptic matrix omits it, the pilot records
-the discrepancy but does not invent relations for `199`.
+The deterministic extraction found 25 matrix nodes and 28 direct edges, all of
+which passed source-author review. The standalone P19 section and synoptic
+matrix share those 25 identifiers. Identifier `199` occurs only in the section;
+catalog row 206 describes it as a furrow-like depression or plough marks. The
+review confirmed that its omission from the P19 matrix was a source error and
+placed it between context 26 (older) and context 170 (younger). The active
+reference therefore contains 26 contexts and 29 direct relations, while the
+unaltered 25/28 extraction remains available as a provenance snapshot.
 
-The candidate JSON, highlighted matrix, and independent edge checklist are in
-[`TRIMMIS_PROFILE19_AUDIT.md`](TRIMMIS_PROFILE19_AUDIT.md). The benchmark stays
-blocked while that checklist is pending.
+The candidate JSON, highlighted matrix, completed review manifest, correction
+manifest, and generated references are documented in
+[`TRIMMIS_PROFILE19_AUDIT.md`](TRIMMIS_PROFILE19_AUDIT.md).
 
 Reproduce the machine-checkable portion with:
 

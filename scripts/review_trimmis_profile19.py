@@ -7,7 +7,12 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parents[1]))
 
-from harrislab.approval import approve_candidate, create_review_template, file_sha256
+from harrislab.approval import (
+    apply_confirmed_corrections,
+    approve_candidate,
+    create_review_template,
+    file_sha256,
+)
 
 
 def _write(path: Path, document: dict[str, object]) -> None:
@@ -28,6 +33,10 @@ def main() -> None:
     approve.add_argument("candidate", type=Path)
     approve.add_argument("review", type=Path)
     approve.add_argument("output", type=Path)
+    correct = subparsers.add_parser("correct")
+    correct.add_argument("reference", type=Path)
+    correct.add_argument("corrections", type=Path)
+    correct.add_argument("output", type=Path)
     arguments = parser.parse_args()
 
     if arguments.command == "template":
@@ -35,12 +44,17 @@ def main() -> None:
         print(json.dumps({"status": "pending_review", "review": str(arguments.review)}))
         return
 
-    approved = approve_candidate(arguments.candidate, arguments.review)
-    _write(arguments.output, approved)
+    if arguments.command == "approve":
+        result = approve_candidate(arguments.candidate, arguments.review)
+    else:
+        result = apply_confirmed_corrections(
+            arguments.reference, arguments.corrections
+        )
+    _write(arguments.output, result)
     print(
         json.dumps(
             {
-                "status": "approved",
+                "status": arguments.command,
                 "output": str(arguments.output),
                 "sha256": file_sha256(arguments.output),
             },

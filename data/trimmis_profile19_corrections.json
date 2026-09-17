@@ -1,0 +1,37 @@
+{
+  "add_contexts": [
+    {
+      "id": "199",
+      "label": "Furrow-like depression or plough marks"
+    }
+  ],
+  "add_relations": [
+    {
+      "earlier": "26",
+      "later": "199"
+    },
+    {
+      "earlier": "199",
+      "later": "170"
+    }
+  ],
+  "base_sha256": "43ef3e2f75682eb70cae89f92b9b3001de7392125b758bdaaf325a494e243bbc",
+  "description": "Independently reviewed extraction with a source-author correction for context 199.",
+  "evidence": {
+    "description": "Source-author correction placing context 199 between contexts 26 and 170",
+    "id": "trimmis-author-correction-2026-09-17",
+    "kind": "other",
+    "source": "Source-author correspondence retained privately (2026-09-17); related published profile: https://doi.org/10.5169/seals-1006114"
+  },
+  "remove_relations": [
+    {
+      "earlier": "26",
+      "later": "170"
+    }
+  ],
+  "reviewed_at": "2026-09-17",
+  "schema": "harrislab.confirmed-corrections.v1",
+  "status": "confirmed",
+  "summary": "Insert context 199 between older context 26 and younger context 170.",
+  "title": "Trimmis Profile 19 corrected reference graph"
+}

@@ -1,280 +1,280 @@
 {
   "candidate_sha256": "5a18b403f7e0a3db422669ec94de2b21b640044dcb315356e158cbe9b4dfc8b4",
-  "direction_confirmation": "pending",
+  "direction_confirmation": "pass",
   "edge_reviews": [
     {
       "id": "p19-path-34",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "p19-path-319",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "p19-path-320",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "p19-path-440",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "p19-path-512",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "p19-path-321",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "p19-path-322",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "p19-path-35",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "p19-path-36",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "p19-path-213",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "p19-path-136",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "p19-path-37",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "p19-path-38",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "p19-path-39",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "p19-path-40",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "p19-path-137",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "p19-path-138",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "p19-path-139",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "p19-path-140",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "p19-path-513",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "p19-path-214",
-      "note": "",
-      "status": "pending"
+      "note": "Published direct relation confirmed; source author separately corrected P19 by inserting context 199 between 26 and 170.",
+      "status": "pass"
     },
     {
       "id": "p19-path-323",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "p19-path-514",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "p19-path-441",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "p19-path-442",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "p19-path-443",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "p19-path-41",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "p19-path-42",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     }
   ],
   "node_reviews": [
     {
       "id": "102",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "104",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "150",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "153",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "155",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "156",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "164",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "165",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "170",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "22",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "222",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "223",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "224",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "228",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "23",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "235",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "240",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "241",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "26",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "267",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "3",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "30",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "50",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "98",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     },
     {
       "id": "99",
       "note": "",
-      "status": "pending"
+      "status": "pass"
     }
   ],
   "reviewer": {
     "affiliation": "",
-    "independent_from_extraction": false,
-    "name": "",
-    "reviewed_at": ""
+    "independent_from_extraction": true,
+    "name": "Source author (identity retained privately)",
+    "reviewed_at": "2026-09-17"
   },
   "schema": "harrislab.independent-review.v1"
 }

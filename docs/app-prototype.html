@@ -64,10 +64,10 @@
     .top-actions { display: flex; align-items: center; gap: 8px; padding-right: 14px; }
     .status {
       display: inline-flex; align-items: center; gap: 7px; height: 30px; padding: 0 10px;
-      border: 1px solid #d9b77e; background: var(--ochre-soft); color: #714817;
+      border: 1px solid #9eb8a3; background: var(--moss-soft); color: #314f38;
       border-radius: 4px; font-size: 12px; font-weight: 700;
     }
-    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ochre); }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--moss); }
     .icon-btn, .command-btn {
       border: 1px solid var(--line); background: var(--panel); border-radius: 4px;
       height: 32px; display: inline-flex; align-items: center; justify-content: center;
@@ -149,7 +149,7 @@
     .eyebrow { color: var(--muted); font-size: 10px; font-weight: 800; text-transform: uppercase; }
     .summary h2 { margin: 3px 0 4px; font: 700 24px Georgia, "Times New Roman", serif; }
     .summary p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.45; }
-    .review-chip { padding: 4px 7px; border: 1px solid #ddb977; color: #735022; background: var(--ochre-soft); border-radius: 3px; font-size: 9px; font-weight: 800; white-space: nowrap; }
+    .review-chip { padding: 4px 7px; border: 1px solid #9eb8a3; color: #314f38; background: var(--moss-soft); border-radius: 3px; font-size: 9px; font-weight: 800; white-space: nowrap; }
     .tab-content { min-height: 0; overflow-y: auto; padding: 16px 18px 28px; }
     .field { margin-bottom: 16px; }
     .field-label { color: var(--muted); font-size: 10px; text-transform: uppercase; font-weight: 800; margin-bottom: 5px; }
@@ -205,9 +205,9 @@
   <div class="app">
     <header class="topbar">
       <div class="brand"><div class="brand-mark"></div><span>HarrisLab</span></div>
-      <div class="project"><strong>Trimmis GR · Profile 19</strong><span>Stratigraphic reasoning workspace · 25 contexts · 28 direct relations</span></div>
+      <div class="project"><strong>Trimmis GR · Profile 19</strong><span>Stratigraphic reasoning workspace · 26 contexts · 29 direct relations</span></div>
       <div class="top-actions">
-        <div class="status"><span class="status-dot"></span>Extraction pending review</div>
+        <div class="status"><span class="status-dot"></span>Source reviewed</div>
         <button class="icon-btn" title="Open source record" id="sourceButton"><i data-lucide="external-link"></i></button>
         <button class="command-btn" id="exportButton"><i data-lucide="download"></i>Export audit</button>
       </div>
@@ -216,17 +216,17 @@
     <div class="workspace">
       <aside class="sidebar">
         <div class="section-label">Workspace</div>
-        <button class="view-button active" data-view="matrix"><i data-lucide="git-branch"></i><span>Matrix</span><span class="count">25</span></button>
+        <button class="view-button active" data-view="matrix"><i data-lucide="git-branch"></i><span>Matrix</span><span class="count">26</span></button>
         <button class="view-button" data-view="questions"><i data-lucide="circle-help"></i><span>Investigation queue</span><span class="count">3</span></button>
         <button class="view-button" data-view="scenarios"><i data-lucide="split"></i><span>Interpretations</span><span class="count">2</span></button>
-        <button class="view-button" data-view="sources"><i data-lucide="library"></i><span>Source register</span><span class="count">3</span></button>
+        <button class="view-button" data-view="sources"><i data-lucide="library"></i><span>Source register</span><span class="count">4</span></button>
         <div class="divider"></div>
         <div class="section-label">Relation status</div>
         <div class="legend-item"><span class="swatch observed"></span><span>Observed</span></div>
         <div class="legend-item"><span class="swatch disputed"></span><span>Disputed</span></div>
         <div class="legend-item"><span class="swatch derived"></span><span>Derived</span></div>
         <div class="legend-item"><span class="swatch ai"></span><span>AI proposed</span></div>
-        <div class="dataset-note"><strong>Research boundary</strong><br>This graph reproduces a published matrix. It is not yet independently approved as benchmark ground truth.</div>
+        <div class="dataset-note"><strong>Reviewed reference</strong><br>The source extraction passed independent review. Context 199 reflects a confirmed source-author correction and remains explicitly traceable.</div>
       </aside>
 
       <main class="matrix-area">
@@ -265,7 +265,7 @@
 
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
   <script>
-    const graphUrl = "../data/trimmis_profile19_audit_candidate.json";
+    const graphUrl = "../data/trimmis_profile19_reference.json";
     const ranking = [
       { edge: ["156", "150"], score: 0.82, title: "Verify 156 before 150", detail: "This bridge controls whether the lower occupation sequence reaches both upper branches." },
       { edge: ["30", "241"], score: 0.61, title: "Verify 30 before 241", detail: "The branch affects the route from context 30 through context 3." },
@@ -276,10 +276,17 @@
     const descriptions = new Map();
 
     async function init() {
-      graph = await fetch(graphUrl).then(response => {
+      const reference = await fetch(graphUrl).then(response => {
         if (!response.ok) throw new Error("Could not load graph data");
         return response.json();
       });
+      graph = {
+        nodes: reference.contexts.map(context => ({ ...context, description_de: context.label })),
+        edges: reference.relations.map(relation => ({
+          ...relation,
+          pdf_path_index: relation.source_pdf_path_index ?? null
+        }))
+      };
       graph.nodes.forEach(node => descriptions.set(node.id, node));
       renderGraph();
       bindControls();
@@ -393,7 +400,8 @@
     function selectRelation(edge) {
       selectedId = edge.earlier; activeTab = "inspect";
       renderGraph(); renderInspector();
-      toast(`Relation ${edge.earlier} → ${edge.later} · source path ${edge.pdf_path_index}`);
+      const source = edge.pdf_path_index === null ? "source-author correction" : `source path ${edge.pdf_path_index}`;
+      toast(`Relation ${edge.earlier} → ${edge.later} · ${source}`);
     }
 
     function renderInspector() {
@@ -404,17 +412,23 @@
       const node = descriptions.get(selectedId);
       const incoming = graph.edges.filter(edge => edge.later === selectedId);
       const outgoing = graph.edges.filter(edge => edge.earlier === selectedId);
-      summary.innerHTML = `<div class="summary-top"><div><div class="eyebrow">Selected context</div><h2>${node.id}</h2></div><span class="review-chip">PENDING REVIEW</span></div><p>${escapeHtml(node.description_de)}</p>`;
+      const sourceIdentity = node.catalog_row
+        ? `Catalog row ${node.catalog_row} · printed as ${escapeHtml(node.catalog_notation)}`
+        : "Added through confirmed source-author correction";
+      const geometry = node.matrix_rectangle
+        ? `Page ${node.matrix_page} · [${node.matrix_rectangle.map(value => value.toFixed(1)).join(", ")}]`
+        : "Not present in the published P19 matrix";
+      summary.innerHTML = `<div class="summary-top"><div><div class="eyebrow">Selected context</div><h2>${node.id}</h2></div><span class="review-chip">REVIEWED</span></div><p>${escapeHtml(node.description_de)}</p>`;
       content.innerHTML = `
-        <div class="field"><div class="field-label">Source identity</div><div class="field-value">Catalog row ${node.catalog_row} · printed as ${escapeHtml(node.catalog_notation)}</div></div>
-        <div class="field"><div class="field-label">Matrix geometry</div><div class="field-value">Page ${node.matrix_page} · [${node.matrix_rectangle.map(value => value.toFixed(1)).join(", ")}]</div></div>
+        <div class="field"><div class="field-label">Source identity</div><div class="field-value">${sourceIdentity}</div></div>
+        <div class="field"><div class="field-label">Matrix geometry</div><div class="field-value">${geometry}</div></div>
         <div class="field"><div class="field-label">Earlier than</div><div class="relations">${outgoing.length ? outgoing.map(edge => relationPill(edge.later, edge.pdf_path_index)).join("") : "<span class='field-value'>No direct successor</span>"}</div></div>
         <div class="field"><div class="field-label">Later than</div><div class="relations">${incoming.length ? incoming.map(edge => relationPill(edge.earlier, edge.pdf_path_index)).join("") : "<span class='field-value'>No direct predecessor</span>"}</div></div>
-        <div class="field"><div class="field-label">Evidence</div><div class="source-box"><strong>Synoptic Harris matrix</strong><br>Zenodo 4461075 · CC BY 3.0<br>Connector geometry and catalog record retained for audit.</div></div>`;
+        <div class="field"><div class="field-label">Evidence</div><div class="source-box"><strong>${node.id === "199" ? "Confirmed source correction" : "Synoptic Harris matrix"}</strong><br>${node.id === "199" ? "Correction record retained with the approved graph." : "Zenodo 4461075 · CC BY 3.0<br>Connector geometry and catalog record retained for audit."}</div></div>`;
       content.querySelectorAll(".relation-pill").forEach(button => button.addEventListener("click", () => selectNode(button.dataset.id)));
     }
 
-    function relationPill(id, path) { return `<button class="relation-pill" data-id="${id}" title="PDF path ${path}">${id}</button>`; }
+    function relationPill(id, path) { return `<button class="relation-pill" data-id="${id}" title="${path === null ? "Source-author correction" : `PDF path ${path}`}">${id}</button>`; }
 
     function renderQuestions(summary, content) {
       summary.innerHTML = `<div class="eyebrow">Retrospective demonstration</div><h2>Next questions</h2><p>Published reference edges are temporarily withheld to demonstrate investigation ranking.</p>`;
@@ -428,7 +442,7 @@
     function renderScenarios(summary, content) {
       summary.innerHTML = `<div class="eyebrow">Interpretation comparison</div><h2>Two live readings</h2><p>Keep alternatives visible instead of overwriting the accepted graph.</p>`;
       content.innerHTML = `
-        <div class="scenario-row"><div><strong>Published sequence</strong><p>All 28 extracted direct relations retained as the reference reading.</p></div><button class="toggle on" aria-label="Published sequence enabled"><span></span></button></div>
+        <div class="scenario-row"><div><strong>Reviewed reference</strong><p>All 29 direct relations retained, including the confirmed insertion of context 199.</p></div><button class="toggle on" aria-label="Reviewed reference enabled"><span></span></button></div>
         <div class="scenario-row"><div><strong>Branch 241 unresolved</strong><p>Treat 30 → 241 as disputed and inspect the conclusions that depend on it.</p></div><button class="toggle" aria-label="Alternative scenario disabled"><span></span></button></div>
         <div class="field" style="margin-top:18px"><div class="field-label">Comparison preview</div><div class="source-box"><strong>1 direct relation changes</strong><br>4 downstream chronological conclusions become unsupported.<br><br>No contradiction is introduced.</div></div>`;
       content.querySelectorAll(".toggle").forEach(toggle => toggle.addEventListener("click", () => { toggle.classList.toggle("on"); toast("Scenario preview updated"); }));
@@ -453,7 +467,7 @@
       document.getElementById("searchInput").addEventListener("input", event => { const query = event.target.value.toLowerCase().trim(); document.querySelectorAll(".node").forEach(node => { const record = descriptions.get(node.dataset.id); node.classList.toggle("dim", Boolean(query && !node.dataset.id.includes(query) && !record.description_de.toLowerCase().includes(query))); }); });
       document.getElementById("fitButton").addEventListener("click", () => { document.getElementById("canvasWrap").scrollTo({ top: 0, behavior: "smooth" }); toast("Matrix returned to youngest context"); });
       document.getElementById("sourceButton").addEventListener("click", () => window.open("https://doi.org/10.5281/zenodo.4461075", "_blank"));
-      document.getElementById("exportButton").addEventListener("click", () => toast("Prototype only · export will preserve graph, evidence, and review status"));
+      document.getElementById("exportButton").addEventListener("click", () => toast("Prototype only · export will preserve graph, evidence, review, and correction status"));
       window.addEventListener("resize", () => renderGraph());
     }
 

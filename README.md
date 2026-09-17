@@ -10,15 +10,18 @@ first principle is that software and AI proposals must remain distinguishable
 from observations made by archaeologists.
 
 This repository is a research seed, not a field-ready recording system. It
-contains a synthetic software-validation dataset and a source-derived Trimmis
-Profile 19 candidate that remains pending independent archaeological review.
-All novelty claims remain provisional pending a systematic literature review.
+contains a synthetic software-validation dataset and an independently reviewed
+Trimmis Profile 19 reference graph. The active reference incorporates a
+source-author correction for context 199 while retaining the original matrix
+extraction as an auditable source snapshot. All novelty claims remain
+provisional pending a systematic literature review.
 
-> **Research status:** The Trimmis extraction is not approved benchmark ground
-> truth, and its illustrative impact scores are not archaeological results.
-> HarrisLab is an independent personal research project. It is not affiliated
-> with, sponsored by, or endorsed by Microsoft or the source-data authors and
-> institutions.
+> **Research status:** The Trimmis extraction passed independent source review
+> on 17 September 2026. This validates transcription fidelity, not HarrisLab's
+> ranking method or any broader archaeological conclusion. Illustrative impact
+> scores are not archaeological results. HarrisLab is an independent personal
+> research project and is not affiliated with, sponsored by, or endorsed by
+> Microsoft or the source-data authors and institutions.
 
 ## Current capabilities
 
@@ -57,10 +60,11 @@ python -m http.server 8765
 ```
 
 Then open [the HarrisLab app prototype](http://localhost:8765/docs/app-prototype.html).
-It renders the source-derived 25-context graph, context provenance, scenario
-comparison, and a retrospective hidden-relation ranking demonstration. The
-Trimmis extraction remains pending independent visual review, and the displayed
-impact scores are illustrative rather than benchmark results.
+It renders the reviewed 26-context reference graph, context provenance,
+scenario comparison, and a retrospective hidden-relation ranking
+demonstration. The reference includes the confirmed insertion of context 199
+between older context 26 and younger context 170. Displayed impact scores remain
+illustrative rather than archaeological results.
 
 Reproduce the qualification screen for the first approved pilot dataset:
 
