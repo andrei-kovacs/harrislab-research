@@ -41,7 +41,7 @@ Included:
   archaeological value or correctness probability.
 - The formation automaton is a computational baseline, not a calibrated model
   of site formation.
-- This repository does not yet declare a software license. Source datasets and
+- HarrisLab software is released under the MIT License. Source datasets and
   reproduced source imagery retain their stated upstream licenses.
 
 ## Reproduction
