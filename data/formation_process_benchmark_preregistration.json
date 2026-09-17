@@ -1,0 +1,29 @@
+{
+  "schema": "harrislab.formation-process-preregistration.v1",
+  "experiment_id": "synthetic-depositional-patch-v1",
+  "status": "frozen-before-outcome-generation",
+  "frozen_at": "2026-09-17",
+  "question": "Does one local depositional-patch automaton produce different graph closure structure from a node-and-edge-count-matched forward-DAG control?",
+  "hypothesis": "The mean paired closure-amplification difference, automaton minus matched control, is greater than zero across the fixed seed schedule.",
+  "primary_outcome": "Mean paired difference in closure amplification, where closure amplification is total reachable ordered pairs divided by direct relation count.",
+  "decision_rule": "The directional hypothesis is supported on the fixed schedule when the mean paired difference is greater than zero; otherwise it is falsified on the fixed schedule.",
+  "secondary_outcomes": [
+    "Derived relation count",
+    "Redundant direct relation count",
+    "Longest path length",
+    "Per-trial paired closure-amplification difference"
+  ],
+  "settings": {
+    "repetitions": 100,
+    "context_count": 12,
+    "width": 16,
+    "growth_steps": 4,
+    "spread_probability": 0.55,
+    "automaton_seed_base": 202609170000,
+    "control_seed_base": 202609180000,
+    "control_matching": "For each trial, use the same context count and exact direct-relation count as the automaton output. Give every noninitial context at least one predecessor, then sample remaining forward edges without replacement.",
+    "seed_rule": "For one-based trial n, use seed_base + n for each generator."
+  },
+  "analysis_policy": "Report every trial, mean, median, sample standard deviation, minimum, and maximum. The fixed computational schedule is not a sample from a defined archaeological population, so no inferential confidence interval or p-value is reported.",
+  "interpretation_limit": "This synthetic dataset is not an archaeological claim. The automaton is a software-validation baseline, not a theory or calibrated simulation of site formation. A positive result shows structural difference from one matched random control only; a negative result falsifies the scheduled directional hypothesis only. Archaeological plausibility requires independent domain review and field comparison."
+}
