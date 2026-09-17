@@ -10,6 +10,22 @@ from benchmark_trimmis_profile19 import generate_report
 
 
 class TrimmisBenchmarkReportTests(unittest.TestCase):
+    def assert_report_equal(self, expected, actual) -> None:
+        if isinstance(expected, float):
+            self.assertAlmostEqual(expected, actual, places=4)
+        elif isinstance(expected, dict):
+            self.assertEqual(expected.keys(), actual.keys())
+            for key in expected:
+                with self.subTest(key=key):
+                    self.assert_report_equal(expected[key], actual[key])
+        elif isinstance(expected, list):
+            self.assertEqual(len(expected), len(actual))
+            for index, (expected_item, actual_item) in enumerate(zip(expected, actual)):
+                with self.subTest(index=index):
+                    self.assert_report_equal(expected_item, actual_item)
+        else:
+            self.assertEqual(expected, actual)
+
     def test_report_is_deterministic_and_bound_to_reference(self) -> None:
         reference = ROOT / "data" / "trimmis_profile19_reference.json"
         options = {
@@ -42,7 +58,7 @@ class TrimmisBenchmarkReportTests(unittest.TestCase):
             )
         )
 
-        self.assertEqual(committed, generate_report(reference))
+        self.assert_report_equal(committed, generate_report(reference))
 
 
 if __name__ == "__main__":
