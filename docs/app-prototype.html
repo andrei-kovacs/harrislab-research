@@ -141,7 +141,7 @@
     .node.selected rect { fill: var(--moss-soft); stroke: #314f38; stroke-width: 2.7; filter: drop-shadow(0 3px 4px rgba(30,45,34,.18)); }
     .node.dim { opacity: .2; }
     .node.flag rect { stroke: var(--ochre); stroke-dasharray: 4 3; }
-    .tabs { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--line); }
+    .tabs { display: grid; grid-template-columns: repeat(5, 1fr); border-bottom: 1px solid var(--line); }
     .tab { height: 42px; border: 0; border-bottom: 2px solid transparent; background: white; cursor: pointer; font-size: 12px; color: var(--muted); }
     .tab.active { color: var(--ink); border-bottom-color: var(--moss); font-weight: 800; }
     .summary { padding: 17px 18px 14px; border-bottom: 1px solid var(--line); }
@@ -159,6 +159,7 @@
     .relation-pill { border: 1px solid var(--line); background: white; border-radius: 3px; padding: 4px 7px; font-size: 10px; cursor: pointer; }
     .rank-card { border: 1px solid var(--line); border-left: 3px solid var(--ochre); background: white; padding: 12px; margin-bottom: 8px; border-radius: 3px; cursor: pointer; }
     .rank-card:hover { background: #fbfaf6; }
+    .rank-card.proposal-card { cursor: default; }
     .rank-head { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
     .rank-title { font: 700 14px Georgia, "Times New Roman", serif; }
     .rank-score { font-size: 11px; color: #754a16; font-weight: 800; }
@@ -230,6 +231,7 @@
         <div class="section-label">Workspace</div>
         <button class="view-button active" data-view="matrix"><i data-lucide="git-branch"></i><span>Matrix</span><span class="count">26</span></button>
         <button class="view-button" data-view="questions"><i data-lucide="circle-help"></i><span>Investigation queue</span><span class="count">3</span></button>
+        <button class="view-button" data-view="text"><i data-lucide="text-search"></i><span>Text proposals</span><span class="count">3</span></button>
         <button class="view-button" data-view="drawing"><i data-lucide="scan-line"></i><span>Drawing comparison</span><span class="count">27</span></button>
         <button class="view-button" data-view="scenarios"><i data-lucide="split"></i><span>Interpretations</span><span class="count">2</span></button>
         <button class="view-button" data-view="sources"><i data-lucide="library"></i><span>Source register</span><span class="count">4</span></button>
@@ -267,6 +269,7 @@
         <div class="tabs">
           <button class="tab active" data-tab="inspect">Inspect</button>
           <button class="tab" data-tab="questions">Questions</button>
+          <button class="tab" data-tab="text">Text</button>
           <button class="tab" data-tab="drawing">Drawing</button>
           <button class="tab" data-tab="scenarios">Scenarios</button>
         </div>
@@ -283,17 +286,19 @@
     const benchmarkUrl = "../data/trimmis_profile19_benchmark.json";
     const comprehensiveUrl = "../data/trimmis_profile19_comprehensive_benchmark.json";
     const drawingComparisonUrl = "../data/trimmis_profile19_drawing_comparison.json";
-    let graph, referenceDocument, benchmark, comprehensive, drawingComparison, ranking = [];
+    const textProposalsUrl = "../data/trimmis_profile19_text_relation_proposals.json";
+    let graph, referenceDocument, benchmark, comprehensive, drawingComparison, textProposals, ranking = [];
     let selectedId = "156", activeTab = "inspect", activeMode = "sequence";
     const nodePositions = new Map();
     const descriptions = new Map();
 
     async function init() {
-      [referenceDocument, benchmark, comprehensive, drawingComparison] = await Promise.all([
+      [referenceDocument, benchmark, comprehensive, drawingComparison, textProposals] = await Promise.all([
         loadJson(graphUrl, "graph data"),
         loadJson(benchmarkUrl, "benchmark results"),
         loadJson(comprehensiveUrl, "comprehensive benchmark results"),
-        loadJson(drawingComparisonUrl, "drawing comparison")
+        loadJson(drawingComparisonUrl, "drawing comparison"),
+        loadJson(textProposalsUrl, "text proposals")
       ]);
       graph = {
         nodes: referenceDocument.contexts.map(context => ({ ...context, description_de: context.label })),
@@ -441,6 +446,7 @@
       const summary = document.getElementById("summary");
       const content = document.getElementById("tabContent");
       if (activeTab === "questions") { renderQuestions(summary, content); return; }
+      if (activeTab === "text") { renderTextProposals(summary, content); return; }
       if (activeTab === "drawing") { renderDrawingComparison(summary, content); return; }
       if (activeTab === "scenarios") { renderScenarios(summary, content); return; }
       if (activeTab === "sources") { renderSources(summary, content); return; }
@@ -522,6 +528,24 @@
         <div class="field"><div class="field-label">Superseded matrix relation</div><div class="source-box"><strong>${superseded.earlier} → ${superseded.later}</strong><br>Retained in the published-matrix snapshot, replaced only in the active corrected reference.</div></div>`;
     }
 
+    function renderTextProposals(summary, content) {
+      const result = textProposals.summary;
+      summary.innerHTML = `<div class="eyebrow">Pending human review</div><h2>Catalogue text</h2><p>Literal relation mentions remain outside the accepted graph.</p>`;
+      content.innerHTML = `
+        <div class="metric-grid">
+          <div class="metric"><strong>${result.explicit_relation_mentions}</strong><span>Text mentions</span></div>
+          <div class="metric"><strong>${result.proposed_relation_options}</strong><span>Review options</span></div>
+          <div class="metric"><strong>${result.accepted_graph_mutations}</strong><span>Graph changes</span></div>
+        </div>
+        <div class="study-box"><strong>No benchmark-eligible pairs</strong><br>All ${result.out_of_scope_context_proposals} options refer to contexts outside the active P19 reference. They cannot be ranked, accepted, or used to claim extraction accuracy.<div class="study-links"><a href="TRIMMIS_TEXT_EXTRACTION_PILOT.md">Read report</a><a href="${textProposalsUrl}">Audit JSON</a></div></div>
+        ${textProposals.candidates.map(candidate => `
+          <article class="rank-card proposal-card">
+            <div class="rank-head"><span class="rank-title">${escapeHtml(candidate.earlier)} → ${escapeHtml(candidate.later)}</span><span class="rank-score">PENDING</span></div>
+            <p>${escapeHtml(candidate.source.description_de)}</p>
+            <div class="diagnostic">Matched “${escapeHtml(candidate.source.matched_text)}” · row ${candidate.source.catalog_row} · referenced context outside active graph</div>
+          </article>`).join("")}`;
+    }
+
     function renderSources(summary, content) {
       summary.innerHTML = `<div class="eyebrow">Provenance</div><h2>Source register</h2><p>Evidence layers remain distinct and traceable.</p>`;
       content.innerHTML = referenceDocument.evidence.map(item => `
@@ -560,7 +584,7 @@
     function bindControls() {
       document.querySelectorAll(".tab").forEach(tab => tab.addEventListener("click", () => { activeTab = tab.dataset.tab; document.querySelectorAll(".tab").forEach(item => item.classList.toggle("active", item === tab)); renderInspector(); }));
       document.querySelectorAll("#modeControl button").forEach(button => button.addEventListener("click", () => { activeMode = button.dataset.mode; document.querySelectorAll("#modeControl button").forEach(item => item.classList.toggle("active", item === button)); renderGraph(); }));
-      document.querySelectorAll(".view-button").forEach(button => button.addEventListener("click", () => { document.querySelectorAll(".view-button").forEach(item => item.classList.toggle("active", item === button)); if (["questions", "drawing", "scenarios", "sources"].includes(button.dataset.view)) { activeTab = button.dataset.view; document.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.tab === activeTab)); renderInspector(); } }));
+      document.querySelectorAll(".view-button").forEach(button => button.addEventListener("click", () => { document.querySelectorAll(".view-button").forEach(item => item.classList.toggle("active", item === button)); if (["questions", "text", "drawing", "scenarios", "sources"].includes(button.dataset.view)) { activeTab = button.dataset.view; document.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.tab === activeTab)); renderInspector(); } }));
       document.getElementById("searchInput").addEventListener("input", event => { const query = event.target.value.toLowerCase().trim(); document.querySelectorAll(".node").forEach(node => { const record = descriptions.get(node.dataset.id); node.classList.toggle("dim", Boolean(query && !node.dataset.id.includes(query) && !record.description_de.toLowerCase().includes(query))); }); });
       document.getElementById("fitButton").addEventListener("click", () => { document.getElementById("canvasWrap").scrollTo({ top: 0, behavior: "smooth" }); toast("Matrix returned to youngest context"); });
       document.getElementById("sourceButton").addEventListener("click", () => window.open("https://doi.org/10.5281/zenodo.4461075", "_blank"));
@@ -569,7 +593,7 @@
     }
 
     function exportAudit() {
-      const payload = JSON.stringify({ reference: referenceDocument, drawing_comparison: drawingComparison, retrospective_benchmark: benchmark, comprehensive_benchmark: comprehensive }, null, 2);
+      const payload = JSON.stringify({ reference: referenceDocument, text_relation_proposals: textProposals, drawing_comparison: drawingComparison, retrospective_benchmark: benchmark, comprehensive_benchmark: comprehensive }, null, 2);
       const link = document.createElement("a");
       link.href = URL.createObjectURL(new Blob([payload], { type: "application/json" }));
       link.download = "harrislab-trimmis-profile19-audit.json";

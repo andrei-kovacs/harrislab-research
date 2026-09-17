@@ -32,6 +32,8 @@ published-matrix extraction is retained separately for auditability.
 - [Active corrected reference](../data/trimmis_profile19_reference.json)
 - [P19 drawing comparison](TRIMMIS_DRAWING_COMPARISON.md)
 - [Drawing comparison JSON](../data/trimmis_profile19_drawing_comparison.json)
+- [Catalogue text-extraction pilot](TRIMMIS_TEXT_EXTRACTION_PILOT.md)
+- [Text proposal JSON](../data/trimmis_profile19_text_relation_proposals.json)
 - [Geometry overlay](trimmis_profile19_overlay.png)
 - Source matrix MD5: `9ece18c188763350f16e164f441a927e`
 - Source catalog MD5: `75983db690194fb562ba0378ebd627a3`
@@ -93,6 +95,11 @@ The separate drawing-comparison layer confirms identifier coverage and records
 the correction provenance without deriving chronology from raw vertical
 position. The other 27 matrix relations remain explicitly awaiting qualified
 drawing review.
+
+The catalogue text-extraction layer surfaces two literal relation mentions as
+three alias-aware review options. All reference contexts outside the active P19
+graph, so the pilot changes no accepted relation and supports no extraction
+accuracy claim.
 
 Generate a fresh manifest if the candidate changes:
 

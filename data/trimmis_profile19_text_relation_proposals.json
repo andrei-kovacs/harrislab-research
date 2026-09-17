@@ -1,0 +1,121 @@
+{
+  "schema": "harrislab.text-relation-proposals.v1",
+  "title": "Trimmis Profile 19 catalogue relation proposals",
+  "source": {
+    "doi": "10.5281/zenodo.4461075",
+    "file": "Katalog_Positionen.xlsx",
+    "md5": "75983db690194fb562ba0378ebd627a3",
+    "license": "CC-BY-3.0"
+  },
+  "reference": {
+    "path": "trimmis_profile19_reference.json",
+    "sha256": "4ccd723d9c53a96524b22bf8fa607df59607b1ed3a5467cde2fdf7e73737216a"
+  },
+  "method": {
+    "scope": "Descriptions attached to active Profile 19 context identifiers.",
+    "rules": [
+      {
+        "id": "over",
+        "phrase": "subject über referenced context",
+        "candidate_direction": "referenced context -> subject"
+      },
+      {
+        "id": "within_cut",
+        "phrase": "subject in Einschnitt (referenced context)",
+        "candidate_direction": "referenced cut -> subject"
+      }
+    ],
+    "policy": "Rules surface literal mentions for human review; they do not accept relations or modify the reference graph."
+  },
+  "summary": {
+    "active_reference_contexts": 26,
+    "contexts_with_catalog_records": 26,
+    "explicit_relation_mentions": 2,
+    "proposed_relation_options": 3,
+    "active_reference_pair_proposals": 0,
+    "out_of_scope_context_proposals": 3,
+    "already_in_accepted_graph": 0,
+    "accepted_graph_mutations": 0,
+    "ai_proposed_relations": 0
+  },
+  "review_requirements": [
+    "Confirm that the matched phrase expresses stratigraphic rather than spatial containment.",
+    "Resolve catalogue aliases before selecting a graph endpoint.",
+    "Confirm older-to-younger direction.",
+    "Add out-of-scope contexts through a separately reviewed source workflow."
+  ],
+  "candidates": [
+    {
+      "id": "catalog-row-102-over-103-104",
+      "earlier": "103",
+      "later": "104",
+      "status": "pending_human_review",
+      "rule": "over",
+      "direction_basis": "A referenced deposit described below the subject may be earlier.",
+      "scope_status": "referenced_context_outside_active_reference",
+      "already_in_accepted_graph": false,
+      "source": {
+        "catalog_row": 102,
+        "catalog_notation": "(104):",
+        "description_de": "Grasnarbe über Kiesbett (103).",
+        "matched_text": "über Kiesbett (103)",
+        "character_span": [
+          10,
+          29
+        ],
+        "subject_aliases": [
+          "104"
+        ]
+      }
+    },
+    {
+      "id": "catalog-row-149-within_cut-154-50",
+      "earlier": "154",
+      "later": "50",
+      "status": "pending_human_review",
+      "rule": "within_cut",
+      "direction_basis": "A referenced cut containing the subject may be earlier than its fill.",
+      "scope_status": "referenced_context_outside_active_reference",
+      "already_in_accepted_graph": false,
+      "source": {
+        "catalog_row": 149,
+        "catalog_notation": "(153) = (50):",
+        "description_de": "Steinpackung in Einschnitt (154).",
+        "matched_text": "in Einschnitt (154)",
+        "character_span": [
+          13,
+          32
+        ],
+        "subject_aliases": [
+          "50",
+          "153"
+        ]
+      }
+    },
+    {
+      "id": "catalog-row-149-within_cut-154-153",
+      "earlier": "154",
+      "later": "153",
+      "status": "pending_human_review",
+      "rule": "within_cut",
+      "direction_basis": "A referenced cut containing the subject may be earlier than its fill.",
+      "scope_status": "referenced_context_outside_active_reference",
+      "already_in_accepted_graph": false,
+      "source": {
+        "catalog_row": 149,
+        "catalog_notation": "(153) = (50):",
+        "description_de": "Steinpackung in Einschnitt (154).",
+        "matched_text": "in Einschnitt (154)",
+        "character_span": [
+          13,
+          32
+        ],
+        "subject_aliases": [
+          "50",
+          "153"
+        ]
+      }
+    }
+  ],
+  "accepted_graph_mutations": []
+}
