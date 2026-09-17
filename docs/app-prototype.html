@@ -175,6 +175,24 @@
     .study-box strong { font-family: Georgia, "Times New Roman", serif; font-size: 13px; }
     .study-links { display: flex; gap: 12px; margin-top: 8px; }
     .study-links a { color: #285c70; font-weight: 700; }
+    .review-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 12px 0 16px; }
+    .review-action {
+      min-height: 34px; display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+      border: 1px solid var(--line); border-radius: 4px; background: white; color: var(--ink);
+      font-size: 10px; font-weight: 800; text-decoration: none;
+    }
+    .review-action.primary { border-color: #8fa897; background: var(--moss-soft); color: #314f38; }
+    .review-action:hover { border-color: #899897; background: #f7faf8; }
+    .review-action svg { width: 14px; height: 14px; }
+    .review-key { margin: 0 0 14px; padding: 0; list-style: none; }
+    .review-key li { display: grid; grid-template-columns: 82px 1fr; gap: 8px; padding: 5px 0; border-bottom: 1px solid #edf0ee; font-size: 9px; line-height: 1.4; }
+    .review-key strong { color: var(--ink); }
+    .review-key span { color: var(--muted); }
+    .hash-value { display: block; margin-top: 5px; overflow-wrap: anywhere; color: #445052; font: 9px Consolas, monospace; }
+    .review-register { border-top: 1px solid var(--line); }
+    .review-relation { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; min-height: 34px; border-bottom: 1px solid #edf0ee; }
+    .review-relation strong { font: 700 12px Georgia, "Times New Roman", serif; }
+    .pending-chip { padding: 3px 6px; border: 1px solid #d5ad75; border-radius: 3px; background: var(--ochre-soft); color: #754a16; font-size: 8px; font-weight: 800; }
     .profile-figure { margin: 0 0 14px; border: 1px solid var(--line); background: white; }
     .profile-figure img { display: block; width: 100%; height: auto; }
     .profile-figure figcaption { padding: 7px 9px; color: var(--muted); font-size: 9px; line-height: 1.4; }
@@ -291,19 +309,22 @@
     const benchmarkUrl = "../data/trimmis_profile19_benchmark.json";
     const comprehensiveUrl = "../data/trimmis_profile19_comprehensive_benchmark.json";
     const drawingComparisonUrl = "../data/trimmis_profile19_drawing_comparison.json";
+    const drawingReviewTemplateUrl = "../data/trimmis_profile19_drawing_review_template.json";
+    const drawingReviewChecklistUrl = "trimmis_profile19_drawing_review_checklist.csv";
     const textProposalsUrl = "../data/trimmis_profile19_text_relation_proposals.json";
     const formationBenchmarkUrl = "../data/formation_process_benchmark.json";
-    let graph, referenceDocument, benchmark, comprehensive, drawingComparison, textProposals, formationBenchmark, ranking = [];
+    let graph, referenceDocument, benchmark, comprehensive, drawingComparison, drawingReviewTemplate, textProposals, formationBenchmark, ranking = [];
     let selectedId = "156", activeTab = "inspect", activeMode = "sequence";
     const nodePositions = new Map();
     const descriptions = new Map();
 
     async function init() {
-      [referenceDocument, benchmark, comprehensive, drawingComparison, textProposals, formationBenchmark] = await Promise.all([
+      [referenceDocument, benchmark, comprehensive, drawingComparison, drawingReviewTemplate, textProposals, formationBenchmark] = await Promise.all([
         loadJson(graphUrl, "graph data"),
         loadJson(benchmarkUrl, "benchmark results"),
         loadJson(comprehensiveUrl, "comprehensive benchmark results"),
         loadJson(drawingComparisonUrl, "drawing comparison"),
+        loadJson(drawingReviewTemplateUrl, "drawing review template"),
         loadJson(textProposalsUrl, "text proposals"),
         loadJson(formationBenchmarkUrl, "formation benchmark")
       ]);
@@ -523,17 +544,33 @@
       const result = drawingComparison.summary;
       const confirmed = drawingComparison.relation_comparison.filter(item => item.status === "confirmed_profile_correction");
       const superseded = drawingComparison.relation_comparison.find(item => item.status === "superseded_matrix_relation");
-      summary.innerHTML = `<div class="eyebrow">Independent source layer</div><h2>P19 comparison</h2><p>Drawing observations remain separate from matrix chronology.</p>`;
+      const pending = drawingReviewTemplate.relation_reviews;
+      summary.innerHTML = `<div class="summary-top"><div><div class="eyebrow">Qualified review required</div><h2>Drawing review</h2></div><span class="pending-chip">${pending.length} PENDING</span></div><p>P19 evidence checks remain separate from accepted chronology.</p>`;
       content.innerHTML = `
         <div class="metric-grid">
           <div class="metric"><strong>${result.contexts_present_in_profile} / ${result.reference_contexts}</strong><span>Contexts found</span></div>
-          <div class="metric"><strong>${result.confirmed_profile_corrections}</strong><span>Confirmed edges</span></div>
-          <div class="metric"><strong>${result.ai_proposed_relations}</strong><span>AI edges</span></div>
+          <div class="metric"><strong>${pending.length}</strong><span>Checks pending</span></div>
+          <div class="metric"><strong>0</strong><span>Graph changes</span></div>
         </div>
         <figure class="profile-figure"><img src="trimmis_profile19_source_profile.png" alt="Published east profile P19 with labeled stratigraphic contexts"><figcaption>Published P19 source crop · CC BY 3.0 · DOI 10.5281/zenodo.4461075</figcaption></figure>
-        <div class="study-box"><strong>No automatic chronology inferred</strong><br>The PDF does not distinguish boundaries, cuts, fills, and label leaders semantically. ${result.relations_awaiting_drawing_review} matrix relations therefore remain awaiting qualified drawing review.<div class="study-links"><a href="TRIMMIS_DRAWING_COMPARISON.md">Read method</a><a href="${drawingComparisonUrl}">Audit JSON</a></div></div>
+        <div class="study-box"><strong>Evidence review, not graph approval</strong><br>The PDF does not distinguish boundaries, cuts, fills, and label leaders semantically. A completed review classifies drawing evidence only. It cannot add, remove, or promote a chronological relation.</div>
+        <div class="review-actions">
+          <a class="review-action primary" href="${drawingReviewChecklistUrl}" download><i data-lucide="download"></i>Checklist CSV</a>
+          <a class="review-action" href="DRAWING_REVIEW_WORKFLOW.md"><i data-lucide="book-open"></i>Review protocol</a>
+          <a class="review-action" href="${drawingReviewTemplateUrl}"><i data-lucide="braces"></i>JSON template</a>
+          <a class="review-action" href="${drawingComparisonUrl}"><i data-lucide="file-search"></i>Audit evidence</a>
+        </div>
+        <div class="field"><div class="field-label">Decision vocabulary</div><ul class="review-key">
+          <li><strong>Corroborated</strong><span>Drawing supports the relation and direction.</span></li>
+          <li><strong>Contradicted</strong><span>Drawing appears inconsistent with the relation.</span></li>
+          <li><strong>Indeterminate</strong><span>Evidence does not support a confident decision.</span></li>
+          <li><strong>Not visible</strong><span>Relevant contact is absent from the available view.</span></li>
+        </ul></div>
+        <div class="field"><div class="field-label">Comparison SHA-256</div><div class="source-box">Checklist binding<span class="hash-value">${drawingReviewTemplate.comparison_sha256}</span></div></div>
         <div class="field"><div class="field-label">Confirmed profile correction</div><div class="relations">${confirmed.map(item => `<span class="relation-pill">${item.earlier} → ${item.later}</span>`).join("")}</div></div>
-        <div class="field"><div class="field-label">Superseded matrix relation</div><div class="source-box"><strong>${superseded.earlier} → ${superseded.later}</strong><br>Retained in the published-matrix snapshot, replaced only in the active corrected reference.</div></div>`;
+        <div class="field"><div class="field-label">Superseded matrix relation</div><div class="source-box"><strong>${superseded.earlier} → ${superseded.later}</strong><br>Retained in the published-matrix snapshot, replaced only in the active corrected reference.</div></div>
+        <div class="field"><div class="field-label">Pending evidence register · older → younger</div><div class="review-register">${pending.map(item => `<div class="review-relation"><strong>${escapeHtml(item.earlier)} → ${escapeHtml(item.later)}</strong><span class="pending-chip">PENDING</span></div>`).join("")}</div></div>`;
+      if (window.lucide) lucide.createIcons();
     }
 
     function renderTextProposals(summary, content) {
