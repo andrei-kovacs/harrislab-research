@@ -40,6 +40,7 @@ provisional pending a systematic literature review.
 - Compare contradictions, order counts, and implied relations across scenarios.
 - Trace chronological conclusions through supporting relations to evidence.
 - Benchmark hidden-relation recovery against deterministic and seeded controls.
+- Compare matrix and source-drawing provenance without auto-accepting inferred edges.
 - Load a reproducible JSON dataset and emit a command-line audit report.
 
 ## Run
@@ -85,6 +86,7 @@ Reproduce the qualification screen for the first approved pilot dataset:
 ```powershell
 python -m pip install -e ".[acquisition]"
 python scripts/qualify_trimmis.py .local-data/trimmis-source
+python scripts/compare_trimmis_profile19_drawing.py .local-data/trimmis-source
 ```
 
 The downloaded source artifacts are checksum-verified and should remain outside
@@ -100,6 +102,7 @@ that graph requires a separate geometry-conversion and visual-audit step.
 - [Sprint 1 novelty screen](docs/NOVELTY_SCREEN.md)
 - [Dataset qualification sprint](docs/DATASET_QUALIFICATION.md)
 - [Trimmis Profile 19 extraction audit](docs/TRIMMIS_PROFILE19_AUDIT.md)
+- [Trimmis Profile 19 drawing comparison](docs/TRIMMIS_DRAWING_COMPARISON.md)
 - [Hidden-relation benchmark protocol](docs/BENCHMARK_PROTOCOL.md)
 - [Comprehensive Trimmis benchmark results](docs/TRIMMIS_COMPREHENSIVE_BENCHMARK.md)
 - [Closure-gain surrogate calibration](docs/SURROGATE_CALIBRATION.md)

@@ -30,6 +30,8 @@ published-matrix extraction is retained separately for auditability.
 - [Reviewed published-matrix reference](../data/trimmis_profile19_published_reference.json)
 - [Confirmed correction manifest](../data/trimmis_profile19_corrections.json)
 - [Active corrected reference](../data/trimmis_profile19_reference.json)
+- [P19 drawing comparison](TRIMMIS_DRAWING_COMPARISON.md)
+- [Drawing comparison JSON](../data/trimmis_profile19_drawing_comparison.json)
 - [Geometry overlay](trimmis_profile19_overlay.png)
 - Source matrix MD5: `9ece18c188763350f16e164f441a927e`
 - Source catalog MD5: `75983db690194fb562ba0378ebd627a3`
@@ -86,6 +88,11 @@ The context 199 correction is applied only after approval through a separate
 manifest bound to the approved reference hash. The correction step removes the
 direct `26 -> 170` relation and adds `26 -> 199` and `199 -> 170`. Both the
 source extraction and corrected reference therefore remain reproducible.
+
+The separate drawing-comparison layer confirms identifier coverage and records
+the correction provenance without deriving chronology from raw vertical
+position. The other 27 matrix relations remain explicitly awaiting qualified
+drawing review.
 
 Generate a fresh manifest if the candidate changes:
 

@@ -1,0 +1,600 @@
+{
+  "schema": "harrislab.drawing-comparison.v1",
+  "title": "Trimmis Profile 19 drawing comparison",
+  "source": {
+    "doi": "10.5281/zenodo.4461075",
+    "file": "P19.pdf",
+    "md5": "53ccf16a523e986ead69a30fc3f8dc24",
+    "license": "CC-BY-3.0"
+  },
+  "reference": {
+    "path": "trimmis_profile19_reference.json",
+    "sha256": "4ccd723d9c53a96524b22bf8fa607df59607b1ed3a5467cde2fdf7e73737216a"
+  },
+  "published_matrix_reference": {
+    "path": "trimmis_profile19_published_reference.json",
+    "sha256": "43ef3e2f75682eb70cae89f92b9b3001de7392125b758bdaaf325a494e243bbc"
+  },
+  "correction_manifest": {
+    "path": "trimmis_profile19_corrections.json",
+    "sha256": "fcdebded2bbb4eb17654ca78812833603be11f8a605c986dcb5c6fef9b22b873"
+  },
+  "method": {
+    "label_extraction": "Digit-only PDF text tokens restricted to active reference context identifiers.",
+    "relation_policy": "No relation is inferred from vertical position or vector proximity. P19 mixes deposit boundaries, cuts, fills, and label leaders without semantic tags.",
+    "review_unit": "Each active matrix relation remains awaiting drawing review unless covered by the confirmed correction manifest."
+  },
+  "summary": {
+    "reference_contexts": 26,
+    "contexts_present_in_profile": 26,
+    "label_occurrences": 38,
+    "confirmed_profile_corrections": 2,
+    "superseded_matrix_relations": 1,
+    "relations_awaiting_drawing_review": 27,
+    "ai_proposed_relations": 0
+  },
+  "label_occurrences": [
+    {
+      "id": "102",
+      "page": 1,
+      "rectangle": [
+        81.324,
+        177.463,
+        87.162,
+        182.241
+      ]
+    },
+    {
+      "id": "102",
+      "page": 1,
+      "rectangle": [
+        304.461,
+        177.463,
+        310.299,
+        182.241
+      ]
+    },
+    {
+      "id": "104",
+      "page": 1,
+      "rectangle": [
+        98.835,
+        177.463,
+        104.673,
+        182.241
+      ]
+    },
+    {
+      "id": "104",
+      "page": 1,
+      "rectangle": [
+        314.968,
+        177.463,
+        320.806,
+        182.241
+      ]
+    },
+    {
+      "id": "150",
+      "page": 1,
+      "rectangle": [
+        73.957,
+        255.224,
+        79.795,
+        260.001
+      ]
+    },
+    {
+      "id": "153",
+      "page": 1,
+      "rectangle": [
+        365.138,
+        242.681,
+        370.976,
+        247.458
+      ]
+    },
+    {
+      "id": "155",
+      "page": 1,
+      "rectangle": [
+        355.132,
+        239.178,
+        360.97,
+        243.955
+      ]
+    },
+    {
+      "id": "156",
+      "page": 1,
+      "rectangle": [
+        84.463,
+        260.007,
+        90.301,
+        264.785
+      ]
+    },
+    {
+      "id": "164",
+      "page": 1,
+      "rectangle": [
+        84.463,
+        241.996,
+        90.301,
+        246.774
+      ]
+    },
+    {
+      "id": "165",
+      "page": 1,
+      "rectangle": [
+        355.132,
+        226.67,
+        360.97,
+        231.448
+      ]
+    },
+    {
+      "id": "165",
+      "page": 1,
+      "rectangle": [
+        73.957,
+        237.713,
+        79.795,
+        242.491
+      ]
+    },
+    {
+      "id": "170",
+      "page": 1,
+      "rectangle": [
+        73.957,
+        267.232,
+        79.795,
+        272.009
+      ]
+    },
+    {
+      "id": "199",
+      "page": 1,
+      "rectangle": [
+        303.667,
+        281.193,
+        309.505,
+        285.97
+      ]
+    },
+    {
+      "id": "199",
+      "page": 1,
+      "rectangle": [
+        317.176,
+        281.193,
+        323.014,
+        285.97
+      ]
+    },
+    {
+      "id": "22",
+      "page": 1,
+      "rectangle": [
+        270.632,
+        281.193,
+        274.524,
+        285.97
+      ]
+    },
+    {
+      "id": "22",
+      "page": 1,
+      "rectangle": [
+        86.464,
+        291.527,
+        90.356,
+        296.304
+      ]
+    },
+    {
+      "id": "222",
+      "page": 1,
+      "rectangle": [
+        283.948,
+        177.463,
+        289.786,
+        182.241
+      ]
+    },
+    {
+      "id": "222",
+      "page": 1,
+      "rectangle": [
+        58.947,
+        220.201,
+        64.785,
+        224.979
+      ]
+    },
+    {
+      "id": "223",
+      "page": 1,
+      "rectangle": [
+        365.138,
+        201.654,
+        370.976,
+        206.432
+      ]
+    },
+    {
+      "id": "223",
+      "page": 1,
+      "rectangle": [
+        58.947,
+        226.706,
+        64.785,
+        231.484
+      ]
+    },
+    {
+      "id": "224",
+      "page": 1,
+      "rectangle": [
+        355.132,
+        207.657,
+        360.97,
+        212.435
+      ]
+    },
+    {
+      "id": "224",
+      "page": 1,
+      "rectangle": [
+        73.957,
+        230.208,
+        79.795,
+        234.986
+      ]
+    },
+    {
+      "id": "228",
+      "page": 1,
+      "rectangle": [
+        355.132,
+        196.651,
+        360.97,
+        201.428
+      ]
+    },
+    {
+      "id": "23",
+      "page": 1,
+      "rectangle": [
+        86.464,
+        282.522,
+        90.356,
+        287.299
+      ]
+    },
+    {
+      "id": "235",
+      "page": 1,
+      "rectangle": [
+        292.174,
+        281.193,
+        298.012,
+        285.97
+      ]
+    },
+    {
+      "id": "240",
+      "page": 1,
+      "rectangle": [
+        73.957,
+        275.237,
+        79.795,
+        280.015
+      ]
+    },
+    {
+      "id": "240",
+      "page": 1,
+      "rectangle": [
+        165.83,
+        302.207,
+        171.668,
+        306.985
+      ]
+    },
+    {
+      "id": "241",
+      "page": 1,
+      "rectangle": [
+        131.463,
+        246.829,
+        137.301,
+        251.607
+      ]
+    },
+    {
+      "id": "26",
+      "page": 1,
+      "rectangle": [
+        355.132,
+        257.691,
+        359.024,
+        262.468
+      ]
+    },
+    {
+      "id": "26",
+      "page": 1,
+      "rectangle": [
+        86.464,
+        272.015,
+        90.356,
+        276.792
+      ]
+    },
+    {
+      "id": "267",
+      "page": 1,
+      "rectangle": [
+        355.132,
+        247.684,
+        360.97,
+        252.461
+      ]
+    },
+    {
+      "id": "3",
+      "page": 1,
+      "rectangle": [
+        200.052,
+        229.34,
+        201.998,
+        234.117
+      ]
+    },
+    {
+      "id": "30",
+      "page": 1,
+      "rectangle": [
+        365.138,
+        233.675,
+        369.03,
+        238.452
+      ]
+    },
+    {
+      "id": "30",
+      "page": 1,
+      "rectangle": [
+        75.958,
+        247.219,
+        79.85,
+        251.996
+      ]
+    },
+    {
+      "id": "50",
+      "page": 1,
+      "rectangle": [
+        86.464,
+        252.502,
+        90.356,
+        257.28
+      ]
+    },
+    {
+      "id": "98",
+      "page": 1,
+      "rectangle": [
+        197.509,
+        220.815,
+        201.401,
+        225.592
+      ]
+    },
+    {
+      "id": "99",
+      "page": 1,
+      "rectangle": [
+        117.333,
+        177.463,
+        121.225,
+        182.241
+      ]
+    },
+    {
+      "id": "99",
+      "page": 1,
+      "rectangle": [
+        295.446,
+        177.463,
+        299.338,
+        182.241
+      ]
+    }
+  ],
+  "relation_comparison": [
+    {
+      "earlier": "102",
+      "later": "104",
+      "status": "awaiting_drawing_review",
+      "basis": "Reviewed matrix relation; P19 geometry has not been interpreted automatically."
+    },
+    {
+      "earlier": "150",
+      "later": "153",
+      "status": "awaiting_drawing_review",
+      "basis": "Reviewed matrix relation; P19 geometry has not been interpreted automatically."
+    },
+    {
+      "earlier": "150",
+      "later": "50",
+      "status": "awaiting_drawing_review",
+      "basis": "Reviewed matrix relation; P19 geometry has not been interpreted automatically."
+    },
+    {
+      "earlier": "153",
+      "later": "30",
+      "status": "awaiting_drawing_review",
+      "basis": "Reviewed matrix relation; P19 geometry has not been interpreted automatically."
+    },
+    {
+      "earlier": "155",
+      "later": "3",
+      "status": "awaiting_drawing_review",
+      "basis": "Reviewed matrix relation; P19 geometry has not been interpreted automatically."
+    },
+    {
+      "earlier": "156",
+      "later": "150",
+      "status": "awaiting_drawing_review",
+      "basis": "Reviewed matrix relation; P19 geometry has not been interpreted automatically."
+    },
+    {
+      "earlier": "156",
+      "later": "267",
+      "status": "awaiting_drawing_review",
+      "basis": "Reviewed matrix relation; P19 geometry has not been interpreted automatically."
+    },
+    {
+      "earlier": "164",
+      "later": "165",
+      "status": "awaiting_drawing_review",
+      "basis": "Reviewed matrix relation; P19 geometry has not been interpreted automatically."
+    },
+    {
+      "earlier": "165",
+      "later": "98",
+      "status": "awaiting_drawing_review",
+      "basis": "Reviewed matrix relation; P19 geometry has not been interpreted automatically."
+    },
+    {
+      "earlier": "170",
+      "later": "156",
+      "status": "awaiting_drawing_review",
+      "basis": "Reviewed matrix relation; P19 geometry has not been interpreted automatically."
+    },
+    {
+      "earlier": "199",
+      "later": "170",
+      "status": "confirmed_profile_correction",
+      "basis": "Source-author confirmation associated with P19; private correspondence is not published."
+    },
+    {
+      "earlier": "22",
+      "later": "23",
+      "status": "awaiting_drawing_review",
+      "basis": "Reviewed matrix relation; P19 geometry has not been interpreted automatically."
+    },
+    {
+      "earlier": "222",
+      "later": "228",
+      "status": "awaiting_drawing_review",
+      "basis": "Reviewed matrix relation; P19 geometry has not been interpreted automatically."
+    },
+    {
+      "earlier": "223",
+      "later": "222",
+      "status": "awaiting_drawing_review",
+      "basis": "Reviewed matrix relation; P19 geometry has not been interpreted automatically."
+    },
+    {
+      "earlier": "224",
+      "later": "223",
+      "status": "awaiting_drawing_review",
+      "basis": "Reviewed matrix relation; P19 geometry has not been interpreted automatically."
+    },
+    {
+      "earlier": "228",
+      "later": "99",
+      "status": "awaiting_drawing_review",
+      "basis": "Reviewed matrix relation; P19 geometry has not been interpreted automatically."
+    },
+    {
+      "earlier": "23",
+      "later": "235",
+      "status": "awaiting_drawing_review",
+      "basis": "Reviewed matrix relation; P19 geometry has not been interpreted automatically."
+    },
+    {
+      "earlier": "23",
+      "later": "240",
+      "status": "awaiting_drawing_review",
+      "basis": "Reviewed matrix relation; P19 geometry has not been interpreted automatically."
+    },
+    {
+      "earlier": "235",
+      "later": "26",
+      "status": "awaiting_drawing_review",
+      "basis": "Reviewed matrix relation; P19 geometry has not been interpreted automatically."
+    },
+    {
+      "earlier": "240",
+      "later": "26",
+      "status": "awaiting_drawing_review",
+      "basis": "Reviewed matrix relation; P19 geometry has not been interpreted automatically."
+    },
+    {
+      "earlier": "241",
+      "later": "3",
+      "status": "awaiting_drawing_review",
+      "basis": "Reviewed matrix relation; P19 geometry has not been interpreted automatically."
+    },
+    {
+      "earlier": "26",
+      "later": "170",
+      "status": "superseded_matrix_relation",
+      "basis": "Published matrix relation replaced by the confirmed P19 correction."
+    },
+    {
+      "earlier": "26",
+      "later": "199",
+      "status": "confirmed_profile_correction",
+      "basis": "Source-author confirmation associated with P19; private correspondence is not published."
+    },
+    {
+      "earlier": "267",
+      "later": "153",
+      "status": "awaiting_drawing_review",
+      "basis": "Reviewed matrix relation; P19 geometry has not been interpreted automatically."
+    },
+    {
+      "earlier": "3",
+      "later": "164",
+      "status": "awaiting_drawing_review",
+      "basis": "Reviewed matrix relation; P19 geometry has not been interpreted automatically."
+    },
+    {
+      "earlier": "30",
+      "later": "155",
+      "status": "awaiting_drawing_review",
+      "basis": "Reviewed matrix relation; P19 geometry has not been interpreted automatically."
+    },
+    {
+      "earlier": "30",
+      "later": "241",
+      "status": "awaiting_drawing_review",
+      "basis": "Reviewed matrix relation; P19 geometry has not been interpreted automatically."
+    },
+    {
+      "earlier": "50",
+      "later": "30",
+      "status": "awaiting_drawing_review",
+      "basis": "Reviewed matrix relation; P19 geometry has not been interpreted automatically."
+    },
+    {
+      "earlier": "98",
+      "later": "224",
+      "status": "awaiting_drawing_review",
+      "basis": "Reviewed matrix relation; P19 geometry has not been interpreted automatically."
+    },
+    {
+      "earlier": "99",
+      "later": "102",
+      "status": "awaiting_drawing_review",
+      "basis": "Reviewed matrix relation; P19 geometry has not been interpreted automatically."
+    }
+  ]
+}

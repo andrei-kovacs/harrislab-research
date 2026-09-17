@@ -141,7 +141,7 @@
     .node.selected rect { fill: var(--moss-soft); stroke: #314f38; stroke-width: 2.7; filter: drop-shadow(0 3px 4px rgba(30,45,34,.18)); }
     .node.dim { opacity: .2; }
     .node.flag rect { stroke: var(--ochre); stroke-dasharray: 4 3; }
-    .tabs { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--line); }
+    .tabs { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--line); }
     .tab { height: 42px; border: 0; border-bottom: 2px solid transparent; background: white; cursor: pointer; font-size: 12px; color: var(--muted); }
     .tab.active { color: var(--ink); border-bottom-color: var(--moss); font-weight: 800; }
     .summary { padding: 17px 18px 14px; border-bottom: 1px solid var(--line); }
@@ -174,6 +174,9 @@
     .study-box strong { font-family: Georgia, "Times New Roman", serif; font-size: 13px; }
     .study-links { display: flex; gap: 12px; margin-top: 8px; }
     .study-links a { color: #285c70; font-weight: 700; }
+    .profile-figure { margin: 0 0 14px; border: 1px solid var(--line); background: white; }
+    .profile-figure img { display: block; width: 100%; height: auto; }
+    .profile-figure figcaption { padding: 7px 9px; color: var(--muted); font-size: 9px; line-height: 1.4; }
     .scenario-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; padding: 11px 0; border-bottom: 1px solid #edf0ee; }
     .scenario-row strong { font-size: 12px; }
     .scenario-row p { margin: 3px 0 0; color: var(--muted); font-size: 10px; line-height: 1.4; }
@@ -227,6 +230,7 @@
         <div class="section-label">Workspace</div>
         <button class="view-button active" data-view="matrix"><i data-lucide="git-branch"></i><span>Matrix</span><span class="count">26</span></button>
         <button class="view-button" data-view="questions"><i data-lucide="circle-help"></i><span>Investigation queue</span><span class="count">3</span></button>
+        <button class="view-button" data-view="drawing"><i data-lucide="scan-line"></i><span>Drawing comparison</span><span class="count">27</span></button>
         <button class="view-button" data-view="scenarios"><i data-lucide="split"></i><span>Interpretations</span><span class="count">2</span></button>
         <button class="view-button" data-view="sources"><i data-lucide="library"></i><span>Source register</span><span class="count">4</span></button>
         <div class="divider"></div>
@@ -263,6 +267,7 @@
         <div class="tabs">
           <button class="tab active" data-tab="inspect">Inspect</button>
           <button class="tab" data-tab="questions">Questions</button>
+          <button class="tab" data-tab="drawing">Drawing</button>
           <button class="tab" data-tab="scenarios">Scenarios</button>
         </div>
         <div class="summary" id="summary"></div>
@@ -277,16 +282,18 @@
     const graphUrl = "../data/trimmis_profile19_reference.json";
     const benchmarkUrl = "../data/trimmis_profile19_benchmark.json";
     const comprehensiveUrl = "../data/trimmis_profile19_comprehensive_benchmark.json";
-    let graph, referenceDocument, benchmark, comprehensive, ranking = [];
+    const drawingComparisonUrl = "../data/trimmis_profile19_drawing_comparison.json";
+    let graph, referenceDocument, benchmark, comprehensive, drawingComparison, ranking = [];
     let selectedId = "156", activeTab = "inspect", activeMode = "sequence";
     const nodePositions = new Map();
     const descriptions = new Map();
 
     async function init() {
-      [referenceDocument, benchmark, comprehensive] = await Promise.all([
+      [referenceDocument, benchmark, comprehensive, drawingComparison] = await Promise.all([
         loadJson(graphUrl, "graph data"),
         loadJson(benchmarkUrl, "benchmark results"),
-        loadJson(comprehensiveUrl, "comprehensive benchmark results")
+        loadJson(comprehensiveUrl, "comprehensive benchmark results"),
+        loadJson(drawingComparisonUrl, "drawing comparison")
       ]);
       graph = {
         nodes: referenceDocument.contexts.map(context => ({ ...context, description_de: context.label })),
@@ -434,6 +441,7 @@
       const summary = document.getElementById("summary");
       const content = document.getElementById("tabContent");
       if (activeTab === "questions") { renderQuestions(summary, content); return; }
+      if (activeTab === "drawing") { renderDrawingComparison(summary, content); return; }
       if (activeTab === "scenarios") { renderScenarios(summary, content); return; }
       if (activeTab === "sources") { renderSources(summary, content); return; }
       const node = descriptions.get(selectedId);
@@ -497,6 +505,23 @@
       content.querySelectorAll(".toggle").forEach(toggle => toggle.addEventListener("click", () => { toggle.classList.toggle("on"); toast("Scenario preview updated"); }));
     }
 
+    function renderDrawingComparison(summary, content) {
+      const result = drawingComparison.summary;
+      const confirmed = drawingComparison.relation_comparison.filter(item => item.status === "confirmed_profile_correction");
+      const superseded = drawingComparison.relation_comparison.find(item => item.status === "superseded_matrix_relation");
+      summary.innerHTML = `<div class="eyebrow">Independent source layer</div><h2>P19 comparison</h2><p>Drawing observations remain separate from matrix chronology.</p>`;
+      content.innerHTML = `
+        <div class="metric-grid">
+          <div class="metric"><strong>${result.contexts_present_in_profile} / ${result.reference_contexts}</strong><span>Contexts found</span></div>
+          <div class="metric"><strong>${result.confirmed_profile_corrections}</strong><span>Confirmed edges</span></div>
+          <div class="metric"><strong>${result.ai_proposed_relations}</strong><span>AI edges</span></div>
+        </div>
+        <figure class="profile-figure"><img src="trimmis_profile19_source_profile.png" alt="Published east profile P19 with labeled stratigraphic contexts"><figcaption>Published P19 source crop · CC BY 3.0 · DOI 10.5281/zenodo.4461075</figcaption></figure>
+        <div class="study-box"><strong>No automatic chronology inferred</strong><br>The PDF does not distinguish boundaries, cuts, fills, and label leaders semantically. ${result.relations_awaiting_drawing_review} matrix relations therefore remain awaiting qualified drawing review.<div class="study-links"><a href="TRIMMIS_DRAWING_COMPARISON.md">Read method</a><a href="${drawingComparisonUrl}">Audit JSON</a></div></div>
+        <div class="field"><div class="field-label">Confirmed profile correction</div><div class="relations">${confirmed.map(item => `<span class="relation-pill">${item.earlier} → ${item.later}</span>`).join("")}</div></div>
+        <div class="field"><div class="field-label">Superseded matrix relation</div><div class="source-box"><strong>${superseded.earlier} → ${superseded.later}</strong><br>Retained in the published-matrix snapshot, replaced only in the active corrected reference.</div></div>`;
+    }
+
     function renderSources(summary, content) {
       summary.innerHTML = `<div class="eyebrow">Provenance</div><h2>Source register</h2><p>Evidence layers remain distinct and traceable.</p>`;
       content.innerHTML = referenceDocument.evidence.map(item => `
@@ -535,7 +560,7 @@
     function bindControls() {
       document.querySelectorAll(".tab").forEach(tab => tab.addEventListener("click", () => { activeTab = tab.dataset.tab; document.querySelectorAll(".tab").forEach(item => item.classList.toggle("active", item === tab)); renderInspector(); }));
       document.querySelectorAll("#modeControl button").forEach(button => button.addEventListener("click", () => { activeMode = button.dataset.mode; document.querySelectorAll("#modeControl button").forEach(item => item.classList.toggle("active", item === button)); renderGraph(); }));
-      document.querySelectorAll(".view-button").forEach(button => button.addEventListener("click", () => { document.querySelectorAll(".view-button").forEach(item => item.classList.toggle("active", item === button)); if (["questions", "scenarios", "sources"].includes(button.dataset.view)) { activeTab = button.dataset.view; document.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.tab === activeTab)); renderInspector(); } }));
+      document.querySelectorAll(".view-button").forEach(button => button.addEventListener("click", () => { document.querySelectorAll(".view-button").forEach(item => item.classList.toggle("active", item === button)); if (["questions", "drawing", "scenarios", "sources"].includes(button.dataset.view)) { activeTab = button.dataset.view; document.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.tab === activeTab)); renderInspector(); } }));
       document.getElementById("searchInput").addEventListener("input", event => { const query = event.target.value.toLowerCase().trim(); document.querySelectorAll(".node").forEach(node => { const record = descriptions.get(node.dataset.id); node.classList.toggle("dim", Boolean(query && !node.dataset.id.includes(query) && !record.description_de.toLowerCase().includes(query))); }); });
       document.getElementById("fitButton").addEventListener("click", () => { document.getElementById("canvasWrap").scrollTo({ top: 0, behavior: "smooth" }); toast("Matrix returned to youngest context"); });
       document.getElementById("sourceButton").addEventListener("click", () => window.open("https://doi.org/10.5281/zenodo.4461075", "_blank"));
@@ -544,7 +569,7 @@
     }
 
     function exportAudit() {
-      const payload = JSON.stringify({ reference: referenceDocument, retrospective_benchmark: benchmark, comprehensive_benchmark: comprehensive }, null, 2);
+      const payload = JSON.stringify({ reference: referenceDocument, drawing_comparison: drawingComparison, retrospective_benchmark: benchmark, comprehensive_benchmark: comprehensive }, null, 2);
       const link = document.createElement("a");
       link.href = URL.createObjectURL(new Blob([payload], { type: "application/json" }));
       link.download = "harrislab-trimmis-profile19-audit.json";
