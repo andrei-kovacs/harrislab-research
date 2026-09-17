@@ -187,40 +187,32 @@ class Stratigraphy:
         if limit < 1:
             raise ValueError("limit must be positive")
 
-        adjacency = self._adjacency()
-        indegree = {identifier: 0 for identifier in self.contexts}
-        for later_contexts in adjacency.values():
-            for later in later_contexts:
-                indegree[later] += 1
+        from functools import lru_cache
 
-        count = 0
-        truncated = False
+        identifiers = sorted(self.contexts)
+        index = {identifier: position for position, identifier in enumerate(identifiers)}
+        predecessors = [0] * len(identifiers)
+        for relation in self.relations:
+            predecessors[index[relation.later]] |= 1 << index[relation.earlier]
+        all_placed = (1 << len(identifiers)) - 1
+        cap = limit + 1
 
-        def count_from(current_indegree: dict[str, int], placed: int) -> None:
-            nonlocal count, truncated
-            if count >= limit:
-                truncated = True
-                return
-            if placed == len(self.contexts):
-                count += 1
-                return
+        @lru_cache(maxsize=None)
+        def count_from(placed: int) -> int:
+            if placed == all_placed:
+                return 1
+            total = 0
+            for position, required in enumerate(predecessors):
+                bit = 1 << position
+                if placed & bit or required & ~placed:
+                    continue
+                total += count_from(placed | bit)
+                if total >= cap:
+                    return cap
+            return total
 
-            available = sorted(
-                identifier
-                for identifier, degree in current_indegree.items()
-                if degree == 0
-            )
-            for identifier in available:
-                next_indegree = current_indegree.copy()
-                next_indegree[identifier] = -1
-                for later in adjacency[identifier]:
-                    next_indegree[later] -= 1
-                count_from(next_indegree, placed + 1)
-                if truncated:
-                    return
-
-        count_from(indegree, 0)
-        return count, truncated
+        count = count_from(0)
+        return (limit, True) if count > limit else (count, False)
 
     def _adjacency(self) -> dict[str, set[str]]:
         adjacency = {identifier: set() for identifier in self.contexts}

@@ -101,6 +101,14 @@ Before running against a qualified dataset, freeze:
 Report every eligible trial, including failures and truncations. Do not tune
 hiding patterns or seeds after observing comparative results.
 
+The comprehensive Trimmis design was frozen in
+[`trimmis_profile19_benchmark_preregistration.json`](../data/trimmis_profile19_benchmark_preregistration.json)
+and published at commit `d1b0045` before outcome generation. Its complete
+results, including all truncations and diagnostic warnings, are reported in
+[`TRIMMIS_COMPREHENSIVE_BENCHMARK.md`](TRIMMIS_COMPREHENSIVE_BENCHMARK.md).
+The primary exact comparison was inconclusive because only one of ten exact
+trials completed below the declared bound.
+
 ## Trimmis retrospective demonstration
 
 The first real-data run uses the corrected 26-context, 29-relation Trimmis

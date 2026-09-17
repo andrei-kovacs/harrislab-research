@@ -721,13 +721,15 @@ def _random_topological_order(graph: Stratigraphy, random: Random) -> list[str]:
         if relation.later not in adjacency[relation.earlier]:
             adjacency[relation.earlier].add(relation.later)
             indegree[relation.later] += 1
-    available = [identifier for identifier, degree in indegree.items() if degree == 0]
+    available = sorted(
+        identifier for identifier, degree in indegree.items() if degree == 0
+    )
     order: list[str] = []
     while available:
         index = random.randrange(len(available))
         identifier = available.pop(index)
         order.append(identifier)
-        for later in adjacency[identifier]:
+        for later in sorted(adjacency[identifier]):
             indegree[later] -= 1
             if indegree[later] == 0:
                 available.append(later)

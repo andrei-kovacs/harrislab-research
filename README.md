@@ -17,10 +17,10 @@ extraction as an auditable source snapshot. All novelty claims remain
 provisional pending a systematic literature review.
 
 > **Research status:** The Trimmis extraction passed independent source review
-> on 17 September 2026. A reproducible retrospective hidden-relation benchmark
-> now replaces the prototype's illustrative scores. It demonstrates software
-> behavior on one small held-out set, not archaeological importance or broad
-> method validity. HarrisLab is an independent personal
+> on 17 September 2026. A publicly preregistered benchmark now covers every
+> eligible direct relation in ten fixed trials. The exact primary analysis was
+> inconclusive because nine trials exceeded its bound; scalable strategies have
+> descriptive results only. HarrisLab is an independent personal
 > research project and is not affiliated with, sponsored by, or endorsed by
 > Microsoft or the source-data authors and institutions.
 
@@ -74,6 +74,12 @@ Reproduce that artifact:
 python scripts/benchmark_trimmis_profile19.py
 ```
 
+Reproduce the preregistered comprehensive benchmark:
+
+```powershell
+python scripts/benchmark_trimmis_profile19_comprehensive.py
+```
+
 Reproduce the qualification screen for the first approved pilot dataset:
 
 ```powershell
@@ -95,5 +101,6 @@ that graph requires a separate geometry-conversion and visual-audit step.
 - [Dataset qualification sprint](docs/DATASET_QUALIFICATION.md)
 - [Trimmis Profile 19 extraction audit](docs/TRIMMIS_PROFILE19_AUDIT.md)
 - [Hidden-relation benchmark protocol](docs/BENCHMARK_PROTOCOL.md)
+- [Comprehensive Trimmis benchmark results](docs/TRIMMIS_COMPREHENSIVE_BENCHMARK.md)
 - [Closure-gain surrogate calibration](docs/SURROGATE_CALIBRATION.md)
 - [Sampled-ranking disagreement analysis](docs/DISAGREEMENT_ANALYSIS.md)

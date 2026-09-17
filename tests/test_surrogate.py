@@ -1,3 +1,9 @@
+import json
+import os
+import subprocess
+import sys
+from pathlib import Path
+
 import unittest
 
 from harrislab import Context, Relation, RelationStatus, Stratigraphy
@@ -15,6 +21,39 @@ from harrislab.surrogate import (
 
 
 class ClosureSurrogateTests(unittest.TestCase):
+    def test_sampled_ranking_is_independent_of_python_hash_seed(self) -> None:
+        root = Path(__file__).resolve().parents[1]
+        code = """
+import json
+from harrislab.io import load_stratigraphy
+from harrislab.benchmark import RankingStrategy, run_hidden_relation_benchmark
+result = run_hidden_relation_benchmark(
+    load_stratigraphy('data/trimmis_profile19_reference.json'),
+    (('30', '241'), ('99', '102'), ('170', '156')),
+    RankingStrategy.SAMPLED_ORDERS,
+    seed=2026091701,
+    sample_count=20,
+    burn_in=20,
+    thinning=2,
+    chain_count=2,
+)
+print(json.dumps([(step.revealed_relation.earlier, step.revealed_relation.later, step.sampled_reduction_fraction) for step in result.steps]))
+"""
+        outputs = []
+        for hash_seed in ("1", "2"):
+            environment = os.environ.copy()
+            environment["PYTHONHASHSEED"] = hash_seed
+            outputs.append(
+                subprocess.check_output(
+                    [sys.executable, "-c", code],
+                    cwd=root,
+                    env=environment,
+                    text=True,
+                ).strip()
+            )
+
+        self.assertEqual(json.loads(outputs[0]), json.loads(outputs[1]))
+
     def test_bridge_candidate_ranks_above_redundant_candidate(self) -> None:
         graph = self._candidate_graph()
 

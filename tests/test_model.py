@@ -54,6 +54,14 @@ class StratigraphyTests(unittest.TestCase):
 
         self.assertEqual(graph.count_chronological_orders(), (2, False))
 
+    def test_order_count_distinguishes_exact_limit_from_truncation(self) -> None:
+        graph = Stratigraphy()
+        for identifier in ("100", "101", "102"):
+            graph.add_context(Context(identifier, f"Context {identifier}"))
+
+        self.assertEqual(graph.count_chronological_orders(limit=6), (6, False))
+        self.assertEqual(graph.count_chronological_orders(limit=5), (5, True))
+
     def test_rejects_relation_with_unknown_evidence(self) -> None:
         graph = Stratigraphy()
         graph.add_context(Context("100", "Natural subsoil"))

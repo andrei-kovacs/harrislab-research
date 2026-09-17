@@ -170,6 +170,10 @@
     .metric strong { display: block; font: 700 17px Georgia, "Times New Roman", serif; }
     .metric span { color: var(--muted); font-size: 9px; text-transform: uppercase; font-weight: 800; }
     .diagnostic { margin-top: 6px; color: #795119; font-size: 9px; }
+    .study-box { padding: 12px; margin-bottom: 16px; border: 1px solid #c9d9df; border-left: 3px solid var(--blue); background: #f1f7f8; font-size: 11px; line-height: 1.5; }
+    .study-box strong { font-family: Georgia, "Times New Roman", serif; font-size: 13px; }
+    .study-links { display: flex; gap: 12px; margin-top: 8px; }
+    .study-links a { color: #285c70; font-weight: 700; }
     .scenario-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; padding: 11px 0; border-bottom: 1px solid #edf0ee; }
     .scenario-row strong { font-size: 12px; }
     .scenario-row p { margin: 3px 0 0; color: var(--muted); font-size: 10px; line-height: 1.4; }
@@ -272,15 +276,17 @@
   <script>
     const graphUrl = "../data/trimmis_profile19_reference.json";
     const benchmarkUrl = "../data/trimmis_profile19_benchmark.json";
-    let graph, referenceDocument, benchmark, ranking = [];
+    const comprehensiveUrl = "../data/trimmis_profile19_comprehensive_benchmark.json";
+    let graph, referenceDocument, benchmark, comprehensive, ranking = [];
     let selectedId = "156", activeTab = "inspect", activeMode = "sequence";
     const nodePositions = new Map();
     const descriptions = new Map();
 
     async function init() {
-      [referenceDocument, benchmark] = await Promise.all([
+      [referenceDocument, benchmark, comprehensive] = await Promise.all([
         loadJson(graphUrl, "graph data"),
-        loadJson(benchmarkUrl, "benchmark results")
+        loadJson(benchmarkUrl, "benchmark results"),
+        loadJson(comprehensiveUrl, "comprehensive benchmark results")
       ]);
       graph = {
         nodes: referenceDocument.contexts.map(context => ({ ...context, description_de: context.label })),
@@ -455,8 +461,18 @@
       const exact = benchmark.runs.find(run => run.strategy === "impact");
       const lexical = benchmark.runs.find(run => run.strategy === "lexicographic");
       const sampledWarning = ranking.some(item => item.sampled.sampled_effective_sample_size < 400);
-      summary.innerHTML = `<div class="eyebrow">Computed benchmark</div><h2>Recovery queue</h2><p>Exact impact ranking for three previously declared held-out relations.</p>`;
+      const aggregate = comprehensive.aggregate;
+      const means = aggregate.mean_area_under_recovery_curve;
+      const secondary = aggregate.descriptive_secondary_comparisons;
+      summary.innerHTML = `<div class="eyebrow">Preregistered evaluation</div><h2>Recovery benchmark</h2><p>All 29 eligible relations evaluated across ten fixed trials.</p>`;
       content.innerHTML = `
+        <div class="metric-grid">
+          <div class="metric"><strong>${(means.closure_gain * 100).toFixed(1)}%</strong><span>Closure AURC</span></div>
+          <div class="metric"><strong>1 / 10</strong><span>Exact completed</span></div>
+          <div class="metric"><strong>+${(secondary.mean_paired_closure_minus_lexicographic * 100).toFixed(1)}</strong><span>Points vs lexical</span></div>
+        </div>
+        <div class="study-box"><strong>Primary result: inconclusive</strong><br>Exact enumeration reached its preregistered one-million-order bound in 9 of 10 trials. Closure gain descriptively exceeded both controls across all ten trials, but this single-graph result is not archaeological validation.<div class="diagnostic">Sampling warnings: ${aggregate.sampling_diagnostics.split_r_hat_above_1_05} of 29 selected steps had R-hat above 1.05; ${aggregate.sampling_diagnostics.effective_sample_size_below_400} had ESS below 400.</div><div class="study-links"><a href="TRIMMIS_COMPREHENSIVE_BENCHMARK.md">Read report</a><a href="../data/trimmis_profile19_benchmark_preregistration.json">Frozen design</a><a href="${comprehensiveUrl}">Full results</a></div></div>
+        <div class="field-label">Retrospective three-edge demonstration</div>
         <div class="metric-grid">
           <div class="metric"><strong>${(exact.area_under_recovery_curve * 100).toFixed(1)}%</strong><span>Exact AURC</span></div>
           <div class="metric"><strong>${exact.steps[0].recovered_implications}</strong><span>of ${exact.reference_implications} after 1</span></div>
@@ -528,7 +544,7 @@
     }
 
     function exportAudit() {
-      const payload = JSON.stringify({ reference: referenceDocument, benchmark }, null, 2);
+      const payload = JSON.stringify({ reference: referenceDocument, retrospective_benchmark: benchmark, comprehensive_benchmark: comprehensive }, null, 2);
       const link = document.createElement("a");
       link.href = URL.createObjectURL(new Blob([payload], { type: "application/json" }));
       link.download = "harrislab-trimmis-profile19-audit.json";
