@@ -1,0 +1,88 @@
+{
+  "schema": "harrislab.benchmark-preregistration.v1",
+  "experiment_id": "trimmis-profile19-comprehensive-v1",
+  "status": "frozen-before-outcome-generation",
+  "frozen_at": "2026-09-17",
+  "reference": {
+    "path": "trimmis_profile19_reference.json",
+    "sha256": "4ccd723d9c53a96524b22bf8fa607df59607b1ed3a5467cde2fdf7e73737216a",
+    "context_count": 26,
+    "direct_relation_count": 29
+  },
+  "scope": {
+    "eligibility": "Every unique direct relation with observed status and at least one evidence identifier in the frozen reference.",
+    "eligible_relation_count": 29,
+    "assignment": "Sort eligible endpoint pairs by SHA-256 of '<reference_sha256>:<earlier>-><later>', then partition sequentially into groups of three; retain the final remainder.",
+    "coverage": "Each eligible relation appears in exactly one trial."
+  },
+  "outcomes": {
+    "primary": "Paired difference in AURC between exact impact ranking and each control across trials where exact enumeration completes.",
+    "secondary": [
+      "Exact, closure-gain, and sampled-order top-choice agreement",
+      "Closure recall after each reveal",
+      "Exact order reduction and remaining chronological-order count",
+      "Sampled split R-hat, effective sample size, and chain top-choice consensus"
+    ],
+    "interpretation_limit": "Results measure recovery of held-out reference implications, not archaeological importance, correctness probability, or fieldwork value."
+  },
+  "settings": {
+    "strategies": [
+      "impact",
+      "closure_gain",
+      "sampled_orders",
+      "lexicographic",
+      "random"
+    ],
+    "order_limit": 1000000,
+    "exact_truncation_policy": "Record the trial as truncated and exclude it only from comparisons requiring exact AURC; retain all other strategy outcomes.",
+    "sample_count_per_chain": 2000,
+    "burn_in": 2000,
+    "thinning": 10,
+    "chain_count": 4,
+    "sampled_seed_rule": "2026091700 + one-based trial number",
+    "random_repetitions_per_trial": 20,
+    "random_seed_rule": "202609170000 + 100 * one-based trial number + zero-based repetition number"
+  },
+  "trials": [
+    {
+      "id": "T01",
+      "hidden_edges": [["30", "241"], ["99", "102"], ["170", "156"]]
+    },
+    {
+      "id": "T02",
+      "hidden_edges": [["30", "155"], ["156", "150"], ["156", "267"]]
+    },
+    {
+      "id": "T03",
+      "hidden_edges": [["3", "164"], ["155", "3"], ["199", "170"]]
+    },
+    {
+      "id": "T04",
+      "hidden_edges": [["153", "30"], ["228", "99"], ["222", "228"]]
+    },
+    {
+      "id": "T05",
+      "hidden_edges": [["102", "104"], ["150", "153"], ["165", "98"]]
+    },
+    {
+      "id": "T06",
+      "hidden_edges": [["240", "26"], ["223", "222"], ["50", "30"]]
+    },
+    {
+      "id": "T07",
+      "hidden_edges": [["267", "153"], ["224", "223"], ["26", "199"]]
+    },
+    {
+      "id": "T08",
+      "hidden_edges": [["241", "3"], ["150", "50"], ["98", "224"]]
+    },
+    {
+      "id": "T09",
+      "hidden_edges": [["23", "235"], ["164", "165"], ["22", "23"]]
+    },
+    {
+      "id": "T10",
+      "hidden_edges": [["235", "26"], ["23", "240"]]
+    }
+  ]
+}
