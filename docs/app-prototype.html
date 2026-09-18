@@ -310,21 +310,23 @@
     const comprehensiveUrl = "../data/trimmis_profile19_comprehensive_benchmark.json";
     const drawingComparisonUrl = "../data/trimmis_profile19_drawing_comparison.json";
     const drawingReviewTemplateUrl = "../data/trimmis_profile19_drawing_review_template.json";
+    const aiDrawingScreenUrl = "../data/trimmis_profile19_ai_drawing_screen.json";
     const drawingReviewChecklistUrl = "trimmis_profile19_drawing_review_checklist.csv";
     const textProposalsUrl = "../data/trimmis_profile19_text_relation_proposals.json";
     const formationBenchmarkUrl = "../data/formation_process_benchmark.json";
-    let graph, referenceDocument, benchmark, comprehensive, drawingComparison, drawingReviewTemplate, textProposals, formationBenchmark, ranking = [];
+    let graph, referenceDocument, benchmark, comprehensive, drawingComparison, drawingReviewTemplate, aiDrawingScreen, textProposals, formationBenchmark, ranking = [];
     let selectedId = "156", activeTab = "inspect", activeMode = "sequence";
     const nodePositions = new Map();
     const descriptions = new Map();
 
     async function init() {
-      [referenceDocument, benchmark, comprehensive, drawingComparison, drawingReviewTemplate, textProposals, formationBenchmark] = await Promise.all([
+      [referenceDocument, benchmark, comprehensive, drawingComparison, drawingReviewTemplate, aiDrawingScreen, textProposals, formationBenchmark] = await Promise.all([
         loadJson(graphUrl, "graph data"),
         loadJson(benchmarkUrl, "benchmark results"),
         loadJson(comprehensiveUrl, "comprehensive benchmark results"),
         loadJson(drawingComparisonUrl, "drawing comparison"),
         loadJson(drawingReviewTemplateUrl, "drawing review template"),
+        loadJson(aiDrawingScreenUrl, "AI drawing screen"),
         loadJson(textProposalsUrl, "text proposals"),
         loadJson(formationBenchmarkUrl, "formation benchmark")
       ]);
@@ -554,6 +556,7 @@
         </div>
         <figure class="profile-figure"><img src="trimmis_profile19_source_profile.png" alt="Published east profile P19 with labeled stratigraphic contexts"><figcaption>Published P19 source crop · CC BY 3.0 · DOI 10.5281/zenodo.4461075</figcaption></figure>
         <div class="study-box"><strong>Evidence review, not graph approval</strong><br>The PDF does not distinguish boundaries, cuts, fills, and label leaders semantically. A completed review classifies drawing evidence only. It cannot add, remove, or promote a chronological relation.</div>
+        <div class="source-box" style="margin-bottom:14px"><strong>AI-assisted screen · non-authoritative</strong><br>${aiDrawingScreen.summary.visually_consistent} relations appear visually consistent, ${aiDrawingScreen.summary.indeterminate} are indeterminate, and ${aiDrawingScreen.summary.visibly_contradicted} are visibly contradicted. All ${pending.length} remain formally pending qualified review.<div class="study-links"><a href="TRIMMIS_AI_DRAWING_SCREEN.md">Read limitations</a><a href="${aiDrawingScreenUrl}">Screen JSON</a></div></div>
         <div class="review-actions">
           <a class="review-action primary" href="${drawingReviewChecklistUrl}" download><i data-lucide="download"></i>Checklist CSV</a>
           <a class="review-action" href="DRAWING_REVIEW_WORKFLOW.md"><i data-lucide="book-open"></i>Review protocol</a>
@@ -661,7 +664,7 @@
     }
 
     function exportAudit() {
-      const payload = JSON.stringify({ reference: referenceDocument, text_relation_proposals: textProposals, drawing_comparison: drawingComparison, formation_process_benchmark: formationBenchmark, retrospective_benchmark: benchmark, comprehensive_benchmark: comprehensive }, null, 2);
+      const payload = JSON.stringify({ reference: referenceDocument, text_relation_proposals: textProposals, drawing_comparison: drawingComparison, ai_drawing_screen: aiDrawingScreen, formation_process_benchmark: formationBenchmark, retrospective_benchmark: benchmark, comprehensive_benchmark: comprehensive }, null, 2);
       const link = document.createElement("a");
       link.href = URL.createObjectURL(new Blob([payload], { type: "application/json" }));
       link.download = "harrislab-trimmis-profile19-audit.json";

@@ -52,6 +52,7 @@ provisional pending a systematic literature review.
 - Benchmark hidden-relation recovery against deterministic and seeded controls.
 - Compare matrix and source-drawing provenance without auto-accepting inferred edges.
 - Validate hash-bound archaeological drawing reviews without mutating the accepted graph.
+- Preserve AI-assisted drawing observations as non-authoritative screening evidence.
 - Surface literal catalogue relation mentions as review-only proposals.
 - Preregister synthetic formation-process comparisons against matched controls.
 - Load a reproducible JSON dataset and emit a command-line audit report.
@@ -131,6 +132,7 @@ never mutates the accepted chronology.
 - [Trimmis Profile 19 extraction audit](docs/TRIMMIS_PROFILE19_AUDIT.md)
 - [Trimmis Profile 19 drawing comparison](docs/TRIMMIS_DRAWING_COMPARISON.md)
 - [Trimmis Profile 19 drawing-review workflow](docs/DRAWING_REVIEW_WORKFLOW.md)
+- [Trimmis Profile 19 AI-assisted drawing screen](docs/TRIMMIS_AI_DRAWING_SCREEN.md)
 - [Trimmis Profile 19 text-extraction pilot](docs/TRIMMIS_TEXT_EXTRACTION_PILOT.md)
 - [Synthetic formation-process benchmark preregistration](docs/FORMATION_PROCESS_PREREGISTRATION.md)
 - [Synthetic formation-process benchmark result](docs/FORMATION_PROCESS_BENCHMARK.md)

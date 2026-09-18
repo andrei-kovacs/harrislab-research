@@ -1,0 +1,61 @@
+{
+  "schema": "harrislab.ai-drawing-screen.v1",
+  "title": "Trimmis Profile 19 AI-assisted drawing screen",
+  "screened_at": "2026-09-18",
+  "source": {
+    "doi": "10.5281/zenodo.4461075",
+    "file": "P19.pdf",
+    "md5": "53ccf16a523e986ead69a30fc3f8dc24",
+    "license": "CC-BY-3.0"
+  },
+  "drawing_comparison_sha256": "27f43aaefbfa9176a78161349b3d73252bbb9e2ee45d5f926107174bbcc6d3cc",
+  "method": {
+    "reviewer_type": "multimodal_ai_assistant",
+    "scope": "Visual screen of labeled contacts and relative placement in the published P19 drawing.",
+    "decision_rule": "Mark visually_consistent only when the labeled units and their contact or relative stratigraphic placement are visible without resolving ambiguous drawing semantics. Otherwise mark indeterminate.",
+    "limitations": [
+      "This is not a qualified archaeological review.",
+      "The drawing does not machine-encode cuts, fills, boundaries, or label leaders.",
+      "Color and vertical placement alone are not treated as proof of chronology.",
+      "The screen cannot accept, reject, add, remove, or promote graph relations."
+    ]
+  },
+  "summary": {
+    "relations_screened": 27,
+    "visually_consistent": 23,
+    "indeterminate": 4,
+    "visibly_contradicted": 0,
+    "accepted_graph_mutations": 0
+  },
+  "relation_screens": [
+    {"earlier": "102", "later": "104", "result": "visually_consistent", "basis": "Adjacent labeled upper green deposits are visible in the left and right portions."},
+    {"earlier": "150", "later": "153", "result": "indeterminate", "basis": "The labels occur in laterally separated parts of the profile and a direct contact cannot be isolated confidently."},
+    {"earlier": "150", "later": "50", "result": "visually_consistent", "basis": "The labeled cyan deposit 150 lies directly beneath red deposit 50 on the left."},
+    {"earlier": "153", "later": "30", "result": "visually_consistent", "basis": "The labeled red deposit 153 is directly beneath pink deposit 30 on the right."},
+    {"earlier": "155", "later": "3", "result": "indeterminate", "basis": "Context 3 is associated with the central interruption, and its semantic relationship to 155 cannot be established from linework alone."},
+    {"earlier": "156", "later": "150", "result": "visually_consistent", "basis": "Yellow deposit 156 is directly beneath cyan deposit 150 on the left."},
+    {"earlier": "156", "later": "267", "result": "visually_consistent", "basis": "Yellow deposit 156 is directly beneath cyan deposit 267 on the right."},
+    {"earlier": "164", "later": "165", "result": "visually_consistent", "basis": "The thin pale deposit 164 is directly beneath green deposit 165 on the left."},
+    {"earlier": "165", "later": "98", "result": "visually_consistent", "basis": "The labeled lower green deposit 165 is beneath and contacts the overlying green sequence containing 98."},
+    {"earlier": "170", "later": "156", "result": "visually_consistent", "basis": "The two labeled yellow deposits are vertically adjacent, with 170 below 156."},
+    {"earlier": "22", "later": "23", "result": "visually_consistent", "basis": "The labeled grey deposit 22 lies directly beneath grey deposit 23 on the left."},
+    {"earlier": "222", "later": "228", "result": "visually_consistent", "basis": "The labeled upper green deposits occupy adjacent positions in the right-hand sequence."},
+    {"earlier": "223", "later": "222", "result": "visually_consistent", "basis": "The labeled green deposit 223 lies beneath the deposit labeled 222."},
+    {"earlier": "224", "later": "223", "result": "visually_consistent", "basis": "The labeled green deposit 224 lies directly beneath 223."},
+    {"earlier": "228", "later": "99", "result": "visually_consistent", "basis": "The labeled green deposit 228 lies beneath 99 in the upper right sequence."},
+    {"earlier": "23", "later": "235", "result": "visually_consistent", "basis": "Brown feature 235 is visibly set above or into the grey sequence containing 23."},
+    {"earlier": "23", "later": "240", "result": "visually_consistent", "basis": "Brown feature 240 is visibly set above or into the grey sequence containing 23."},
+    {"earlier": "235", "later": "26", "result": "visually_consistent", "basis": "Feature 235 is below and in contact with the grey deposit labeled 26 on the right."},
+    {"earlier": "240", "later": "26", "result": "visually_consistent", "basis": "Feature 240 is below and in contact with the grey deposit labeled 26 on the left."},
+    {"earlier": "241", "later": "3", "result": "indeterminate", "basis": "The lateral separation and central interruption prevent a confident drawing-only assessment."},
+    {"earlier": "267", "later": "153", "result": "visually_consistent", "basis": "Cyan deposit 267 directly underlies red deposit 153 on the right."},
+    {"earlier": "3", "later": "164", "result": "indeterminate", "basis": "The central interruption and label-leader geometry do not establish the contact semantics confidently."},
+    {"earlier": "30", "later": "155", "result": "visually_consistent", "basis": "Deposit 155 occupies a bounded contact against deposit 30 on the right."},
+    {"earlier": "30", "later": "241", "result": "visually_consistent", "basis": "Feature 241 visibly occupies a bounded contact within the area labeled 30 on the left."},
+    {"earlier": "50", "later": "30", "result": "visually_consistent", "basis": "Red deposit 50 lies directly beneath pink deposit 30 on the left."},
+    {"earlier": "98", "later": "224", "result": "visually_consistent", "basis": "The broad green deposit labeled 98 lies beneath the upper green deposit 224."},
+    {"earlier": "99", "later": "102", "result": "visually_consistent", "basis": "The labeled green deposit 99 lies directly beneath 102 in the upper sequence."}
+  ],
+  "accepted_graph_mutations": [],
+  "interpretation_limit": "These observations are an AI-assisted visual screen only. The 27 relations retain awaiting_drawing_review status until reviewed by a qualified person other than the already-contacted source author."
+}
