@@ -10,8 +10,9 @@ first principle is that software and AI proposals must remain distinguishable
 from observations made by archaeologists.
 
 This repository is a research seed, not a field-ready recording system. It
-contains a synthetic software-validation dataset and an independently reviewed
-Trimmis Profile 19 reference graph. The active reference incorporates a
+contains a synthetic software-validation dataset, an independently reviewed
+Trimmis Profile 19 reference graph, and a direct relation-table reference from
+ADS Harp Inn. The active Trimmis reference incorporates a
 source-author correction for context 199 while retaining the original matrix
 extraction as an auditable source snapshot. All novelty claims remain
 provisional pending a systematic literature review.
@@ -20,7 +21,10 @@ provisional pending a systematic literature review.
 > on 17 September 2026. A publicly preregistered benchmark now covers every
 > eligible direct relation in ten fixed trials. The exact primary analysis was
 > inconclusive because nine trials exceeded its bound; scalable strategies have
-> descriptive results only. HarrisLab is an independent personal
+> descriptive results only. A locally frozen cross-dataset validation now
+> covers all 26 Harp Inn precedence edges in nine trials. Exact impact
+> truncated throughout; closure gain led the descriptive scalable controls.
+> HarrisLab is an independent personal
 > research project and is not affiliated with, sponsored by, or endorsed by
 > Microsoft or the source-data authors and institutions.
 
@@ -101,6 +105,13 @@ python scripts/benchmark_trimmis_profile19_comprehensive.py
 python scripts/benchmark_formation_process.py
 ```
 
+Reproduce the locally frozen ADS Harp Inn cross-dataset validation:
+
+```powershell
+python scripts/qualify_harp_inn.py .local-data/harp-inn-source
+python scripts/benchmark_harp_inn_group1.py
+```
+
 Reproduce the qualification screen for the first approved pilot dataset:
 
 ```powershell
@@ -126,7 +137,7 @@ Validation is bound to the comparison SHA-256 and fails on missing, duplicate,
 unknown, or pending decisions. Its output classifies drawing evidence only and
 never mutates the accepted chronology.
 
-Reproduce the complete 0.2.0 artifact chain and run the release gate:
+Reproduce the complete 0.3.0 artifact chain and run the release gate:
 
 ```powershell
 python scripts/validate_release.py
@@ -153,8 +164,10 @@ component hashes, source identity, and authority boundaries.
 - [Synthetic formation-process benchmark result](docs/FORMATION_PROCESS_BENCHMARK.md)
 - [Hidden-relation benchmark protocol](docs/BENCHMARK_PROTOCOL.md)
 - [Comprehensive Trimmis benchmark results](docs/TRIMMIS_COMPREHENSIVE_BENCHMARK.md)
+- [ADS Harp Inn cross-dataset benchmark](docs/HARP_INN_BENCHMARK.md)
 - [Closure-gain surrogate calibration](docs/SURROGATE_CALIBRATION.md)
 - [Exact-impact and scalable-ranking limits](docs/EXACT_IMPACT_LIMITATIONS.md)
 - [Sampled-ranking disagreement analysis](docs/DISAGREEMENT_ANALYSIS.md)
 - [Version 0.1.0 research-seed release notes](docs/RELEASE_NOTES_0.1.0.md)
 - [Version 0.2.0 provenance release notes](docs/RELEASE_NOTES_0.2.0.md)
+- [Version 0.3.0 cross-dataset release notes](docs/RELEASE_NOTES_0.3.0.md)

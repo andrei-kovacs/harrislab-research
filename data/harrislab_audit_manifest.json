@@ -1,6 +1,6 @@
 {
   "schema": "harrislab.audit-provenance.v1",
-  "release_version": "0.2.0",
+  "release_version": "0.3.0",
   "direction_convention": "earlier -> later",
   "text_canonicalization": "JSON CRLF and CR are normalized to LF before hashing and byte counting.",
   "components": [
@@ -45,6 +45,24 @@
       "path": "data/trimmis_profile19_comprehensive_benchmark.json",
       "sha256": "2f421a43752c62f43be72e95d6f1e497efd04d28eda8a3dc38d2b76aa5dacc33",
       "bytes": 137387
+    },
+    {
+      "key": "harp_inn_reference",
+      "path": "data/harp_inn_group1_reference.json",
+      "sha256": "c1e92b7792aed2924496037892c7c4dd94b047785d88a6c3a5d8f0ef3b579994",
+      "bytes": 26321
+    },
+    {
+      "key": "harp_inn_benchmark_design",
+      "path": "data/harp_inn_group1_benchmark_design.json",
+      "sha256": "20b73c19961f053c9eb70fab41250fd060adb707a9589631d33c8d84dfa8c52b",
+      "bytes": 2885
+    },
+    {
+      "key": "harp_inn_benchmark",
+      "path": "data/harp_inn_group1_benchmark.json",
+      "sha256": "bb156ead369e81f7d25fc8de3155add18aa652ecc1c6516983dc46d24aec51de",
+      "bytes": 124652
     }
   ],
   "external_sources": [
@@ -56,11 +74,23 @@
         "value": "53ccf16a523e986ead69a30fc3f8dc24"
       },
       "license": "CC-BY-3.0"
+    },
+    {
+      "record": "https://doi.org/10.5284/1133013",
+      "file": "1C20HINAR_harris_matrix_phase_1_phase_2.csv",
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "d754dfb14250dc66b2741c4d65d6cb08ef376775e4903bdbdc4554d00a948467"
+      },
+      "license": "Open Government Licence"
     }
   ],
   "authority": {
     "ai_drawing_screen": "non_authoritative",
     "drawing_review_status": "27_relations_pending_qualified_review",
-    "accepted_graph_mutations_from_ai_screen": 0
+    "accepted_graph_mutations_from_ai_screen": 0,
+    "harp_inn_precedence_source": "explicit_ADS_ABOVE_or_LATER_records_only",
+    "harp_inn_contemporary_status": "typed_non_precedence",
+    "accepted_harp_inn_graph_mutations_from_ai": 0
   }
 }

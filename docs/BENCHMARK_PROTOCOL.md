@@ -1,8 +1,8 @@
 # Hidden-Relation Benchmark Protocol
 
-Status on 2026-09-17: implemented, validated on synthetic software fixtures,
-and run as a transparent retrospective demonstration on the independently
-reviewed Trimmis Profile 19 reference.
+Status on 2026-09-18: implemented, validated on synthetic software fixtures,
+run on the independently reviewed Trimmis Profile 19 reference, and validated
+against the direct-relation ADS Harp Inn reference.
 
 ## Question
 
@@ -108,6 +108,15 @@ results, including all truncations and diagnostic warnings, are reported in
 [`TRIMMIS_COMPREHENSIVE_BENCHMARK.md`](TRIMMIS_COMPREHENSIVE_BENCHMARK.md).
 The primary exact comparison was inconclusive because only one of ten exact
 trials completed below the declared bound.
+
+The second-dataset Harp Inn design was frozen locally before execution, but was
+not publicly preregistered. It covers all 26 eligible evidenced precedence
+edges once across nine deterministic trials. Exact impact truncated in every
+trial at the unchanged 100,000-order limit. Closure gain achieved mean AURC
+0.9179, versus 0.8887 lexicographic and 0.8919 across repeated random controls.
+Sampled orders achieved 0.8997, but 15 of 26 selected steps exceeded the split
+$\hat R$ warning threshold. Full results and authority limits are in
+[`HARP_INN_BENCHMARK.md`](HARP_INN_BENCHMARK.md).
 
 ## Trimmis retrospective demonstration
 

@@ -1,7 +1,8 @@
 # Sprint 1 Source Register
 
-Searches in this register were run on 2026-09-02. This is a reproducible rapid
-screen, not a systematic review. `Metadata` means that bibliographic metadata
+Searches in this register began on 2026-09-02 and were extended through
+2026-09-18. This is a reproducible rapid screen, not a systematic review.
+`Metadata` means that bibliographic metadata
 and an abstract or indexed summary were inspected. `Full text` means that an
 open article page or PDF was available for inspection. An absence in a
 metadata screen is not evidence that a capability is absent from the full work.
@@ -15,6 +16,11 @@ metadata screen is not evidence that a capability is absent from the full work.
 | OpenAlex | `archaeological stratigraphy uncertainty graph` | First 20 relevance-ranked records | Uncertainty and chronological context; search precision was low |
 | OpenAlex | `archaeological knowledge graph excavation CRMarchaeo` | First 20 of 53 records | Semantic models, ARIADNE, CRMarchaeo, and excavation-data roadmaps |
 | OpenAlex | `archaeological excavation open dataset contexts stratigraphy` | First 20 relevance-ranked records | Candidate case studies and data sources; search precision was low |
+| Zenodo API | `"Harris matrix" AND resource_type.type:dataset` | All seven matching dataset records returned on 2026-09-02 | Identified three CC BY 4.0 Ulm-Eggingen graph deposits and excluded archaeogaming datasets |
+| GitHub CLI | `hmdp archaeology stratigraphy`; `Harris matrix archaeology`; `archaeological stratigraphy dataset` | Exact repository searches on 2026-09-02 | No archaeological HMDP or Harris dataset repository found; broader HMDP results were unrelated software |
+| S15 backward citation trace | Crossref references for DOI `10.1007/s41982-023-00155-x` | All DOI-bearing references, followed through Zenodo API and the linked versioned GitHub tree | Identified and rejected Virtual Poeymau v0.3 as spatial software without deposited context relations or a reproducible data loader |
+| Cambridge repository artifact inspection | Catalhoyuk Appendix A matrices | Workbook cells, merged ranges, timestep labels, prose, and embedded connector images | Rejected direct edge import; the apparent 960 assertions were keyword matches in prose, not relation records |
+| Archaeology Data Service | Harris Matrix CSV | Collection metadata, rights, category download pages, and six deposited Harris CSVs | Identified Harp Inn collection 1005042 and qualified a checksum-bound 36-context Group 1 component |
 
 The screen used stable identifiers to merge obvious duplicates. It did not
 cover Scopus, Web of Science, JSTOR, dissertations, patents, or non-English
@@ -45,6 +51,9 @@ literature. Forward and backward citation chaining remains outstanding.
 | S19 | Harris Matrix Composer, [project site](https://www.harrismatrixcomposer.com/) | Project page only | Existing matrix-construction software; detailed capability verification is still required. |
 | S20 | OxCal, [official project site](https://c14.arch.ox.ac.uk/oxcal.html) | Official project page | Established Bayesian chronological modelling; prevents overclaiming graph order as chronological inference. |
 | S21 | Johannes Reich, "Die spaeteisenzeitliche Siedlung von Trimmis GR im Alpenrheintal - Ergaenzende Daten" (2021), [DOI](https://doi.org/10.5281/zenodo.4461075) | Dataset landing page, API metadata, XLSX catalog, and vector Harris matrix inspected; published MD5 checksums reproduced | First candidate with an explicit data licence, stable context catalog, deposited source profiles, and an expert reference matrix. |
+| S22 | Eva Rosenstock, supplementary data to Figures 7-9 of *Linear Pottery and Harris* (2022), [Figure 7](https://doi.org/10.5281/zenodo.4744471), [Figure 8](https://doi.org/10.5281/zenodo.5534232), and [Figure 9](https://doi.org/10.5281/zenodo.5534261) | Dataset landing pages, API metadata, and all deposited CSV and GraphML files inspected | CC BY 4.0 expert models with explicit direct superpositions, but incomplete context descriptions and no 20-context connected direct-relation component. |
+| S23 | Sebastien Plutniak, "Virtual Poeymau" v0.3 (2022), [version DOI](https://doi.org/10.5281/zenodo.7391905) | Zenodo API metadata, archive checksum, complete Git tree at `v0.3`, and all six tagged source files inspected | Spatial exploration software cited by S15; rejected as a benchmark because the archaeological table and preprocessing file are absent, data rights are not explicit, and no direct context relations or reference graph are deposited. |
+| S24 | High Speed Two Ltd. and Connect Archaeology, "Data from Archaeological Recording Work at Harp Inn" (2025), [DOI](https://doi.org/10.5284/1133013) | ADS collection 1005042 metadata, version 1 rights statement, citation, category downloads, and checksum-frozen Harris CSV inspected | Open Government Licence source with stable context records and explicit `ABOVE`, `LATER`, and `CONTEMPORARY` relations. A deterministic import yields 36 contexts, 26 precedence relations, and 10 typed non-precedence relations. |
 
 ## Candidate evaluation data
 
@@ -55,10 +64,16 @@ literature. Forward and backward citation chaining remains outstanding.
 | ARIADNE catalogue excavation collections | S11, S13, and S16 establish discovery infrastructure and modelling work. | **HOLD:** identify a specific catalogue record containing licensed context-level data, explicit stratigraphic relations, and a reference interpretation. |
 | Published Post-excavation Stratigraphy cases | S15 provides a strong methodological comparator between field and revised units. | Verify whether machine-readable unit and relation tables are deposited under a reusable license. |
 | Trimmis late Iron Age settlement supplementary data | S21 is a CC BY 3.0 Zenodo dataset with a 308-row position catalog, deposited profile drawings, and a vector synoptic Harris matrix. | **APPROVED FOR PILOT EXTRACTION:** use a profile-bounded subset; visually audit the geometry-derived edge list before benchmarking. |
+| Ulm-Eggingen Linear Pottery models | S22 provides three CC BY 4.0, DOI-stable expert graphs. The uncollapsed files contain 107 deposits and 36 direct deposit superpositions, but only 60 deposit descriptions; the largest direct-relation component has six deposits. | **HOLD:** useful for typed-relation import tests, but do not use phase, spatial, yard-model, or ceramic edges to manufacture a connected benchmark. |
+| Virtual Poeymau | S23 is DOI-stable AGPL-3.0 application code for exploring about 15,000 museum-derived object records. The fixed artifact omits its data preprocessing dependency and data, has no explicit data licence, and exposes no context-relation table or reference graph. | **REJECT AS BENCHMARK:** retain as a methodological spatial-visualisation source; do not infer direct relations from its hard-coded layer display order or modelled surfaces. |
+| Cambridge Catalhoyuk Appendix A matrices | The inspected XLSX matrices use merged cells, timestep labels, and embedded connector images. Prose keyword matching produced an invalid apparent count of 960 assertions. | **REJECT FOR DIRECT-RELATION IMPORT:** worksheet geometry is not an explicit edge table and requires a separate reviewed extraction workflow. |
+| ADS Harp Inn | S24 is DOI-stable version 1 data under the Open Government Licence. The frozen Group 1 CSV component has 36 contexts, 26 evidenced precedence edges, and 10 explicit contemporary links. | **APPROVED:** import only explicit `ABOVE` and `LATER` records as precedence. Preserve `CONTEMPORARY` as typed non-precedence evidence and exclude sentinels, hierarchy, phase, layer, and coordinates from manufactured connectivity. |
 | HarrisLab synthetic building | Repository-owned and deterministic. | Retain only for software validation; never use it as evidence for archaeological performance. |
 
-Trimmis is approved for pilot extraction. No extracted real-data graph is yet
-approved for performance claims. The acceptance gate is: stable identifier,
+Trimmis and ADS Harp Inn now provide two independently sourced real-data
+references. Harp Inn is the first direct relation-table import; its benchmark
+results remain descriptive validation rather than archaeological-performance
+proof. The acceptance gate is: stable identifier,
 explicit license, context identifiers, relation ground truth or expert-reviewed
 reference interpretation, and sufficient provenance to score reconstruction.
 The full gate definitions and evidence audit are in

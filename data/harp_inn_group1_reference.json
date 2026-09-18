@@ -1,0 +1,845 @@
+{
+  "schema": "harrislab.reference.v1",
+  "dataset": {
+    "title": "Data from Archaeological Recording Work at Harp Inn",
+    "doi": "10.5284/1133013",
+    "version": "1",
+    "license": "Open Government Licence",
+    "source_file": "1C20HINAR_harris_matrix_phase_1_phase_2.csv",
+    "source_url": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-5042-1/dissemination/1C20HINAR_Harris_Matrix_CSVs/1C20HINAR_harris_matrix_phase_1_phase_2.csv",
+    "source_sha256": "d754dfb14250dc66b2741c4d65d6cb08ef376775e4903bdbdc4554d00a948467",
+    "selection": "Largest 20-100-context component in Group 1 connected by explicit ABOVE, LATER, or CONTEMPORARY relations",
+    "direction_mapping": "ABOVE/LATER(source,target) -> target earlier, source later",
+    "excluded_from_connectivity": [
+      "1000",
+      "1001",
+      "G",
+      "T",
+      "U",
+      "Matrix*",
+      "hierarchy",
+      "layer"
+    ]
+  },
+  "qualification": {
+    "context_count": 36,
+    "precedence_relation_count": 26,
+    "contemporary_relation_count": 10,
+    "node_records_sha256": "560782b7d88d23d0f5cca72539cf28bf6815f1c04b5d46a0e9f3f99c79910394",
+    "precedence_edges_sha256": "44a59ec95109b06157ebfeda7f08dbfa5400dcb823f9397d3c0983a3de4edb1b",
+    "contemporary_edges_sha256": "7a1fc51fce2d944f5dc23c7b27087b920c8b2109e3fb90abdae8ee897fdf5524",
+    "precedence_is_dag": true
+  },
+  "contexts": [
+    {
+      "id": "1003",
+      "label": "Cut of Ditch: Feature relation [1003]",
+      "source_type": "SURFACE",
+      "source_name": "Cut of Ditch",
+      "source_description": "Feature relation [1003]",
+      "source_record": 143
+    },
+    {
+      "id": "1004",
+      "label": "Fill of Ditch: Spot date: Mid- Iron Age",
+      "source_type": "DEPOSIT",
+      "source_name": "Fill of Ditch",
+      "source_description": "Spot date: Mid- Iron Age",
+      "source_record": 142
+    },
+    {
+      "id": "1009",
+      "label": "Cut of ditch: Feature relation [1003]",
+      "source_type": "SURFACE",
+      "source_name": "Cut of ditch",
+      "source_description": "Feature relation [1003]",
+      "source_record": 152
+    },
+    {
+      "id": "1010",
+      "label": "Fill of pit: Spot date: Iron Age",
+      "source_type": "DEPOSIT",
+      "source_name": "Fill of pit",
+      "source_description": "Spot date: Iron Age",
+      "source_record": 147
+    },
+    {
+      "id": "1011",
+      "label": "Cut of ditch ]: Feature relation [1003]",
+      "source_type": "SURFACE",
+      "source_name": "Cut of ditch ]",
+      "source_description": "Feature relation [1003]",
+      "source_record": 155
+    },
+    {
+      "id": "1012",
+      "label": "Fill of Ditch: Spot date: Iron Age",
+      "source_type": "DEPOSIT",
+      "source_name": "Fill of Ditch",
+      "source_description": "Spot date: Iron Age",
+      "source_record": 156
+    },
+    {
+      "id": "1013",
+      "label": "Fill of ditch",
+      "source_type": "DEPOSIT",
+      "source_name": "Fill of ditch",
+      "source_description": "",
+      "source_record": 148
+    },
+    {
+      "id": "1014",
+      "label": "Cut of pit",
+      "source_type": "SURFACE",
+      "source_name": "Cut of pit",
+      "source_description": "",
+      "source_record": 149
+    },
+    {
+      "id": "1015",
+      "label": "Cut of pit",
+      "source_type": "SURFACE",
+      "source_name": "Cut of pit",
+      "source_description": "",
+      "source_record": 153
+    },
+    {
+      "id": "1016",
+      "label": "Fill of pit",
+      "source_type": "DEPOSIT",
+      "source_name": "Fill of pit",
+      "source_description": "",
+      "source_record": 154
+    },
+    {
+      "id": "1017",
+      "label": "Cut of sinkhole",
+      "source_type": "SURFACE",
+      "source_name": "Cut of sinkhole",
+      "source_description": "",
+      "source_record": 150
+    },
+    {
+      "id": "1018",
+      "label": "Fill of sinkhole",
+      "source_type": "DEPOSIT",
+      "source_name": "Fill of sinkhole",
+      "source_description": "",
+      "source_record": 151
+    },
+    {
+      "id": "1019",
+      "label": "Cut of ditch: Feature relation [1003]",
+      "source_type": "SURFACE",
+      "source_name": "Cut of ditch",
+      "source_description": "Feature relation [1003]",
+      "source_record": 157
+    },
+    {
+      "id": "1020",
+      "label": "Fill of ditch: Spot date: Middle Iron Age",
+      "source_type": "DEPOSIT",
+      "source_name": "Fill of ditch",
+      "source_description": "Spot date: Middle Iron Age",
+      "source_record": 158
+    },
+    {
+      "id": "1040",
+      "label": "Cut of ditch: Feature relation [1003]",
+      "source_type": "SURFACE",
+      "source_name": "Cut of ditch",
+      "source_description": "Feature relation [1003]",
+      "source_record": 159
+    },
+    {
+      "id": "1041",
+      "label": "Cut of gully: Feature relation",
+      "source_type": "SURFACE",
+      "source_name": "Cut of gully",
+      "source_description": "Feature relation",
+      "source_record": 163
+    },
+    {
+      "id": "1046",
+      "label": "Cut of ditch terminus: Feature relation [1003]",
+      "source_type": "SURFACE",
+      "source_name": "Cut of ditch terminus",
+      "source_description": "Feature relation [1003]",
+      "source_record": 160
+    },
+    {
+      "id": "1049",
+      "label": "Fill of ditch: Spot date: Mid-Iron Age",
+      "source_type": "DEPOSIT",
+      "source_name": "Fill of ditch",
+      "source_description": "Spot date: Mid-Iron Age",
+      "source_record": 161
+    },
+    {
+      "id": "1050",
+      "label": "Fill of gully",
+      "source_type": "DEPOSIT",
+      "source_name": "Fill of gully",
+      "source_description": "",
+      "source_record": 162
+    },
+    {
+      "id": "1063",
+      "label": "Cut of ditch: Feature relation [1003]",
+      "source_type": "SURFACE",
+      "source_name": "Cut of ditch",
+      "source_description": "Feature relation [1003]",
+      "source_record": 165
+    },
+    {
+      "id": "1064",
+      "label": "Fill of ditch: Spot date: Iron Age",
+      "source_type": "DEPOSIT",
+      "source_name": "Fill of ditch",
+      "source_description": "Spot date: Iron Age",
+      "source_record": 166
+    },
+    {
+      "id": "1065",
+      "label": "Fill of ditch",
+      "source_type": "DEPOSIT",
+      "source_name": "Fill of ditch",
+      "source_description": "",
+      "source_record": 167
+    },
+    {
+      "id": "1192",
+      "label": "Fill of Ditch",
+      "source_type": "DEPOSIT",
+      "source_name": "Fill of Ditch",
+      "source_description": "",
+      "source_record": 146
+    },
+    {
+      "id": "1193",
+      "label": "Fill of gully ]",
+      "source_type": "DEPOSIT",
+      "source_name": "Fill of gully ]",
+      "source_description": "",
+      "source_record": 144
+    },
+    {
+      "id": "1194",
+      "label": "Cut of Gully: Feature relation",
+      "source_type": "SURFACE",
+      "source_name": "Cut of Gully",
+      "source_description": "Feature relation",
+      "source_record": 145
+    },
+    {
+      "id": "1246",
+      "label": "Fill of ditch",
+      "source_type": "DEPOSIT",
+      "source_name": "Fill of ditch",
+      "source_description": "",
+      "source_record": 175
+    },
+    {
+      "id": "1254",
+      "label": "Fill of ditch",
+      "source_type": "DEPOSIT",
+      "source_name": "Fill of ditch",
+      "source_description": "",
+      "source_record": 181
+    },
+    {
+      "id": "1255",
+      "label": "Cut of ditch: Feature relation [1003]",
+      "source_type": "SURFACE",
+      "source_name": "Cut of ditch",
+      "source_description": "Feature relation [1003]",
+      "source_record": 182
+    },
+    {
+      "id": "1256",
+      "label": "Natural deposit: Feature relation (1256) Spot date: Iron Age",
+      "source_type": "DEPOSIT",
+      "source_name": "Natural deposit",
+      "source_description": "Feature relation (1256) Spot date: Iron Age",
+      "source_record": 183
+    },
+    {
+      "id": "1257",
+      "label": "Natural deposit: Feature relation (1256)",
+      "source_type": "DEPOSIT",
+      "source_name": "Natural deposit",
+      "source_description": "Feature relation (1256)",
+      "source_record": 184
+    },
+    {
+      "id": "1258",
+      "label": "Natural deposit",
+      "source_type": "DEPOSIT",
+      "source_name": "Natural deposit",
+      "source_description": "",
+      "source_record": 185
+    },
+    {
+      "id": "1325",
+      "label": "Fill of ditch",
+      "source_type": "DEPOSIT",
+      "source_name": "Fill of ditch",
+      "source_description": "",
+      "source_record": 164
+    },
+    {
+      "id": "1361",
+      "label": "Cut of ditch",
+      "source_type": "SURFACE",
+      "source_name": "Cut of ditch",
+      "source_description": "",
+      "source_record": 200
+    },
+    {
+      "id": "1362",
+      "label": "Fill of ditch",
+      "source_type": "DEPOSIT",
+      "source_name": "Fill of ditch",
+      "source_description": "",
+      "source_record": 199
+    },
+    {
+      "id": "1363",
+      "label": "Cut of ditch",
+      "source_type": "SURFACE",
+      "source_name": "Cut of ditch",
+      "source_description": "",
+      "source_record": 201
+    },
+    {
+      "id": "1364",
+      "label": "Fill of ditch: Spot date: Iron Age",
+      "source_type": "DEPOSIT",
+      "source_name": "Fill of ditch",
+      "source_description": "Spot date: Iron Age",
+      "source_record": 202
+    }
+  ],
+  "evidence": [
+    {
+      "id": "harp-inn-relation-record-513",
+      "kind": "other",
+      "description": "Explicit ADS Harris-matrix relation at CSV record 513",
+      "source": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-5042-1/dissemination/1C20HINAR_Harris_Matrix_CSVs/1C20HINAR_harris_matrix_phase_1_phase_2.csv#record=513"
+    },
+    {
+      "id": "harp-inn-relation-record-515",
+      "kind": "other",
+      "description": "Explicit ADS Harris-matrix relation at CSV record 515",
+      "source": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-5042-1/dissemination/1C20HINAR_Harris_Matrix_CSVs/1C20HINAR_harris_matrix_phase_1_phase_2.csv#record=515"
+    },
+    {
+      "id": "harp-inn-relation-record-539",
+      "kind": "other",
+      "description": "Explicit ADS Harris-matrix relation at CSV record 539",
+      "source": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-5042-1/dissemination/1C20HINAR_Harris_Matrix_CSVs/1C20HINAR_harris_matrix_phase_1_phase_2.csv#record=539"
+    },
+    {
+      "id": "harp-inn-relation-record-520",
+      "kind": "other",
+      "description": "Explicit ADS Harris-matrix relation at CSV record 520",
+      "source": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-5042-1/dissemination/1C20HINAR_Harris_Matrix_CSVs/1C20HINAR_harris_matrix_phase_1_phase_2.csv#record=520"
+    },
+    {
+      "id": "harp-inn-relation-record-521",
+      "kind": "other",
+      "description": "Explicit ADS Harris-matrix relation at CSV record 521",
+      "source": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-5042-1/dissemination/1C20HINAR_Harris_Matrix_CSVs/1C20HINAR_harris_matrix_phase_1_phase_2.csv#record=521"
+    },
+    {
+      "id": "harp-inn-relation-record-514",
+      "kind": "other",
+      "description": "Explicit ADS Harris-matrix relation at CSV record 514",
+      "source": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-5042-1/dissemination/1C20HINAR_Harris_Matrix_CSVs/1C20HINAR_harris_matrix_phase_1_phase_2.csv#record=514"
+    },
+    {
+      "id": "harp-inn-relation-record-519",
+      "kind": "other",
+      "description": "Explicit ADS Harris-matrix relation at CSV record 519",
+      "source": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-5042-1/dissemination/1C20HINAR_Harris_Matrix_CSVs/1C20HINAR_harris_matrix_phase_1_phase_2.csv#record=519"
+    },
+    {
+      "id": "harp-inn-relation-record-516",
+      "kind": "other",
+      "description": "Explicit ADS Harris-matrix relation at CSV record 516",
+      "source": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-5042-1/dissemination/1C20HINAR_Harris_Matrix_CSVs/1C20HINAR_harris_matrix_phase_1_phase_2.csv#record=516"
+    },
+    {
+      "id": "harp-inn-relation-record-517",
+      "kind": "other",
+      "description": "Explicit ADS Harris-matrix relation at CSV record 517",
+      "source": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-5042-1/dissemination/1C20HINAR_Harris_Matrix_CSVs/1C20HINAR_harris_matrix_phase_1_phase_2.csv#record=517"
+    },
+    {
+      "id": "harp-inn-relation-record-525",
+      "kind": "other",
+      "description": "Explicit ADS Harris-matrix relation at CSV record 525",
+      "source": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-5042-1/dissemination/1C20HINAR_Harris_Matrix_CSVs/1C20HINAR_harris_matrix_phase_1_phase_2.csv#record=525"
+    },
+    {
+      "id": "harp-inn-relation-record-527",
+      "kind": "other",
+      "description": "Explicit ADS Harris-matrix relation at CSV record 527",
+      "source": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-5042-1/dissemination/1C20HINAR_Harris_Matrix_CSVs/1C20HINAR_harris_matrix_phase_1_phase_2.csv#record=527"
+    },
+    {
+      "id": "harp-inn-relation-record-528",
+      "kind": "other",
+      "description": "Explicit ADS Harris-matrix relation at CSV record 528",
+      "source": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-5042-1/dissemination/1C20HINAR_Harris_Matrix_CSVs/1C20HINAR_harris_matrix_phase_1_phase_2.csv#record=528"
+    },
+    {
+      "id": "harp-inn-relation-record-530",
+      "kind": "other",
+      "description": "Explicit ADS Harris-matrix relation at CSV record 530",
+      "source": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-5042-1/dissemination/1C20HINAR_Harris_Matrix_CSVs/1C20HINAR_harris_matrix_phase_1_phase_2.csv#record=530"
+    },
+    {
+      "id": "harp-inn-relation-record-533",
+      "kind": "other",
+      "description": "Explicit ADS Harris-matrix relation at CSV record 533",
+      "source": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-5042-1/dissemination/1C20HINAR_Harris_Matrix_CSVs/1C20HINAR_harris_matrix_phase_1_phase_2.csv#record=533"
+    },
+    {
+      "id": "harp-inn-relation-record-532",
+      "kind": "other",
+      "description": "Explicit ADS Harris-matrix relation at CSV record 532",
+      "source": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-5042-1/dissemination/1C20HINAR_Harris_Matrix_CSVs/1C20HINAR_harris_matrix_phase_1_phase_2.csv#record=532"
+    },
+    {
+      "id": "harp-inn-relation-record-509",
+      "kind": "other",
+      "description": "Explicit ADS Harris-matrix relation at CSV record 509",
+      "source": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-5042-1/dissemination/1C20HINAR_Harris_Matrix_CSVs/1C20HINAR_harris_matrix_phase_1_phase_2.csv#record=509"
+    },
+    {
+      "id": "harp-inn-relation-record-510",
+      "kind": "other",
+      "description": "Explicit ADS Harris-matrix relation at CSV record 510",
+      "source": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-5042-1/dissemination/1C20HINAR_Harris_Matrix_CSVs/1C20HINAR_harris_matrix_phase_1_phase_2.csv#record=510"
+    },
+    {
+      "id": "harp-inn-relation-record-512",
+      "kind": "other",
+      "description": "Explicit ADS Harris-matrix relation at CSV record 512",
+      "source": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-5042-1/dissemination/1C20HINAR_Harris_Matrix_CSVs/1C20HINAR_harris_matrix_phase_1_phase_2.csv#record=512"
+    },
+    {
+      "id": "harp-inn-relation-record-523",
+      "kind": "other",
+      "description": "Explicit ADS Harris-matrix relation at CSV record 523",
+      "source": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-5042-1/dissemination/1C20HINAR_Harris_Matrix_CSVs/1C20HINAR_harris_matrix_phase_1_phase_2.csv#record=523"
+    },
+    {
+      "id": "harp-inn-relation-record-544",
+      "kind": "other",
+      "description": "Explicit ADS Harris-matrix relation at CSV record 544",
+      "source": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-5042-1/dissemination/1C20HINAR_Harris_Matrix_CSVs/1C20HINAR_harris_matrix_phase_1_phase_2.csv#record=544"
+    },
+    {
+      "id": "harp-inn-relation-record-546",
+      "kind": "other",
+      "description": "Explicit ADS Harris-matrix relation at CSV record 546",
+      "source": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-5042-1/dissemination/1C20HINAR_Harris_Matrix_CSVs/1C20HINAR_harris_matrix_phase_1_phase_2.csv#record=546"
+    },
+    {
+      "id": "harp-inn-relation-record-562",
+      "kind": "other",
+      "description": "Explicit ADS Harris-matrix relation at CSV record 562",
+      "source": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-5042-1/dissemination/1C20HINAR_Harris_Matrix_CSVs/1C20HINAR_harris_matrix_phase_1_phase_2.csv#record=562"
+    },
+    {
+      "id": "harp-inn-relation-record-545",
+      "kind": "other",
+      "description": "Explicit ADS Harris-matrix relation at CSV record 545",
+      "source": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-5042-1/dissemination/1C20HINAR_Harris_Matrix_CSVs/1C20HINAR_harris_matrix_phase_1_phase_2.csv#record=545"
+    },
+    {
+      "id": "harp-inn-relation-record-561",
+      "kind": "other",
+      "description": "Explicit ADS Harris-matrix relation at CSV record 561",
+      "source": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-5042-1/dissemination/1C20HINAR_Harris_Matrix_CSVs/1C20HINAR_harris_matrix_phase_1_phase_2.csv#record=561"
+    },
+    {
+      "id": "harp-inn-relation-record-563",
+      "kind": "other",
+      "description": "Explicit ADS Harris-matrix relation at CSV record 563",
+      "source": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-5042-1/dissemination/1C20HINAR_Harris_Matrix_CSVs/1C20HINAR_harris_matrix_phase_1_phase_2.csv#record=563"
+    },
+    {
+      "id": "harp-inn-relation-record-547",
+      "kind": "other",
+      "description": "Explicit ADS Harris-matrix relation at CSV record 547",
+      "source": "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-5042-1/dissemination/1C20HINAR_Harris_Matrix_CSVs/1C20HINAR_harris_matrix_phase_1_phase_2.csv#record=547"
+    }
+  ],
+  "relations": [
+    {
+      "earlier": "1003",
+      "later": "1192",
+      "status": "observed",
+      "evidence_ids": [
+        "harp-inn-relation-record-513"
+      ],
+      "source_relation": "ABOVE",
+      "source_record": 513
+    },
+    {
+      "earlier": "1009",
+      "later": "1013",
+      "status": "observed",
+      "evidence_ids": [
+        "harp-inn-relation-record-515"
+      ],
+      "source_relation": "ABOVE",
+      "source_record": 515
+    },
+    {
+      "earlier": "1011",
+      "later": "1246",
+      "status": "observed",
+      "evidence_ids": [
+        "harp-inn-relation-record-539"
+      ],
+      "source_relation": "ABOVE",
+      "source_record": 539
+    },
+    {
+      "earlier": "1013",
+      "later": "1015",
+      "status": "observed",
+      "evidence_ids": [
+        "harp-inn-relation-record-520"
+      ],
+      "source_relation": "ABOVE",
+      "source_record": 520
+    },
+    {
+      "earlier": "1014",
+      "later": "1016",
+      "status": "observed",
+      "evidence_ids": [
+        "harp-inn-relation-record-521"
+      ],
+      "source_relation": "ABOVE",
+      "source_record": 521
+    },
+    {
+      "earlier": "1015",
+      "later": "1010",
+      "status": "observed",
+      "evidence_ids": [
+        "harp-inn-relation-record-514"
+      ],
+      "source_relation": "ABOVE",
+      "source_record": 514
+    },
+    {
+      "earlier": "1016",
+      "later": "1015",
+      "status": "observed",
+      "evidence_ids": [
+        "harp-inn-relation-record-519"
+      ],
+      "source_relation": "ABOVE",
+      "source_record": 519
+    },
+    {
+      "earlier": "1017",
+      "later": "1018",
+      "status": "observed",
+      "evidence_ids": [
+        "harp-inn-relation-record-516"
+      ],
+      "source_relation": "ABOVE",
+      "source_record": 516
+    },
+    {
+      "earlier": "1018",
+      "later": "1009",
+      "status": "observed",
+      "evidence_ids": [
+        "harp-inn-relation-record-517"
+      ],
+      "source_relation": "ABOVE",
+      "source_record": 517
+    },
+    {
+      "earlier": "1019",
+      "later": "1020",
+      "status": "observed",
+      "evidence_ids": [
+        "harp-inn-relation-record-525"
+      ],
+      "source_relation": "ABOVE",
+      "source_record": 525
+    },
+    {
+      "earlier": "1040",
+      "later": "1049",
+      "status": "observed",
+      "evidence_ids": [
+        "harp-inn-relation-record-527"
+      ],
+      "source_relation": "ABOVE",
+      "source_record": 527
+    },
+    {
+      "earlier": "1041",
+      "later": "1050",
+      "status": "observed",
+      "evidence_ids": [
+        "harp-inn-relation-record-528"
+      ],
+      "source_relation": "ABOVE",
+      "source_record": 528
+    },
+    {
+      "earlier": "1046",
+      "later": "1325",
+      "status": "observed",
+      "evidence_ids": [
+        "harp-inn-relation-record-530"
+      ],
+      "source_relation": "ABOVE",
+      "source_record": 530
+    },
+    {
+      "earlier": "1063",
+      "later": "1065",
+      "status": "observed",
+      "evidence_ids": [
+        "harp-inn-relation-record-533"
+      ],
+      "source_relation": "ABOVE",
+      "source_record": 533
+    },
+    {
+      "earlier": "1065",
+      "later": "1064",
+      "status": "observed",
+      "evidence_ids": [
+        "harp-inn-relation-record-532"
+      ],
+      "source_relation": "ABOVE",
+      "source_record": 532
+    },
+    {
+      "earlier": "1192",
+      "later": "1004",
+      "status": "observed",
+      "evidence_ids": [
+        "harp-inn-relation-record-509"
+      ],
+      "source_relation": "ABOVE",
+      "source_record": 509
+    },
+    {
+      "earlier": "1193",
+      "later": "1003",
+      "status": "observed",
+      "evidence_ids": [
+        "harp-inn-relation-record-510"
+      ],
+      "source_relation": "ABOVE",
+      "source_record": 510
+    },
+    {
+      "earlier": "1194",
+      "later": "1193",
+      "status": "observed",
+      "evidence_ids": [
+        "harp-inn-relation-record-512"
+      ],
+      "source_relation": "ABOVE",
+      "source_record": 512
+    },
+    {
+      "earlier": "1246",
+      "later": "1012",
+      "status": "observed",
+      "evidence_ids": [
+        "harp-inn-relation-record-523"
+      ],
+      "source_relation": "ABOVE",
+      "source_record": 523
+    },
+    {
+      "earlier": "1255",
+      "later": "1254",
+      "status": "observed",
+      "evidence_ids": [
+        "harp-inn-relation-record-544"
+      ],
+      "source_relation": "ABOVE",
+      "source_record": 544
+    },
+    {
+      "earlier": "1256",
+      "later": "1255",
+      "status": "observed",
+      "evidence_ids": [
+        "harp-inn-relation-record-546"
+      ],
+      "source_relation": "ABOVE",
+      "source_record": 546
+    },
+    {
+      "earlier": "1256",
+      "later": "1361",
+      "status": "observed",
+      "evidence_ids": [
+        "harp-inn-relation-record-562"
+      ],
+      "source_relation": "ABOVE",
+      "source_record": 562
+    },
+    {
+      "earlier": "1257",
+      "later": "1255",
+      "status": "observed",
+      "evidence_ids": [
+        "harp-inn-relation-record-545"
+      ],
+      "source_relation": "ABOVE",
+      "source_record": 545
+    },
+    {
+      "earlier": "1361",
+      "later": "1362",
+      "status": "observed",
+      "evidence_ids": [
+        "harp-inn-relation-record-561"
+      ],
+      "source_relation": "ABOVE",
+      "source_record": 561
+    },
+    {
+      "earlier": "1363",
+      "later": "1364",
+      "status": "observed",
+      "evidence_ids": [
+        "harp-inn-relation-record-563"
+      ],
+      "source_relation": "ABOVE",
+      "source_record": 563
+    },
+    {
+      "earlier": "1364",
+      "later": "1256",
+      "status": "observed",
+      "evidence_ids": [
+        "harp-inn-relation-record-547"
+      ],
+      "source_relation": "ABOVE",
+      "source_record": 547
+    }
+  ],
+  "typed_relations": [
+    {
+      "type": "contemporary",
+      "contexts": [
+        "1003",
+        "1019"
+      ],
+      "status": "observed_typed_non_precedence",
+      "source_record": 511
+    },
+    {
+      "type": "contemporary",
+      "contexts": [
+        "1009",
+        "1011"
+      ],
+      "status": "observed_typed_non_precedence",
+      "source_record": 522
+    },
+    {
+      "type": "contemporary",
+      "contexts": [
+        "1009",
+        "1040"
+      ],
+      "status": "observed_typed_non_precedence",
+      "source_record": 518
+    },
+    {
+      "type": "contemporary",
+      "contexts": [
+        "1011",
+        "1019"
+      ],
+      "status": "observed_typed_non_precedence",
+      "source_record": 524
+    },
+    {
+      "type": "contemporary",
+      "contexts": [
+        "1040",
+        "1063"
+      ],
+      "status": "observed_typed_non_precedence",
+      "source_record": 526
+    },
+    {
+      "type": "contemporary",
+      "contexts": [
+        "1041",
+        "1194"
+      ],
+      "status": "observed_typed_non_precedence",
+      "source_record": 529
+    },
+    {
+      "type": "contemporary",
+      "contexts": [
+        "1046",
+        "1063"
+      ],
+      "status": "observed_typed_non_precedence",
+      "source_record": 577
+    },
+    {
+      "type": "contemporary",
+      "contexts": [
+        "1063",
+        "1255"
+      ],
+      "status": "observed_typed_non_precedence",
+      "source_record": 531
+    },
+    {
+      "type": "contemporary",
+      "contexts": [
+        "1256",
+        "1257"
+      ],
+      "status": "observed_typed_non_precedence",
+      "source_record": 578
+    },
+    {
+      "type": "contemporary",
+      "contexts": [
+        "1257",
+        "1258"
+      ],
+      "status": "observed_typed_non_precedence",
+      "source_record": 548
+    }
+  ],
+  "authority": {
+    "accepted_precedence_source": "explicit ADS ABOVE/LATER records only",
+    "contemporary_treatment": "preserved as typed source evidence; not added to the precedence DAG",
+    "accepted_graph_mutations_from_ai": 0
+  },
+  "retrieval": {
+    "metadata_url": "https://archaeologydataservice.ac.uk/archives/collections/view/1005042/metadata.cfm",
+    "metadata_sha256": "4081046924ce51066da8801f3ca46621290e87d22d59e83403ac866ef11055e2",
+    "source_sha256": "d754dfb14250dc66b2741c4d65d6cb08ef376775e4903bdbdc4554d00a948467"
+  }
+}

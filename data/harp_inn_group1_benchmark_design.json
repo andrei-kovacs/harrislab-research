@@ -1,0 +1,174 @@
+{
+  "schema": "harrislab.hidden-relation-design.v1",
+  "experiment_id": "harp-inn-group1-cross-dataset-v1",
+  "status": "frozen_before_local_execution_not_publicly_preregistered",
+  "reference": {
+    "path": "harp_inn_group1_reference.json",
+    "sha256": "7572111181087d9d31ca484d64d2bf3d7742a33d4bc81cdd768f8fab44e8455c",
+    "context_count": 36,
+    "direct_relation_count": 26,
+    "typed_non_precedence_relation_count": 10
+  },
+  "eligibility": "Every unique observed precedence relation with source evidence",
+  "assignment": "SHA-256(reference hash + edge), ascending, groups of three",
+  "settings": {
+    "order_limit": 100000,
+    "sample_count_per_chain": 500,
+    "burn_in": 500,
+    "thinning": 5,
+    "chain_count": 4,
+    "random_repetitions_per_trial": 20,
+    "seed_base": 2026091800
+  },
+  "trials": [
+    {
+      "id": "harp-01",
+      "hidden_edges": [
+        [
+          "1063",
+          "1065"
+        ],
+        [
+          "1255",
+          "1254"
+        ],
+        [
+          "1065",
+          "1064"
+        ]
+      ]
+    },
+    {
+      "id": "harp-02",
+      "hidden_edges": [
+        [
+          "1192",
+          "1004"
+        ],
+        [
+          "1015",
+          "1010"
+        ],
+        [
+          "1257",
+          "1255"
+        ]
+      ]
+    },
+    {
+      "id": "harp-03",
+      "hidden_edges": [
+        [
+          "1016",
+          "1015"
+        ],
+        [
+          "1040",
+          "1049"
+        ],
+        [
+          "1193",
+          "1003"
+        ]
+      ]
+    },
+    {
+      "id": "harp-04",
+      "hidden_edges": [
+        [
+          "1017",
+          "1018"
+        ],
+        [
+          "1013",
+          "1015"
+        ],
+        [
+          "1256",
+          "1361"
+        ]
+      ]
+    },
+    {
+      "id": "harp-05",
+      "hidden_edges": [
+        [
+          "1018",
+          "1009"
+        ],
+        [
+          "1003",
+          "1192"
+        ],
+        [
+          "1256",
+          "1255"
+        ]
+      ]
+    },
+    {
+      "id": "harp-06",
+      "hidden_edges": [
+        [
+          "1361",
+          "1362"
+        ],
+        [
+          "1246",
+          "1012"
+        ],
+        [
+          "1009",
+          "1013"
+        ]
+      ]
+    },
+    {
+      "id": "harp-07",
+      "hidden_edges": [
+        [
+          "1194",
+          "1193"
+        ],
+        [
+          "1011",
+          "1246"
+        ],
+        [
+          "1041",
+          "1050"
+        ]
+      ]
+    },
+    {
+      "id": "harp-08",
+      "hidden_edges": [
+        [
+          "1046",
+          "1325"
+        ],
+        [
+          "1364",
+          "1256"
+        ],
+        [
+          "1019",
+          "1020"
+        ]
+      ]
+    },
+    {
+      "id": "harp-09",
+      "hidden_edges": [
+        [
+          "1363",
+          "1364"
+        ],
+        [
+          "1014",
+          "1016"
+        ]
+      ]
+    }
+  ]
+}

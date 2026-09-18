@@ -31,6 +31,14 @@ class AuditManifestTests(unittest.TestCase):
         self.assertEqual(
             manifest["authority"]["accepted_graph_mutations_from_ai_screen"], 0
         )
+        self.assertEqual(manifest["release_version"], "0.3.0")
+        self.assertEqual(
+            manifest["authority"]["harp_inn_contemporary_status"],
+            "typed_non_precedence",
+        )
+        self.assertEqual(
+            manifest["authority"]["accepted_harp_inn_graph_mutations_from_ai"], 0
+        )
 
     def test_json_hash_is_stable_across_line_endings(self) -> None:
         root = Path(__file__).resolve().parents[1]

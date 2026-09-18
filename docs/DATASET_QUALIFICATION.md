@@ -1,7 +1,7 @@
 # Dataset Qualification Sprint
 
-Assessment date: 2026-09-02. One real dataset is approved for pilot extraction,
-but no extracted reference graph is approved for benchmarking yet.
+Initial assessment date: 2026-09-02. Updated 2026-09-18 after qualifying a
+second real-data reference from ADS Harp Inn.
 
 This record separates publication access from data reuse permission. An open or
 CC-licensed article does not establish a licence for its underlying excavation
@@ -40,6 +40,56 @@ rejects it. Any `HOLD` keeps it unapproved.
 | ARIADNEplus excavation-modelling report, Zenodo 7377910 | `PASS` | `PASS` | `FAIL` | `FAIL` | `FAIL` | `N/A` | `PASS` | `PASS` | **REJECT AS DATASET** |
 | ARIADNE catalogue excavation collections | `HOLD` | `HOLD` | `HOLD` | `HOLD` | `HOLD` | `HOLD` | `HOLD` | `HOLD` | **HOLD** |
 | Trimmis late Iron Age settlement supplementary data, Zenodo 4461075 | `PASS` | `PASS` | `PASS` | `PASS` | `PASS` | `PASS` | `PASS` | `PASS` | **APPROVED FOR PILOT EXTRACTION** |
+| Ulm-Eggingen Linear Pottery models, Zenodo 4744471, 5534232, and 5534261 | `PASS` | `PASS` | `HOLD` | `PASS` | `PASS` | `PASS` | `PASS` | `PASS` | **HOLD** |
+| Virtual Poeymau software, Zenodo 7391905 | `PASS` | `HOLD` | `FAIL` | `FAIL` | `FAIL` | `HOLD` | `FAIL` | `HOLD` | **REJECT AS BENCHMARK** |
+| Cambridge Catalhoyuk Appendix A matrices | `HOLD` | `HOLD` | `PASS` | `FAIL` | `PASS` | `HOLD` | `FAIL` | `HOLD` | **REJECT FOR DIRECT-RELATION IMPORT** |
+| ADS Harp Inn, collection 1005042, version 1 | `PASS` | `PASS` | `PASS` | `PASS` | `PASS` | `PASS` | `PASS` | `PASS` | **APPROVED** |
+
+## ADS Harp Inn assessment
+
+Dataset: High Speed Two Ltd. and Connect Archaeology, "Data from
+Archaeological Recording Work at Harp Inn," version 1,
+[DOI 10.5284/1133013](https://doi.org/10.5284/1133013), distributed by the
+Archaeology Data Service in 2025.
+
+Directly verified from the ADS metadata, rights statement, and deposited
+semicolon-delimited Harris CSV:
+
+- ADS collection `1005042`, version 1, has a stable DOI and is licensed under
+  the Open Government Licence.
+- `1C20HINAR_harris_matrix_phase_1_phase_2.csv` has frozen SHA-256
+  `d754dfb14250dc66b2741c4d65d6cb08ef376775e4903bdbdc4554d00a948467`.
+- The selected Group 1 component contains 36 stable, described contexts. It is
+  connected by explicit `ABOVE`, `LATER`, or `CONTEMPORARY` source records.
+- The import maps `ABOVE(source,target)` and `LATER(source,target)` to
+  `target earlier -> source later`. The resulting 26 evidenced precedence
+  relations are acyclic.
+- Ten explicit `CONTEMPORARY` records are preserved as symmetric typed source
+  evidence. They are used only to delimit the source component and never enter
+  the precedence DAG.
+- Sentinels `T`, `G`, `U`, `1000`, `1001`, `Matrix*`, hierarchy, phase
+  membership, and layer values are excluded from benchmark connectivity.
+- Each accepted precedence relation cites its exact CSV record. The importer
+  fails on source checksum, component counts, canonical node or edge hashes,
+  or acyclicity changes. AI contributes zero accepted graph mutations.
+
+Reproduce the live qualification with:
+
+```powershell
+python scripts/qualify_harp_inn.py .local-data/harp-inn-source
+```
+
+## Cambridge Catalhoyuk Appendix A assessment
+
+The inspected Appendix A workbook is a visual publication artifact, not an
+explicit relation table. Its matrices depend on merged cells, timestep labels,
+and embedded connector images. A preliminary count of 960 apparent assertions
+was a prose keyword-search false positive; it must not be reported as a count
+of stratigraphic relations. Recovering edges from worksheet geometry would
+require an additional interpretation and review workflow rather than a direct,
+source-record import. The artifact is therefore rejected for the direct-
+relation benchmark, without implying that the published interpretation lacks
+archaeological value.
 
 ## Trimmis assessment
 
@@ -89,6 +139,87 @@ python scripts/qualify_trimmis.py .local-data/trimmis-source
 The script verifies DOI, licence identifier, file checksums, workbook row
 counts, and matrix text/vector structure. Raw artifacts are intentionally not
 committed to this repository.
+
+## Ulm-Eggingen assessment
+
+Datasets: Eva Rosenstock, supplementary data to Figures 7, 8, and 9 of
+*Linear Pottery and Harris* (2022),
+[DOI 10.5281/zenodo.4744471](https://doi.org/10.5281/zenodo.4744471),
+[DOI 10.5281/zenodo.5534232](https://doi.org/10.5281/zenodo.5534232), and
+[DOI 10.5281/zenodo.5534261](https://doi.org/10.5281/zenodo.5534261).
+
+Directly verified from the Zenodo records and deposited CSV and GraphML files:
+
+- All three records are versioned datasets licensed CC BY 4.0. Each provides
+  DOI-stable CSV, GraphML, HMCX, PDF, and image representations with published
+  file checksums.
+- The uncollapsed CSV files contain 107 `DEPOSIT` records, 36
+  `PHASE_GROUP` records, and either three or eight `PERIOD_GROUP` records,
+  plus top-surface, geology, and unexcavated sentinels.
+- The `ABOVE` and `BELOW` fields explicitly encode 36 unique, acyclic
+  deposit-to-deposit superpositions. These relations can be imported without
+  deriving them from phase labels.
+- Only 60 of the 107 deposits have a non-empty description in the deposited
+  CSV. The context-identity gate therefore remains on hold pending a stable
+  source for descriptions of the other 47 deposits or a justified bounded
+  context table.
+- The direct deposit graph is highly disconnected. Its largest weakly
+  connected component has six deposits; the remaining components have four or
+  fewer deposits or are isolated. No connected 20-100-context pilot can be
+  selected from direct deposit relations alone.
+- The complete GraphML combines superpositions with building, fence, period,
+  contemporaneity, spatial, yard-model, and ceramic-analysis interpretations.
+  It has 149 or 154 nested nodes and 218 directed edges and is cyclic when all
+  edge classes are treated as precedence. The full graph must not be imported
+  as a Harris precedence DAG without a documented relation-class mapping.
+- Figures 7-9 and their versioned graph files are published expert reference
+  interpretations based on Claus-Joachim Kind's 1989 excavation publication.
+  They satisfy the reference gate but do not convert model-derived edges into
+  direct stratigraphic observations.
+
+This candidate remains `HOLD`. It is suitable for testing typed-relation
+import and authority separation, but not for the preregistered hidden-direct-
+relation benchmark. Promoting it would require complete context descriptions
+and a defensible 20-100-context evaluation unit that does not gain connectivity
+from interpretive phase or spatial-model edges.
+
+## Virtual Poeymau assessment
+
+Software: Sebastien Plutniak, "Virtual Poeymau: a web application to explore
+the archaeological data from the excavation archives of the Poeymau cave
+(France)," version 0.3,
+[DOI 10.5281/zenodo.7391905](https://doi.org/10.5281/zenodo.7391905).
+
+Directly verified from the Zenodo API and the complete Git tree at tag `v0.3`:
+
+- The software has a version DOI, concept DOI `10.5281/zenodo.4765692`, and a
+  22,759-byte archive with published MD5
+  `8a2202a696196e4c2587a3bebc550e3c`.
+- Zenodo classifies the deposit as software and records its licence only as
+  `other-open`. The linked repository contains an AGPL-3.0 licence for the
+  program, but no statement explicitly licensing the museum-derived
+  archaeological records for reuse and derivatives.
+- The complete tagged tree contains only `LICENSE`, `NEWS.md`, `README.md`,
+  `app.R`, `server.R`, and `ui.R`. It contains no deposited data table.
+- `server.R` calls `source("data-preprocessing.R")`, but that file is absent
+  from the tag and Zenodo archive. The published artifact therefore cannot
+  reproduce the application or retrieve a fixed dataset independently.
+- The application describes about 15,000 object records extracted from field
+  notes. Exposed fields include object ID, square, coordinates or coordinate
+  ranges, field layer and sublayer, localisation method, object description,
+  alteration, class, and material. These are object observations rather than
+  a bounded table of 20-100 archaeological contexts with stable descriptions.
+- No explicit context-to-context `above`, `below`, `earlier`, `later`, `cuts`,
+  `fills`, `overlies`, or `underlies` relation table is present. Layer order is
+  hard-coded for display, and modelled surfaces and convex hulls are computed
+  from object coordinates; neither is direct stratigraphic ground truth.
+- No deposited Harris matrix or archaeologist-reviewed reference graph is
+  included.
+
+This candidate is rejected for HarrisLab benchmarking because the context,
+direct-relations, reference, and reproducibility gates fail. It remains a useful
+methodological example of spatial post-excavation exploration, but its object
+layers must not be converted into direct Harris relations.
 
 ## Kaymakci assessment
 

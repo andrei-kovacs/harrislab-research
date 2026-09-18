@@ -2,10 +2,13 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import json
 import subprocess
 import sys
 import tempfile
 from pathlib import Path
+
+from qualify_harp_inn import SOURCE_NAME, import_group1
 
 
 def canonical_bytes(path: Path) -> bytes:
@@ -47,15 +50,32 @@ def require_identical(generated: Path, committed: Path) -> None:
     print(f"PASS reproduced {committed.relative_to(committed.parents[1])}")
 
 
+def require_harp_reference(source: Path, committed: Path) -> None:
+    generated = import_group1(source)
+    expected = json.loads(committed.read_text(encoding="utf-8"))
+    retrieval = expected.pop("retrieval", None)
+    if generated != expected:
+        raise RuntimeError(f"reproduction mismatch for {committed}")
+    if not retrieval or retrieval.get("source_sha256") != generated["dataset"]["source_sha256"]:
+        raise RuntimeError(f"invalid retrieval receipt in {committed}")
+    print(f"PASS reproduced {committed.relative_to(committed.parents[1])} payload")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Regenerate and verify all HarrisLab v0.2.0 release artifacts."
+        description="Regenerate and verify all HarrisLab v0.3.0 release artifacts."
     )
     parser.add_argument(
         "--source-directory",
         type=Path,
         default=Path(".local-data/trimmis-source"),
         help="Directory containing checksum-verified Trimmis source files.",
+    )
+    parser.add_argument(
+        "--harp-source-directory",
+        type=Path,
+        default=Path(".local-data/harp-inn-source"),
+        help="Directory containing the checksum-verified ADS Harp Inn CSV.",
     )
     args = parser.parse_args()
 
@@ -67,6 +87,12 @@ def main() -> int:
     missing = [name for name in required_sources if not (source_directory / name).is_file()]
     if missing:
         raise SystemExit(f"missing source files in {source_directory}: {', '.join(missing)}")
+    harp_source_directory = args.harp_source_directory
+    if not harp_source_directory.is_absolute():
+        harp_source_directory = root / harp_source_directory
+    harp_source = harp_source_directory / SOURCE_NAME
+    if not harp_source.is_file():
+        raise SystemExit(f"missing Harp Inn source file: {harp_source}")
 
     with tempfile.TemporaryDirectory(prefix="harrislab-release-") as temporary:
         workspace = Path(temporary)
@@ -84,6 +110,8 @@ def main() -> int:
         retrospective = data / "trimmis_profile19_benchmark.json"
         comprehensive = data / "trimmis_profile19_comprehensive_benchmark.json"
         formation = data / "formation_process_benchmark.json"
+        harp_design = data / "harp_inn_group1_benchmark_design.json"
+        harp_benchmark = data / "harp_inn_group1_benchmark.json"
 
         run(root, "scripts/extract_trimmis_profile19.py", str(source_directory), str(candidate))
         require_identical(candidate, root / "data/trimmis_profile19_audit_candidate.json")
@@ -162,9 +190,33 @@ def main() -> int:
         )
         require_identical(formation, root / "data/formation_process_benchmark.json")
 
+        harp_reference = root / "data/harp_inn_group1_reference.json"
+        require_harp_reference(harp_source, harp_reference)
+        run(
+            root,
+            "scripts/benchmark_harp_inn_group1.py",
+            "--reference",
+            str(harp_reference),
+            "--design",
+            str(harp_design),
+            "--prepare",
+        )
+        require_identical(harp_design, root / "data/harp_inn_group1_benchmark_design.json")
+        run(
+            root,
+            "scripts/benchmark_harp_inn_group1.py",
+            "--reference",
+            str(harp_reference),
+            "--design",
+            str(harp_design),
+            "--output",
+            str(harp_benchmark),
+        )
+        require_identical(harp_benchmark, root / "data/harp_inn_group1_benchmark.json")
+
     run(root, "scripts/build_audit_manifest.py", "--check")
     run(root, "-m", "unittest", "discover", "-s", "tests", "-v")
-    print("HarrisLab v0.2.0 release validation passed.")
+    print("HarrisLab v0.3.0 release validation passed.")
     return 0
 
 

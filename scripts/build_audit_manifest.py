@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 
 
-RELEASE_VERSION = "0.2.0"
+RELEASE_VERSION = "0.3.0"
 AUDIT_COMPONENTS = (
     ("reference", "data/trimmis_profile19_reference.json"),
     ("text_relation_proposals", "data/trimmis_profile19_text_relation_proposals.json"),
@@ -15,6 +15,9 @@ AUDIT_COMPONENTS = (
     ("formation_process_benchmark", "data/formation_process_benchmark.json"),
     ("retrospective_benchmark", "data/trimmis_profile19_benchmark.json"),
     ("comprehensive_benchmark", "data/trimmis_profile19_comprehensive_benchmark.json"),
+    ("harp_inn_reference", "data/harp_inn_group1_reference.json"),
+    ("harp_inn_benchmark_design", "data/harp_inn_group1_benchmark_design.json"),
+    ("harp_inn_benchmark", "data/harp_inn_group1_benchmark.json"),
 )
 
 
@@ -58,12 +61,24 @@ def build_manifest(root: Path) -> dict[str, object]:
                     "value": "53ccf16a523e986ead69a30fc3f8dc24",
                 },
                 "license": "CC-BY-3.0",
+            },
+            {
+                "record": "https://doi.org/10.5284/1133013",
+                "file": "1C20HINAR_harris_matrix_phase_1_phase_2.csv",
+                "checksum": {
+                    "algorithm": "sha256",
+                    "value": "d754dfb14250dc66b2741c4d65d6cb08ef376775e4903bdbdc4554d00a948467",
+                },
+                "license": "Open Government Licence",
             }
         ],
         "authority": {
             "ai_drawing_screen": "non_authoritative",
             "drawing_review_status": "27_relations_pending_qualified_review",
             "accepted_graph_mutations_from_ai_screen": 0,
+            "harp_inn_precedence_source": "explicit_ADS_ABOVE_or_LATER_records_only",
+            "harp_inn_contemporary_status": "typed_non_precedence",
+            "accepted_harp_inn_graph_mutations_from_ai": 0,
         },
     }
 
