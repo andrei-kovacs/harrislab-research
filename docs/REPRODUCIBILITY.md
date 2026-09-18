@@ -2,7 +2,7 @@
 
 ## Scope
 
-HarrisLab 0.3.0 provides a fail-closed release gate from checksum-verified
+HarrisLab 0.3.1 provides a fail-closed release gate from checksum-verified
 Trimmis and ADS Harp Inn source files to the committed references, comparisons,
 images, text proposals, benchmark designs, and benchmark results. Regeneration
 occurs in a temporary directory and never overwrites committed results.

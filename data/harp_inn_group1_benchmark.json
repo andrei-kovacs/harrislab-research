@@ -2415,7 +2415,7 @@
               "impact_reduction": null,
               "closure_gain": 6,
               "sampled_reduction_fraction": 0.25,
-              "sampled_split_r_hat": Infinity,
+              "sampled_split_r_hat": null,
               "sampled_effective_sample_size": 2000.0,
               "sampled_top_choice_consensus": 1.0,
               "recovered_implications": 59,

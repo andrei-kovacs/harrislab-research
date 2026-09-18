@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 
 
-RELEASE_VERSION = "0.3.0"
+RELEASE_VERSION = "0.3.1"
 AUDIT_COMPONENTS = (
     ("reference", "data/trimmis_profile19_reference.json"),
     ("text_relation_proposals", "data/trimmis_profile19_text_relation_proposals.json"),

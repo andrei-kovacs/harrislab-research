@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import sys
 from dataclasses import asdict
 from pathlib import Path
@@ -154,7 +155,7 @@ def generate_report(
                 ),
             }
         )
-    return {
+    return _json_safe({
         "schema": "harrislab.cross-dataset-benchmark.v1",
         "experiment_id": design["experiment_id"],
         "design": design["status"],
@@ -164,7 +165,17 @@ def generate_report(
         "settings": settings,
         "trials": trials,
         "aggregate": _aggregate(trials),
-    }
+    })
+
+
+def _json_safe(value: Any) -> Any:
+    if isinstance(value, float) and not math.isfinite(value):
+        return None
+    if isinstance(value, dict):
+        return {key: _json_safe(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [_json_safe(item) for item in value]
+    return value
 
 
 def _validate_design(reference_path: Path, design: dict[str, Any]) -> None:
@@ -225,7 +236,9 @@ def _aggregate(trials: list[dict[str, Any]]) -> dict[str, Any]:
         "sampling_warnings": {
             "selected_step_count": len(sampled_steps),
             "split_r_hat_above_1_05": sum(
-                step["sampled_split_r_hat"] > 1.05 for step in sampled_steps
+                step["sampled_split_r_hat"] is None
+                or step["sampled_split_r_hat"] > 1.05
+                for step in sampled_steps
             ),
             "effective_sample_size_below_400": sum(
                 step["sampled_effective_sample_size"] < 400 for step in sampled_steps

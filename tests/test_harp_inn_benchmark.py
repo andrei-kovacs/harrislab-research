@@ -65,8 +65,13 @@ class HarpInnBenchmarkTests(unittest.TestCase):
         self.assertEqual(first, second)
         self.assertEqual(first["aggregate"]["trial_count"], 9)
         self.assertEqual(first["aggregate"]["hidden_edge_count"], 26)
+        json.dumps(first, allow_nan=False)
 
     def test_committed_report_is_bound_and_internally_reproducible(self) -> None:
+        json.loads(
+            self.report_path.read_text(encoding="utf-8"),
+            parse_constant=lambda value: self.fail(f"non-standard JSON value: {value}"),
+        )
         self.assertEqual(
             self.report["protocol"]["sha256"], file_sha256(self.design_path)
         )

@@ -63,7 +63,7 @@ def require_harp_reference(source: Path, committed: Path) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Regenerate and verify all HarrisLab v0.3.0 release artifacts."
+        description="Regenerate and verify all HarrisLab v0.3.1 release artifacts."
     )
     parser.add_argument(
         "--source-directory",
@@ -216,7 +216,7 @@ def main() -> int:
 
     run(root, "scripts/build_audit_manifest.py", "--check")
     run(root, "-m", "unittest", "discover", "-s", "tests", "-v")
-    print("HarrisLab v0.3.0 release validation passed.")
+    print("HarrisLab v0.3.1 release validation passed.")
     return 0
 
 

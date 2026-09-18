@@ -1,6 +1,6 @@
 {
   "schema": "harrislab.audit-provenance.v1",
-  "release_version": "0.3.0",
+  "release_version": "0.3.1",
   "direction_convention": "earlier -> later",
   "text_canonicalization": "JSON CRLF and CR are normalized to LF before hashing and byte counting.",
   "components": [
@@ -61,8 +61,8 @@
     {
       "key": "harp_inn_benchmark",
       "path": "data/harp_inn_group1_benchmark.json",
-      "sha256": "bb156ead369e81f7d25fc8de3155add18aa652ecc1c6516983dc46d24aec51de",
-      "bytes": 124652
+      "sha256": "8a5ede293df9d1bf772da41649b87637024e372464b84eab79d17d0e9a7a35e2",
+      "bytes": 124648
     }
   ],
   "external_sources": [

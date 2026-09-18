@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HarrisLab - Trimmis Profile 19</title>
+  <title>HarrisLab - Archaeological References</title>
   <style>
     :root {
       --ink: #1d2528;
@@ -33,7 +33,7 @@
       background-size: 24px 24px;
       font-family: "Aptos", "Segoe UI", sans-serif;
     }
-    button, input { font: inherit; }
+    button, input, select { font: inherit; }
     button { color: inherit; }
     .app { height: 100%; display: grid; grid-template-rows: 58px 1fr; }
     .topbar {
@@ -58,9 +58,11 @@
     }
     .brand-mark::before { width: 22px; top: 7px; transform: rotate(-24deg); transform-origin: left; }
     .brand-mark::after { width: 16px; top: 20px; transform: rotate(20deg); transform-origin: left; }
-    .project { min-width: 0; padding: 0 20px; }
+    .project { min-width: 0; padding: 0 20px; display: flex; align-items: center; gap: 12px; }
+    .project-copy { min-width: 0; }
     .project strong { display: block; font-size: 14px; }
-    .project span { color: var(--muted); font-size: 12px; }
+    .project span { display: block; color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .dataset-picker { height: 32px; min-width: 164px; border: 1px solid var(--line); border-radius: 4px; background: white; padding: 0 28px 0 9px; color: var(--ink); font-size: 11px; font-weight: 700; }
     .top-actions { display: flex; align-items: center; gap: 8px; padding-right: 14px; }
     .status {
       display: inline-flex; align-items: center; gap: 7px; height: 30px; padding: 0 10px;
@@ -93,6 +95,7 @@
     .view-button svg { width: 16px; height: 16px; color: var(--muted); }
     .view-button.active { background: #e8eeea; color: #314a37; font-weight: 700; }
     .view-button.active svg { color: var(--moss); }
+    .view-button:disabled, .tab:disabled { cursor: not-allowed; opacity: .38; }
     .count { margin-left: auto; color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
     .divider { height: 1px; background: var(--line); margin: 16px 4px; }
     .legend-item { display: flex; align-items: center; gap: 9px; padding: 6px 8px; font-size: 12px; }
@@ -226,6 +229,8 @@
       .brand { padding: 0 15px; }
       .top-actions { display: none; }
       .project { padding: 0 12px; }
+      .dataset-picker { min-width: 122px; max-width: 42vw; }
+      .project-copy { display: none; }
       .workspace { display: block; }
       .sidebar { display: none; }
       .matrix-area { height: 68vh; min-height: 520px; }
@@ -239,9 +244,15 @@
   <div class="app">
     <header class="topbar">
       <div class="brand"><div class="brand-mark"></div><span>HarrisLab</span></div>
-      <div class="project"><strong>Trimmis GR · Profile 19</strong><span>Stratigraphic reasoning workspace · 26 contexts · 29 direct relations</span></div>
+      <div class="project">
+        <select class="dataset-picker" id="datasetSelect" aria-label="Active archaeological dataset">
+          <option value="trimmis">Trimmis Profile 19</option>
+          <option value="harp">ADS Harp Inn</option>
+        </select>
+        <div class="project-copy"><strong id="projectTitle">Trimmis GR · Profile 19</strong><span id="projectMeta">26 contexts · 29 direct relations</span></div>
+      </div>
       <div class="top-actions">
-        <div class="status"><span class="status-dot"></span>Source reviewed</div>
+        <div class="status"><span class="status-dot"></span><span id="datasetStatus">Source reviewed</span></div>
         <button class="icon-btn" title="Open source record" id="sourceButton"><i data-lucide="external-link"></i></button>
         <button class="command-btn" id="exportButton"><i data-lucide="download"></i>Export audit</button>
       </div>
@@ -252,10 +263,10 @@
         <div class="section-label">Workspace</div>
         <button class="view-button active" data-view="matrix"><i data-lucide="git-branch"></i><span>Matrix</span><span class="count">26</span></button>
         <button class="view-button" data-view="questions"><i data-lucide="circle-help"></i><span>Investigation queue</span><span class="count">3</span></button>
-        <button class="view-button" data-view="text"><i data-lucide="text-search"></i><span>Text proposals</span><span class="count">3</span></button>
-        <button class="view-button" data-view="drawing"><i data-lucide="scan-line"></i><span>Drawing comparison</span><span class="count">27</span></button>
-        <button class="view-button" data-view="formation"><i data-lucide="grid-3x3"></i><span>Formation benchmark</span><span class="count">100</span></button>
-        <button class="view-button" data-view="scenarios"><i data-lucide="split"></i><span>Interpretations</span><span class="count">2</span></button>
+        <button class="view-button" data-view="text" data-trimmis-only><i data-lucide="text-search"></i><span>Text proposals</span><span class="count">3</span></button>
+        <button class="view-button" data-view="drawing" data-trimmis-only><i data-lucide="scan-line"></i><span>Drawing comparison</span><span class="count">27</span></button>
+        <button class="view-button" data-view="formation" data-trimmis-only><i data-lucide="grid-3x3"></i><span>Formation benchmark</span><span class="count">100</span></button>
+        <button class="view-button" data-view="scenarios" data-trimmis-only><i data-lucide="split"></i><span>Interpretations</span><span class="count">2</span></button>
         <button class="view-button" data-view="sources"><i data-lucide="library"></i><span>Source register</span><span class="count">4</span></button>
         <div class="divider"></div>
         <div class="section-label">Relation status</div>
@@ -263,7 +274,7 @@
         <div class="legend-item"><span class="swatch disputed"></span><span>Disputed</span></div>
         <div class="legend-item"><span class="swatch derived"></span><span>Derived</span></div>
         <div class="legend-item"><span class="swatch ai"></span><span>AI proposed</span></div>
-        <div class="dataset-note"><strong>Reviewed reference</strong><br>The source extraction passed independent review. Context 199 reflects a confirmed source-author correction and remains explicitly traceable.</div>
+        <div class="dataset-note" id="datasetNote"><strong>Reviewed reference</strong><br>The source extraction passed independent review. Context 199 reflects a confirmed source-author correction and remains explicitly traceable.</div>
       </aside>
 
       <main class="matrix-area">
@@ -283,7 +294,7 @@
         <div class="canvas-wrap" id="canvasWrap">
           <span class="axis-label younger"><i data-lucide="arrow-up"></i>Younger</span>
           <span class="axis-label older"><i data-lucide="arrow-down"></i>Older</span>
-          <svg id="matrix" role="img" aria-label="Interactive Harris matrix for Trimmis Profile 19"></svg>
+          <svg id="matrix" role="img" aria-label="Interactive Harris matrix"></svg>
         </div>
       </main>
 
@@ -291,10 +302,10 @@
         <div class="tabs">
           <button class="tab active" data-tab="inspect">Inspect</button>
           <button class="tab" data-tab="questions">Questions</button>
-          <button class="tab" data-tab="text">Text</button>
-          <button class="tab" data-tab="drawing">Drawing</button>
-          <button class="tab" data-tab="formation">Model</button>
-          <button class="tab" data-tab="scenarios">Scenarios</button>
+          <button class="tab" data-tab="text" data-trimmis-only>Text</button>
+          <button class="tab" data-tab="drawing" data-trimmis-only>Drawing</button>
+          <button class="tab" data-tab="formation" data-trimmis-only>Model</button>
+          <button class="tab" data-tab="scenarios" data-trimmis-only>Scenarios</button>
         </div>
         <div class="summary" id="summary"></div>
         <div class="tab-content" id="tabContent"></div>
@@ -315,13 +326,28 @@
     const drawingReviewChecklistUrl = "trimmis_profile19_drawing_review_checklist.csv";
     const textProposalsUrl = "../data/trimmis_profile19_text_relation_proposals.json";
     const formationBenchmarkUrl = "../data/formation_process_benchmark.json";
-    let graph, referenceDocument, benchmark, comprehensive, drawingComparison, drawingReviewTemplate, aiDrawingScreen, auditManifest, textProposals, formationBenchmark, ranking = [];
+    const harpGraphUrl = "../data/harp_inn_group1_reference.json?v=0.3.1";
+    const harpBenchmarkUrl = "../data/harp_inn_group1_benchmark.json?v=0.3.1";
+    const datasetConfigs = {
+      trimmis: {
+        title: "Trimmis GR · Profile 19", meta: "26 contexts · 29 direct relations", status: "Source reviewed",
+        source: "https://doi.org/10.5281/zenodo.4461075", defaultContext: "156",
+        note: "<strong>Reviewed reference</strong><br>The source extraction passed independent review. Context 199 reflects a confirmed source-author correction and remains explicitly traceable."
+      },
+      harp: {
+        title: "Harp Inn · Group 1", meta: "36 contexts · 26 precedence · 10 contemporary", status: "Source-bound",
+        source: "https://doi.org/10.5284/1133013", defaultContext: "1003",
+        note: "<strong>Direct source import</strong><br>Only explicit ADS ABOVE and LATER records enter precedence. CONTEMPORARY remains typed evidence outside the DAG. AI graph mutations: zero."
+      }
+    };
+    let graph, referenceDocument, benchmark, comprehensive, drawingComparison, drawingReviewTemplate, aiDrawingScreen, auditManifest, textProposals, formationBenchmark, harpReferenceDocument, harpBenchmark, ranking = [];
+    let activeDataset = "trimmis";
     let selectedId = "156", activeTab = "inspect", activeMode = "sequence";
     const nodePositions = new Map();
     const descriptions = new Map();
 
     async function init() {
-      [referenceDocument, benchmark, comprehensive, drawingComparison, drawingReviewTemplate, aiDrawingScreen, auditManifest, textProposals, formationBenchmark] = await Promise.all([
+      [referenceDocument, benchmark, comprehensive, drawingComparison, drawingReviewTemplate, aiDrawingScreen, auditManifest, textProposals, formationBenchmark, harpReferenceDocument, harpBenchmark] = await Promise.all([
         loadJson(graphUrl, "graph data"),
         loadJson(benchmarkUrl, "benchmark results"),
         loadJson(comprehensiveUrl, "comprehensive benchmark results"),
@@ -330,8 +356,23 @@
         loadJson(aiDrawingScreenUrl, "AI drawing screen"),
         loadJson(auditManifestUrl, "audit provenance manifest"),
         loadJson(textProposalsUrl, "text proposals"),
-        loadJson(formationBenchmarkUrl, "formation benchmark")
+        loadJson(formationBenchmarkUrl, "formation benchmark"),
+        loadJson(harpGraphUrl, "Harp Inn graph data"),
+        loadJson(harpBenchmarkUrl, "Harp Inn benchmark results")
       ]);
+      window.trimmisReferenceDocument = referenceDocument;
+      window.trimmisBenchmark = benchmark;
+      activateDataset("trimmis", false);
+      bindControls();
+      if (window.lucide) lucide.createIcons();
+      document.getElementById("canvasWrap").scrollTop = 430;
+    }
+
+    function activateDataset(dataset, resetScroll = true) {
+      activeDataset = dataset;
+      const config = datasetConfigs[dataset];
+      referenceDocument = dataset === "trimmis" ? window.trimmisReferenceDocument : harpReferenceDocument;
+      benchmark = dataset === "trimmis" ? window.trimmisBenchmark : harpBenchmark;
       graph = {
         nodes: referenceDocument.contexts.map(context => ({ ...context, description_de: context.label })),
         edges: referenceDocument.relations.map(relation => ({
@@ -339,24 +380,41 @@
           pdf_path_index: relation.source_pdf_path_index ?? null
         }))
       };
-      const exact = benchmark.runs.find(run => run.strategy === "impact");
-      const sampled = benchmark.runs.find(run => run.strategy === "sampled_orders");
-      ranking = exact.steps.map(step => {
-        const sampledStep = sampled.steps.find(item => item.edge.join("|") === step.edge.join("|"));
-        const baselineOrders = step.chronological_orders + step.impact_reduction;
-        return {
-          ...step,
-          sampled: sampledStep,
-          score: step.impact_reduction / baselineOrders,
-          title: `Verify ${step.edge[0]} before ${step.edge[1]}`
-        };
-      });
+      if (dataset === "trimmis") {
+        const exact = benchmark.runs.find(run => run.strategy === "impact");
+        const sampled = benchmark.runs.find(run => run.strategy === "sampled_orders");
+        ranking = exact.steps.map(step => {
+          const sampledStep = sampled.steps.find(item => item.edge.join("|") === step.edge.join("|"));
+          const baselineOrders = step.chronological_orders + step.impact_reduction;
+          return { ...step, sampled: sampledStep, score: step.impact_reduction / baselineOrders, title: `Verify ${step.edge[0]} before ${step.edge[1]}` };
+        });
+      } else {
+        ranking = benchmark.trials.flatMap(trial => trial.runs.closure_gain.steps.map(step => ({ ...step, score: step.closure_gain / step.reference_implications })));
+      }
+      selectedId = config.defaultContext;
+      activeTab = "inspect";
+      activeMode = "sequence";
+      nodePositions.clear();
+      descriptions.clear();
       graph.nodes.forEach(node => descriptions.set(node.id, node));
+      document.title = `HarrisLab - ${config.title}`;
+      document.getElementById("datasetSelect").value = dataset;
+      document.getElementById("projectTitle").textContent = config.title;
+      document.getElementById("projectMeta").textContent = config.meta;
+      document.getElementById("datasetStatus").textContent = config.status;
+      document.getElementById("datasetNote").innerHTML = config.note;
+      document.getElementById("matrix").setAttribute("aria-label", `Interactive Harris matrix for ${config.title}`);
+      document.querySelector('[data-view="matrix"] .count').textContent = graph.nodes.length;
+      document.querySelector('[data-view="questions"] .count').textContent = dataset === "trimmis" ? "3" : benchmark.trials.length;
+      document.querySelector('[data-view="sources"] .count').textContent = referenceDocument.evidence.length;
+      document.querySelectorAll("[data-trimmis-only]").forEach(control => { control.disabled = dataset !== "trimmis"; });
+      document.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.tab === "inspect"));
+      document.querySelectorAll(".view-button").forEach(button => button.classList.toggle("active", button.dataset.view === "matrix"));
+      document.querySelectorAll("#modeControl button").forEach(button => button.classList.toggle("active", button.dataset.mode === "sequence"));
       renderGraph();
-      bindControls();
       renderInspector();
       if (window.lucide) lucide.createIcons();
-      document.getElementById("canvasWrap").scrollTop = 430;
+      if (resetScroll) document.getElementById("canvasWrap").scrollTop = 0;
     }
 
     async function loadJson(url, label) {
@@ -413,12 +471,12 @@
       svg.replaceChildren();
       const { width } = buildLayout();
       svg.setAttribute("viewBox", `0 0 ${width} 1280`);
-      const phases = [
+      const phases = activeDataset === "trimmis" ? [
         { label: "Phase A-B", y: 36, h: 210 },
         { label: "Phase C", y: 246, h: 280, alt: true },
         { label: "Phase D", y: 526, h: 310 },
         { label: "Phase E-F", y: 836, h: 410, alt: true }
-      ];
+      ] : [];
       phases.forEach(phase => {
         svg.append(svgElement("rect", { x: 0, y: phase.y, width, height: phase.h, class: `phase-band${phase.alt ? " alt" : ""}` }));
         svg.append(svgElement("line", { x1: 0, y1: phase.y, x2: width, y2: phase.y, class: "phase-line" }));
@@ -453,6 +511,7 @@
     }
 
     function shortType(text) {
+      if (activeDataset === "harp") return text.toLowerCase().includes("cut") ? "surface / cut" : "deposit";
       const lower = text.toLowerCase();
       if (lower.includes("grube")) return "cut / pit";
       if (lower.includes("holzkohle") || lower.includes("brand")) return "burnt deposit";
@@ -470,7 +529,7 @@
     function selectRelation(edge) {
       selectedId = edge.earlier; activeTab = "inspect";
       renderGraph(); renderInspector();
-      const source = edge.pdf_path_index === null ? "source-author correction" : `source path ${edge.pdf_path_index}`;
+      const source = activeDataset === "harp" ? `ADS CSV record ${edge.source_record}` : edge.pdf_path_index === null ? "source-author correction" : `source path ${edge.pdf_path_index}`;
       toast(`Relation ${edge.earlier} → ${edge.later} · ${source}`);
     }
 
@@ -486,25 +545,31 @@
       const node = descriptions.get(selectedId);
       const incoming = graph.edges.filter(edge => edge.later === selectedId);
       const outgoing = graph.edges.filter(edge => edge.earlier === selectedId);
-      const sourceIdentity = node.catalog_row
+      const sourceIdentity = activeDataset === "harp"
+        ? `ADS CSV record ${node.source_record} · ${escapeHtml(node.source_type)}`
+        : node.catalog_row
         ? `Catalog row ${node.catalog_row} · printed as ${escapeHtml(node.catalog_notation)}`
         : "Added through confirmed source-author correction";
-      const geometry = node.matrix_rectangle
+      const geometry = activeDataset === "harp"
+        ? "No geometry inferred; identity comes directly from the UNIT record"
+        : node.matrix_rectangle
         ? `Page ${node.matrix_page} · [${node.matrix_rectangle.map(value => value.toFixed(1)).join(", ")}]`
         : "Not present in the published P19 matrix";
-      summary.innerHTML = `<div class="summary-top"><div><div class="eyebrow">Selected context</div><h2>${node.id}</h2></div><span class="review-chip">REVIEWED</span></div><p>${escapeHtml(node.description_de)}</p>`;
+      const reviewLabel = activeDataset === "harp" ? "SOURCE-BOUND" : "REVIEWED";
+      summary.innerHTML = `<div class="summary-top"><div><div class="eyebrow">Selected context</div><h2>${node.id}</h2></div><span class="review-chip">${reviewLabel}</span></div><p>${escapeHtml(node.description_de)}</p>`;
       content.innerHTML = `
         <div class="field"><div class="field-label">Source identity</div><div class="field-value">${sourceIdentity}</div></div>
         <div class="field"><div class="field-label">Matrix geometry</div><div class="field-value">${geometry}</div></div>
         <div class="field"><div class="field-label">Earlier than</div><div class="relations">${outgoing.length ? outgoing.map(edge => relationPill(edge.later, edge.pdf_path_index)).join("") : "<span class='field-value'>No direct successor</span>"}</div></div>
         <div class="field"><div class="field-label">Later than</div><div class="relations">${incoming.length ? incoming.map(edge => relationPill(edge.earlier, edge.pdf_path_index)).join("") : "<span class='field-value'>No direct predecessor</span>"}</div></div>
-        <div class="field"><div class="field-label">Evidence</div><div class="source-box"><strong>${node.id === "199" ? "Confirmed source correction" : "Synoptic Harris matrix"}</strong><br>${node.id === "199" ? "Correction record retained with the approved graph." : "Zenodo 4461075 · CC BY 3.0<br>Connector geometry and catalog record retained for audit."}</div></div>`;
+        <div class="field"><div class="field-label">Evidence</div><div class="source-box">${activeDataset === "harp" ? `<strong>Explicit ADS Harris CSV</strong><br>DOI 10.5284/1133013 · Open Government Licence<br>Only ABOVE and LATER records become precedence.` : `<strong>${node.id === "199" ? "Confirmed source correction" : "Synoptic Harris matrix"}</strong><br>${node.id === "199" ? "Correction record retained with the approved graph." : "Zenodo 4461075 · CC BY 3.0<br>Connector geometry and catalog record retained for audit."}`}</div></div>`;
       content.querySelectorAll(".relation-pill").forEach(button => button.addEventListener("click", () => selectNode(button.dataset.id)));
     }
 
     function relationPill(id, path) { return `<button class="relation-pill" data-id="${id}" title="${path === null ? "Source-author correction" : `PDF path ${path}`}">${id}</button>`; }
 
     function renderQuestions(summary, content) {
+      if (activeDataset === "harp") { renderHarpQuestions(summary, content); return; }
       const exact = benchmark.runs.find(run => run.strategy === "impact");
       const lexical = benchmark.runs.find(run => run.strategy === "lexicographic");
       const sampledWarning = ranking.some(item => item.sampled.sampled_effective_sample_size < 400);
@@ -530,6 +595,22 @@
       content.querySelectorAll(".rank-card").forEach(card => card.addEventListener("click", () => {
         const [earlier, later] = card.dataset.edge.split("|"); selectedId = earlier; activeMode = "impact"; renderGraph(); toast(`Highlighted candidate ${earlier} → ${later}`);
       }));
+    }
+
+    function renderHarpQuestions(summary, content) {
+      const aggregate = benchmark.aggregate;
+      const means = aggregate.mean_area_under_recovery_curve;
+      const warnings = aggregate.sampling_warnings;
+      summary.innerHTML = `<div class="eyebrow">Locally frozen validation</div><h2>Cross-dataset benchmark</h2><p>All 26 evidenced precedence edges evaluated once across nine deterministic trials.</p>`;
+      content.innerHTML = `
+        <div class="metric-grid">
+          <div class="metric"><strong>${(means.closure_gain * 100).toFixed(1)}%</strong><span>Closure AURC</span></div>
+          <div class="metric"><strong>${aggregate.exact_completed_trial_count} / ${aggregate.trial_count}</strong><span>Exact completed</span></div>
+          <div class="metric"><strong>+${(aggregate.closure_minus_random * 100).toFixed(1)}</strong><span>Points vs random</span></div>
+        </div>
+        <div class="study-box"><strong>Descriptive validation, not public preregistration</strong><br>Exact impact truncated in all ${aggregate.exact_truncated_trial_count} trials at the unchanged 100,000-order bound. Closure gain led the scalable controls, but this one component does not establish archaeological generality.<div class="diagnostic">Sampling warning: ${warnings.split_r_hat_above_1_05} of ${warnings.selected_step_count} selected steps had split R-hat above 1.05; ${warnings.top_choice_consensus_below_0_75} had consensus below 0.75.</div><div class="study-links"><a href="HARP_INN_BENCHMARK.md">Read report</a><a href="../data/harp_inn_group1_benchmark_design.json">Frozen design</a><a href="${harpBenchmarkUrl}">Full results</a></div></div>
+        <div class="field-label">All declared trials</div>
+        ${benchmark.trials.map(trial => `<article class="rank-card proposal-card"><div class="rank-head"><span class="rank-title">${escapeHtml(trial.id)}</span><span class="rank-score">EXACT TRUNCATED</span></div><p>${trial.hidden_edges.map(edge => `${escapeHtml(edge[0])} → ${escapeHtml(edge[1])}`).join(" · ")}</p><div class="diagnostic">AURC · closure ${(trial.runs.closure_gain.area_under_recovery_curve * 100).toFixed(1)}% · sampled ${(trial.runs.sampled_orders.area_under_recovery_curve * 100).toFixed(1)}% · random ${(trial.random_mean_area_under_recovery_curve * 100).toFixed(1)}%</div></article>`).join("")}`;
     }
 
     function renderScenarios(summary, content) {
@@ -655,21 +736,25 @@
     }
 
     function bindControls() {
+      document.getElementById("datasetSelect").addEventListener("change", event => activateDataset(event.target.value));
       document.querySelectorAll(".tab").forEach(tab => tab.addEventListener("click", () => { activeTab = tab.dataset.tab; document.querySelectorAll(".tab").forEach(item => item.classList.toggle("active", item === tab)); renderInspector(); }));
       document.querySelectorAll("#modeControl button").forEach(button => button.addEventListener("click", () => { activeMode = button.dataset.mode; document.querySelectorAll("#modeControl button").forEach(item => item.classList.toggle("active", item === button)); renderGraph(); }));
       document.querySelectorAll(".view-button").forEach(button => button.addEventListener("click", () => { document.querySelectorAll(".view-button").forEach(item => item.classList.toggle("active", item === button)); if (["questions", "text", "drawing", "formation", "scenarios", "sources"].includes(button.dataset.view)) { activeTab = button.dataset.view; document.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.tab === activeTab)); renderInspector(); } }));
       document.getElementById("searchInput").addEventListener("input", event => { const query = event.target.value.toLowerCase().trim(); document.querySelectorAll(".node").forEach(node => { const record = descriptions.get(node.dataset.id); node.classList.toggle("dim", Boolean(query && !node.dataset.id.includes(query) && !record.description_de.toLowerCase().includes(query))); }); });
       document.getElementById("fitButton").addEventListener("click", () => { document.getElementById("canvasWrap").scrollTo({ top: 0, behavior: "smooth" }); toast("Matrix returned to youngest context"); });
-      document.getElementById("sourceButton").addEventListener("click", () => window.open("https://doi.org/10.5281/zenodo.4461075", "_blank"));
+      document.getElementById("sourceButton").addEventListener("click", () => window.open(datasetConfigs[activeDataset].source, "_blank"));
       document.getElementById("exportButton").addEventListener("click", exportAudit);
       window.addEventListener("resize", () => renderGraph());
     }
 
     function exportAudit() {
-      const payload = JSON.stringify({ provenance: auditManifest, reference: referenceDocument, text_relation_proposals: textProposals, drawing_comparison: drawingComparison, ai_drawing_screen: aiDrawingScreen, formation_process_benchmark: formationBenchmark, retrospective_benchmark: benchmark, comprehensive_benchmark: comprehensive }, null, 2);
+      const exportDocument = activeDataset === "harp"
+        ? { provenance: auditManifest, reference: referenceDocument, cross_dataset_benchmark: benchmark }
+        : { provenance: auditManifest, reference: referenceDocument, text_relation_proposals: textProposals, drawing_comparison: drawingComparison, ai_drawing_screen: aiDrawingScreen, formation_process_benchmark: formationBenchmark, retrospective_benchmark: benchmark, comprehensive_benchmark: comprehensive };
+      const payload = JSON.stringify(exportDocument, null, 2);
       const link = document.createElement("a");
       link.href = URL.createObjectURL(new Blob([payload], { type: "application/json" }));
-      link.download = "harrislab-trimmis-profile19-audit.json";
+      link.download = activeDataset === "harp" ? "harrislab-harp-inn-group1-audit.json" : "harrislab-trimmis-profile19-audit.json";
       link.click();
       URL.revokeObjectURL(link.href);
       toast("Audit bundle exported");

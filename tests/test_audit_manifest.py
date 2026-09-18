@@ -31,7 +31,7 @@ class AuditManifestTests(unittest.TestCase):
         self.assertEqual(
             manifest["authority"]["accepted_graph_mutations_from_ai_screen"], 0
         )
-        self.assertEqual(manifest["release_version"], "0.3.0")
+        self.assertEqual(manifest["release_version"], "0.3.1")
         self.assertEqual(
             manifest["authority"]["harp_inn_contemporary_status"],
             "typed_non_precedence",

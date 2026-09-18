@@ -137,7 +137,7 @@ Validation is bound to the comparison SHA-256 and fails on missing, duplicate,
 unknown, or pending decisions. Its output classifies drawing evidence only and
 never mutates the accepted chronology.
 
-Reproduce the complete 0.3.0 artifact chain and run the release gate:
+Reproduce the complete 0.3.1 artifact chain and run the release gate:
 
 ```powershell
 python scripts/validate_release.py
@@ -171,3 +171,4 @@ component hashes, source identity, and authority boundaries.
 - [Version 0.1.0 research-seed release notes](docs/RELEASE_NOTES_0.1.0.md)
 - [Version 0.2.0 provenance release notes](docs/RELEASE_NOTES_0.2.0.md)
 - [Version 0.3.0 cross-dataset release notes](docs/RELEASE_NOTES_0.3.0.md)
+- [Version 0.3.1 strict-JSON and prototype release notes](docs/RELEASE_NOTES_0.3.1.md)
