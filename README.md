@@ -71,7 +71,10 @@ provisional pending a systematic literature review.
 	mutating the source reference.
 - Export review events bound to the audit-manifest reference hash.
 - Import a local, provenance-complete reference without uploading its contents.
+- Convert mapped context and relation CSV files into the same strict local workspace.
 - Reject malformed, unevidenced, cyclic, or non-observed imported relations.
+- Fingerprint local evidence attachments without persisting their contents.
+- Compare named interpretation branches and exchange hash-checked review bundles.
 
 ## Run
 
@@ -111,6 +114,16 @@ use the upload button. Start from
 The browser validates the complete reference before loading it and binds review
 events to the exact imported file SHA-256. See the
 [`local import specification`](docs/IMPORT_WORKFLOW.md).
+
+Spreadsheet projects can start from the
+[`context CSV`](data/import_contexts_template.csv) and
+[`relation CSV`](data/import_relations_template.csv) templates. The
+[`CSV workflow`](docs/CSV_IMPORT_WORKFLOW.md) documents mappings and combined
+source hashing.
+
+The Matrix Review Queue supports independent named branches, local evidence-file
+fingerprints, branch comparison, and portable review bundles. See the
+[`collaborative review workflow`](docs/COLLABORATIVE_REVIEW_WORKFLOW.md).
 
 Reproduce that artifact:
 
@@ -187,6 +200,7 @@ component hashes, source identity, and authority boundaries.
 - [ADS Harp Inn cross-dataset benchmark](docs/HARP_INN_BENCHMARK.md)
 - [Matrix review workflow](docs/REVIEW_WORKFLOW.md)
 - [Local dataset import](docs/IMPORT_WORKFLOW.md)
+- [CSV pair import](docs/CSV_IMPORT_WORKFLOW.md)
 - [Closure-gain surrogate calibration](docs/SURROGATE_CALIBRATION.md)
 - [Exact-impact and scalable-ranking limits](docs/EXACT_IMPACT_LIMITATIONS.md)
 - [Sampled-ranking disagreement analysis](docs/DISAGREEMENT_ANALYSIS.md)

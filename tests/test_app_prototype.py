@@ -62,6 +62,42 @@ class AppPrototypeTests(unittest.TestCase):
         self.assertEqual(len(graph.relations), 3)
         self.assertIsNone(graph.contradiction_cycle())
 
+    def test_csv_pair_import_has_mapping_and_provenance_contract(self) -> None:
+        for required in (
+            "papaparse@5.5.3",
+            "function prepareCsvMappings",
+            "function importCsvPair",
+            "Column mapping",
+            'format: "csv-pair-v1"',
+            "conflicting evidence metadata",
+        ):
+            self.assertIn(required, self.document)
+
+        contexts = (self.root / "data" / "import_contexts_template.csv").read_text(
+            encoding="utf-8"
+        )
+        relations = (
+            self.root / "data" / "import_relations_template.csv"
+        ).read_text(encoding="utf-8")
+        self.assertIn("context_id,label,record_source", contexts)
+        self.assertIn(
+            "earlier,later,evidence_id,evidence_kind,evidence_description,evidence_source",
+            relations,
+        )
+
+    def test_review_branches_attachments_and_exchange_are_hash_bound(self) -> None:
+        for required in (
+            "harrislab.review-bundle.v1",
+            "function effectiveBranchEdges",
+            "function renderBranchComparison",
+            "function fingerprintFiles",
+            "file.arrayBuffer()",
+            "Each evidence file must be 25 MB or smaller",
+            "review bundle does not match the active reference SHA-256",
+            "human_decision_overlay_reference_unchanged",
+        ):
+            self.assertIn(required, self.document)
+
 
 if __name__ == "__main__":
     unittest.main()

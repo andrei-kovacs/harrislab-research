@@ -49,6 +49,12 @@ The exported `review_log` is bound to the corresponding component in
 - Closure impact counts chronological implications equally; it does not measure
   fieldwork cost, evidential quality, or archaeological importance.
 - Browser `localStorage` is neither shared nor an archival database. Export is
-  required for retention, review exchange, or repository deposit.
-- Evidence references are text links or identifiers. Binary attachments and
-  reviewer authentication are not yet implemented.
+   required for retention, review exchange, or repository deposit.
+- Evidence-file contents remain local. The review log retains only filename,
+   media type, byte size, and SHA-256.
+- Portable bundles support asynchronous exchange, not reviewer authentication
+   or concurrent editing.
+
+Named branches, attachment fingerprints, and review-bundle exchange are
+documented in
+[`COLLABORATIVE_REVIEW_WORKFLOW.md`](COLLABORATIVE_REVIEW_WORKFLOW.md).

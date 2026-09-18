@@ -1,0 +1,4 @@
+earlier,later,evidence_id,evidence_kind,evidence_description,evidence_source
+100,101,section-a,drawing,Section A stratigraphic contacts,project://drawings/section-a
+101,102,section-a,drawing,Section A stratigraphic contacts,project://drawings/section-a
+102,103,register-2026,context_sheet,Context register export,project://register/2026-09-18

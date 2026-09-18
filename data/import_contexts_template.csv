@@ -1,0 +1,5 @@
+context_id,label,record_source
+100,Natural substrate,project://context-register/100
+101,Ditch cut,project://context-register/101
+102,Primary ditch fill,project://context-register/102
+103,Sealing deposit,project://context-register/103
