@@ -65,6 +65,11 @@ provisional pending a systematic literature review.
 - Surface literal catalogue relation mentions as review-only proposals.
 - Preregister synthetic formation-process comparisons against matched controls.
 - Load a reproducible JSON dataset and emit a command-line audit report.
+- Open source-bound relations in a human Matrix Review Queue.
+- Preview cycle and chronological-closure consequences before a decision.
+- Record append-only accepted, rejected, or undecided review events without
+	mutating the source reference.
+- Export review events bound to the audit-manifest reference hash.
 
 ## Run
 
@@ -91,6 +96,12 @@ demonstration. The reference includes the confirmed insertion of context 199
 between older context 26 and younger context 170. The investigation queue loads
 generated exact-impact results and benchmark diagnostics from a committed JSON
 artifact. Held-out relations are known reference edges, not field disputes.
+
+Select a dataset and click any matrix connector to open a source-prefilled
+review question. The Review tab also accepts a candidate direction entered by
+context ID. Each decision requires reviewer identity, evidence, rationale, and
+a decision note. Browser storage is a working overlay only; use **Export audit**
+to retain the hash-bound review log.
 
 Reproduce that artifact:
 
@@ -165,6 +176,7 @@ component hashes, source identity, and authority boundaries.
 - [Hidden-relation benchmark protocol](docs/BENCHMARK_PROTOCOL.md)
 - [Comprehensive Trimmis benchmark results](docs/TRIMMIS_COMPREHENSIVE_BENCHMARK.md)
 - [ADS Harp Inn cross-dataset benchmark](docs/HARP_INN_BENCHMARK.md)
+- [Matrix review workflow](docs/REVIEW_WORKFLOW.md)
 - [Closure-gain surrogate calibration](docs/SURROGATE_CALIBRATION.md)
 - [Exact-impact and scalable-ranking limits](docs/EXACT_IMPACT_LIMITATIONS.md)
 - [Sampled-ranking disagreement analysis](docs/DISAGREEMENT_ANALYSIS.md)

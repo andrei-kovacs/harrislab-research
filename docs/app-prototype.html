@@ -33,7 +33,7 @@
       background-size: 24px 24px;
       font-family: "Aptos", "Segoe UI", sans-serif;
     }
-    button, input, select { font: inherit; }
+    button, input, select, textarea { font: inherit; }
     button { color: inherit; }
     .app { height: 100%; display: grid; grid-template-rows: 58px 1fr; }
     .topbar {
@@ -144,7 +144,7 @@
     .node.selected rect { fill: var(--moss-soft); stroke: #314f38; stroke-width: 2.7; filter: drop-shadow(0 3px 4px rgba(30,45,34,.18)); }
     .node.dim { opacity: .2; }
     .node.flag rect { stroke: var(--ochre); stroke-dasharray: 4 3; }
-    .tabs { display: grid; grid-template-columns: repeat(6, 1fr); border-bottom: 1px solid var(--line); }
+    .tabs { display: grid; grid-template-columns: repeat(7, 1fr); border-bottom: 1px solid var(--line); }
     .tab { height: 42px; border: 0; border-bottom: 2px solid transparent; background: white; cursor: pointer; font-size: 12px; color: var(--muted); }
     .tab.active { color: var(--ink); border-bottom-color: var(--moss); font-weight: 800; }
     .summary { padding: 17px 18px 14px; border-bottom: 1px solid var(--line); }
@@ -210,6 +210,25 @@
     .toggle.on { background: var(--moss); }
     .toggle.on span { transform: translateX(15px); }
     .empty { color: var(--muted); font-size: 12px; padding: 20px 0; line-height: 1.5; }
+    .review-form { margin-bottom: 16px; padding: 12px; border: 1px solid var(--line); border-top: 3px solid var(--moss); background: #f8faf8; }
+    .review-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+    .review-form label { display: block; color: var(--muted); font-size: 9px; font-weight: 800; text-transform: uppercase; }
+    .review-form input, .review-form textarea { width: 100%; margin-top: 4px; border: 1px solid var(--line); border-radius: 3px; background: white; color: var(--ink); padding: 7px 8px; font-size: 11px; text-transform: none; }
+    .review-form textarea { min-height: 62px; resize: vertical; line-height: 1.4; }
+    .review-form .wide { grid-column: 1 / -1; }
+    .review-submit { width: 100%; height: 34px; margin-top: 9px; border: 0; border-radius: 3px; background: var(--ink); color: white; cursor: pointer; font-size: 10px; font-weight: 800; }
+    .review-card { border: 1px solid var(--line); border-left: 3px solid var(--moss); padding: 11px; margin-bottom: 8px; background: white; }
+    .review-card[data-decision="reject"] { border-left-color: var(--red); }
+    .review-card[data-decision="undecided"] { border-left-color: var(--ochre); }
+    .review-meta { margin-top: 7px; color: var(--muted); font-size: 9px; line-height: 1.45; }
+    .decision-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-top: 10px; }
+    .decision-actions button { min-height: 30px; border: 1px solid var(--line); border-radius: 3px; background: white; cursor: pointer; font-size: 9px; font-weight: 800; }
+    .decision-actions button.active { border-color: var(--moss); background: var(--moss-soft); color: #314f38; }
+    .decision-actions button[data-decision="reject"].active { border-color: var(--red); background: var(--red-soft); color: #75332d; }
+    .decision-actions button[data-decision="undecided"].active { border-color: var(--ochre); background: var(--ochre-soft); color: #754a16; }
+    .decision-actions button:disabled { cursor: not-allowed; opacity: .35; }
+    .decision-note { display: block; margin-top: 9px; color: var(--muted); font-size: 9px; font-weight: 800; text-transform: uppercase; }
+    .decision-note input { width: 100%; margin-top: 4px; border: 1px solid var(--line); border-radius: 3px; padding: 7px 8px; color: var(--ink); font-size: 10px; font-weight: 400; text-transform: none; }
     .toast { position: fixed; left: 50%; bottom: 18px; transform: translate(-50%, 20px); opacity: 0; background: var(--ink); color: white; padding: 9px 12px; border-radius: 4px; font-size: 11px; z-index: 50; transition: .2s; pointer-events: none; }
     .toast.show { opacity: 1; transform: translate(-50%, 0); }
     @media (max-width: 980px) {
@@ -262,7 +281,8 @@
       <aside class="sidebar">
         <div class="section-label">Workspace</div>
         <button class="view-button active" data-view="matrix"><i data-lucide="git-branch"></i><span>Matrix</span><span class="count">26</span></button>
-        <button class="view-button" data-view="questions"><i data-lucide="circle-help"></i><span>Investigation queue</span><span class="count">3</span></button>
+        <button class="view-button" data-view="review"><i data-lucide="clipboard-check"></i><span>Review queue</span><span class="count">0</span></button>
+        <button class="view-button" data-view="questions"><i data-lucide="chart-no-axes-combined"></i><span>Benchmarks</span><span class="count">3</span></button>
         <button class="view-button" data-view="text" data-trimmis-only><i data-lucide="text-search"></i><span>Text proposals</span><span class="count">3</span></button>
         <button class="view-button" data-view="drawing" data-trimmis-only><i data-lucide="scan-line"></i><span>Drawing comparison</span><span class="count">27</span></button>
         <button class="view-button" data-view="formation" data-trimmis-only><i data-lucide="grid-3x3"></i><span>Formation benchmark</span><span class="count">100</span></button>
@@ -301,7 +321,8 @@
       <aside class="inspector">
         <div class="tabs">
           <button class="tab active" data-tab="inspect">Inspect</button>
-          <button class="tab" data-tab="questions">Questions</button>
+          <button class="tab" data-tab="review">Review</button>
+          <button class="tab" data-tab="questions">Benchmark</button>
           <button class="tab" data-tab="text" data-trimmis-only>Text</button>
           <button class="tab" data-tab="drawing" data-trimmis-only>Drawing</button>
           <button class="tab" data-tab="formation" data-trimmis-only>Model</button>
@@ -343,6 +364,8 @@
     let graph, referenceDocument, benchmark, comprehensive, drawingComparison, drawingReviewTemplate, aiDrawingScreen, auditManifest, textProposals, formationBenchmark, harpReferenceDocument, harpBenchmark, ranking = [];
     let activeDataset = "trimmis";
     let selectedId = "156", activeTab = "inspect", activeMode = "sequence";
+    let reviewDraft = null;
+    let reviewLog = [];
     const nodePositions = new Map();
     const descriptions = new Map();
 
@@ -362,6 +385,7 @@
       ]);
       window.trimmisReferenceDocument = referenceDocument;
       window.trimmisBenchmark = benchmark;
+      reviewLog = loadReviewLog();
       activateDataset("trimmis", false);
       bindControls();
       if (window.lucide) lucide.createIcons();
@@ -407,6 +431,7 @@
       document.querySelector('[data-view="matrix"] .count').textContent = graph.nodes.length;
       document.querySelector('[data-view="questions"] .count').textContent = dataset === "trimmis" ? "3" : benchmark.trials.length;
       document.querySelector('[data-view="sources"] .count').textContent = referenceDocument.evidence.length;
+      updateReviewCount();
       document.querySelectorAll("[data-trimmis-only]").forEach(control => { control.disabled = dataset !== "trimmis"; });
       document.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.tab === "inspect"));
       document.querySelectorAll(".view-button").forEach(button => button.classList.toggle("active", button.dataset.view === "matrix"));
@@ -527,15 +552,24 @@
     }
 
     function selectRelation(edge) {
-      selectedId = edge.earlier; activeTab = "inspect";
-      renderGraph(); renderInspector();
       const source = activeDataset === "harp" ? `ADS CSV record ${edge.source_record}` : edge.pdf_path_index === null ? "source-author correction" : `source path ${edge.pdf_path_index}`;
-      toast(`Relation ${edge.earlier} → ${edge.later} · ${source}`);
+      selectedId = edge.earlier;
+      activeTab = "review";
+      reviewDraft = {
+        earlier: edge.earlier,
+        later: edge.later,
+        evidence: source,
+        rationale: "Verify the recorded direction against its source evidence."
+      };
+      document.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.tab === activeTab));
+      renderGraph(); renderInspector();
+      toast(`Reviewing ${edge.earlier} → ${edge.later} · ${source}`);
     }
 
     function renderInspector() {
       const summary = document.getElementById("summary");
       const content = document.getElementById("tabContent");
+      if (activeTab === "review") { renderReviewQueue(summary, content); return; }
       if (activeTab === "questions") { renderQuestions(summary, content); return; }
       if (activeTab === "text") { renderTextProposals(summary, content); return; }
       if (activeTab === "drawing") { renderDrawingComparison(summary, content); return; }
@@ -567,6 +601,142 @@
     }
 
     function relationPill(id, path) { return `<button class="relation-pill" data-id="${id}" title="${path === null ? "Source-author correction" : `PDF path ${path}`}">${id}</button>`; }
+
+    function loadReviewLog() {
+      try {
+        const stored = JSON.parse(localStorage.getItem("harrislab.review-log.v1") || "[]");
+        return Array.isArray(stored) ? stored : [];
+      } catch (_error) {
+        return [];
+      }
+    }
+
+    function appendReviewEvent(event) {
+      const reference = activeReferenceBinding();
+      reviewLog.push({
+        schema: "harrislab.review-event.v1",
+        id: crypto.randomUUID(),
+        timestamp: new Date().toISOString(),
+        dataset: activeDataset,
+        reference_sha256: reference.sha256,
+        ...event
+      });
+      localStorage.setItem("harrislab.review-log.v1", JSON.stringify(reviewLog));
+      updateReviewCount();
+    }
+
+    function activeReferenceBinding() {
+      const key = activeDataset === "harp" ? "harp_inn_reference" : "reference";
+      const component = auditManifest.components.find(item => item.key === key);
+      return { path: component.path, sha256: component.sha256 };
+    }
+
+    function currentReviewItems() {
+      const items = new Map();
+      reviewLog.filter(event => event.dataset === activeDataset).forEach(event => {
+        const key = `${event.earlier}|${event.later}`;
+        if (event.action === "opened") {
+          items.set(key, { ...event, decision: "undecided", history: [event] });
+        } else if (items.has(key)) {
+          const item = items.get(key);
+          item.history.push(event);
+          if (event.action === "decision") item.decision = event.decision;
+        }
+      });
+      return [...items.values()];
+    }
+
+    function updateReviewCount() {
+      const count = currentReviewItems().filter(item => item.decision === "undecided").length;
+      const element = document.querySelector('[data-view="review"] .count');
+      if (element) element.textContent = count;
+    }
+
+    function relationConsequence(earlier, later, referenceState) {
+      const baseline = chronologicalClosure(graph.edges);
+      if (earlier === later || baseline.has(`${later}|${earlier}`)) {
+        return { createsCycle: true, text: "Accepting this direction would create a chronological cycle." };
+      }
+      if (referenceState === "observed") {
+        const branch = chronologicalClosure(graph.edges.filter(edge => !(edge.earlier === earlier && edge.later === later)));
+        const lost = [...baseline].filter(edge => !branch.has(edge)).length;
+        return { createsCycle: false, text: `Rejecting this observed relation would remove ${lost} chronological conclusion${lost === 1 ? "" : "s"} from the review branch.` };
+      }
+      const branch = chronologicalClosure([...graph.edges, { earlier, later }]);
+      const gained = [...branch].filter(edge => !baseline.has(edge)).length;
+      return { createsCycle: false, text: gained ? `Accepting this candidate would add ${gained} chronological conclusion${gained === 1 ? "" : "s"}.` : "This direction is already implied by the accepted graph." };
+    }
+
+    function renderReviewQueue(summary, content) {
+      const items = currentReviewItems().sort((left, right) => left.decision.localeCompare(right.decision) || left.timestamp.localeCompare(right.timestamp));
+      const pending = items.filter(item => item.decision === "undecided").length;
+      const draft = reviewDraft || { earlier: selectedId, later: "" };
+      const contextOptions = graph.nodes.map(node => `<option value="${escapeHtml(node.id)}"></option>`).join("");
+      summary.innerHTML = `<div class="summary-top"><div><div class="eyebrow">Human decision layer</div><h2>Matrix review queue</h2></div><span class="pending-chip">${pending} PENDING</span></div><p>Test alternatives without changing the accepted source graph.</p>`;
+      content.innerHTML = `
+        <div class="study-box"><strong>Reference remains immutable</strong><br>Decisions update a local interpretation log only. Every action records reviewer, evidence, rationale, timestamp, and graph consequence for export.</div>
+        <form class="review-form" id="reviewForm">
+          <div class="review-form-grid">
+            <label>Earlier context<input id="reviewEarlier" list="reviewContextIds" value="${escapeHtml(draft.earlier)}" required></label>
+            <label>Later context<input id="reviewLater" list="reviewContextIds" value="${escapeHtml(draft.later)}" required></label>
+            <datalist id="reviewContextIds">${contextOptions}</datalist>
+            <label class="wide">Reviewer<input id="reviewerName" value="${escapeHtml(localStorage.getItem("harrislab.reviewer") || "")}" placeholder="Name or stable identifier" required></label>
+            <label class="wide">Evidence reference<input id="reviewEvidence" value="${escapeHtml(draft.evidence || "")}" placeholder="Context sheet, drawing, photograph, or record URI" required></label>
+            <label class="wide">Review question and rationale<textarea id="reviewRationale" placeholder="What is uncertain, and why should this relation be reviewed?" required>${escapeHtml(draft.rationale || "")}</textarea></label>
+          </div>
+          <button class="review-submit" type="submit">Add review question</button>
+        </form>
+        <div class="field-label">Current questions</div>
+        <div id="reviewItems">${items.length ? items.map(item => {
+          const consequence = relationConsequence(item.earlier, item.later, item.reference_state);
+          const cycle = consequence.createsCycle ? " · acceptance blocked" : "";
+          return `<article class="review-card" data-key="${escapeHtml(item.earlier)}|${escapeHtml(item.later)}" data-decision="${item.decision}">
+            <div class="rank-head"><span class="rank-title">${escapeHtml(item.earlier)} → ${escapeHtml(item.later)}</span><span class="rank-score">${item.decision.toUpperCase()}</span></div>
+            <p>${escapeHtml(item.rationale)}</p>
+            <div class="source-box" style="margin-top:8px"><strong>Consequence preview</strong><br>${escapeHtml(consequence.text)}</div>
+            <div class="review-meta">${item.reference_state === "observed" ? "Observed source relation" : "Candidate direction"} · ${escapeHtml(item.evidence)}<br>Opened by ${escapeHtml(item.reviewer)} · ${item.history.length} audit event${item.history.length === 1 ? "" : "s"}${cycle}</div>
+            <label class="decision-note">Decision note<input placeholder="Reason for this decision" aria-label="Decision note for ${escapeHtml(item.earlier)} to ${escapeHtml(item.later)}"></label>
+            <div class="decision-actions">
+              <button type="button" data-decision="accept" class="${item.decision === "accept" ? "active" : ""}" ${consequence.createsCycle ? "disabled title='Would create a cycle'" : ""}>Accept</button>
+              <button type="button" data-decision="reject" class="${item.decision === "reject" ? "active" : ""}">Reject</button>
+              <button type="button" data-decision="undecided" class="${item.decision === "undecided" ? "active" : ""}">Undecided</button>
+            </div>
+          </article>`;
+        }).join("") : `<div class="empty">No questions yet. Click a matrix relation to review it, or enter a candidate direction above.</div>`}</div>`;
+      reviewDraft = null;
+      document.getElementById("reviewForm").addEventListener("submit", event => {
+        event.preventDefault();
+        const earlier = document.getElementById("reviewEarlier").value.trim();
+        const later = document.getElementById("reviewLater").value.trim();
+        const reviewer = document.getElementById("reviewerName").value.trim();
+        const evidence = document.getElementById("reviewEvidence").value.trim();
+        const rationale = document.getElementById("reviewRationale").value.trim();
+        if (!descriptions.has(earlier) || !descriptions.has(later) || earlier === later) {
+          toast("Choose two different contexts from this dataset");
+          return;
+        }
+        if (items.some(item => item.earlier === earlier && item.later === later)) {
+          toast("That relation is already in the review queue");
+          return;
+        }
+        localStorage.setItem("harrislab.reviewer", reviewer);
+        const observed = graph.edges.some(edge => edge.earlier === earlier && edge.later === later);
+        appendReviewEvent({ action: "opened", earlier, later, reviewer, evidence, rationale, reference_state: observed ? "observed" : "absent" });
+        renderReviewQueue(summary, content);
+        toast(`Review question added: ${earlier} → ${later}`);
+      });
+      content.querySelectorAll(".decision-actions button").forEach(button => button.addEventListener("click", () => {
+        const reviewer = localStorage.getItem("harrislab.reviewer") || "";
+        if (!reviewer) { toast("Enter a reviewer before recording a decision"); return; }
+        const card = button.closest(".review-card");
+        const note = card.querySelector(".decision-note input").value.trim();
+        if (!note) { toast("Add a decision note before recording the decision"); return; }
+        const [earlier, later] = card.dataset.key.split("|");
+        appendReviewEvent({ action: "decision", earlier, later, reviewer, decision: button.dataset.decision, note });
+        renderReviewQueue(summary, content);
+        toast(`Decision recorded: ${button.dataset.decision}`);
+      }));
+    }
 
     function renderQuestions(summary, content) {
       if (activeDataset === "harp") { renderHarpQuestions(summary, content); return; }
@@ -739,7 +909,7 @@
       document.getElementById("datasetSelect").addEventListener("change", event => activateDataset(event.target.value));
       document.querySelectorAll(".tab").forEach(tab => tab.addEventListener("click", () => { activeTab = tab.dataset.tab; document.querySelectorAll(".tab").forEach(item => item.classList.toggle("active", item === tab)); renderInspector(); }));
       document.querySelectorAll("#modeControl button").forEach(button => button.addEventListener("click", () => { activeMode = button.dataset.mode; document.querySelectorAll("#modeControl button").forEach(item => item.classList.toggle("active", item === button)); renderGraph(); }));
-      document.querySelectorAll(".view-button").forEach(button => button.addEventListener("click", () => { document.querySelectorAll(".view-button").forEach(item => item.classList.toggle("active", item === button)); if (["questions", "text", "drawing", "formation", "scenarios", "sources"].includes(button.dataset.view)) { activeTab = button.dataset.view; document.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.tab === activeTab)); renderInspector(); } }));
+      document.querySelectorAll(".view-button").forEach(button => button.addEventListener("click", () => { document.querySelectorAll(".view-button").forEach(item => item.classList.toggle("active", item === button)); if (["review", "questions", "text", "drawing", "formation", "scenarios", "sources"].includes(button.dataset.view)) { activeTab = button.dataset.view; document.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.tab === activeTab)); renderInspector(); } }));
       document.getElementById("searchInput").addEventListener("input", event => { const query = event.target.value.toLowerCase().trim(); document.querySelectorAll(".node").forEach(node => { const record = descriptions.get(node.dataset.id); node.classList.toggle("dim", Boolean(query && !node.dataset.id.includes(query) && !record.description_de.toLowerCase().includes(query))); }); });
       document.getElementById("fitButton").addEventListener("click", () => { document.getElementById("canvasWrap").scrollTo({ top: 0, behavior: "smooth" }); toast("Matrix returned to youngest context"); });
       document.getElementById("sourceButton").addEventListener("click", () => window.open(datasetConfigs[activeDataset].source, "_blank"));
@@ -748,9 +918,11 @@
     }
 
     function exportAudit() {
+      const reviewEvents = reviewLog.filter(event => event.dataset === activeDataset);
+      const reviewDocument = { schema: "harrislab.review-log.v1", authority: "human_decision_overlay_reference_unchanged", reference: activeReferenceBinding(), events: reviewEvents };
       const exportDocument = activeDataset === "harp"
-        ? { provenance: auditManifest, reference: referenceDocument, cross_dataset_benchmark: benchmark }
-        : { provenance: auditManifest, reference: referenceDocument, text_relation_proposals: textProposals, drawing_comparison: drawingComparison, ai_drawing_screen: aiDrawingScreen, formation_process_benchmark: formationBenchmark, retrospective_benchmark: benchmark, comprehensive_benchmark: comprehensive };
+        ? { provenance: auditManifest, reference: referenceDocument, review_log: reviewDocument, cross_dataset_benchmark: benchmark }
+        : { provenance: auditManifest, reference: referenceDocument, review_log: reviewDocument, text_relation_proposals: textProposals, drawing_comparison: drawingComparison, ai_drawing_screen: aiDrawingScreen, formation_process_benchmark: formationBenchmark, retrospective_benchmark: benchmark, comprehensive_benchmark: comprehensive };
       const payload = JSON.stringify(exportDocument, null, 2);
       const link = document.createElement("a");
       link.href = URL.createObjectURL(new Blob([payload], { type: "application/json" }));

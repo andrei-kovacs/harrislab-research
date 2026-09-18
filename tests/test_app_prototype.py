@@ -26,6 +26,20 @@ class AppPrototypeTests(unittest.TestCase):
             'document.querySelectorAll("[data-trimmis-only]")', self.document
         )
 
+    def test_review_queue_is_an_immutable_audit_overlay(self) -> None:
+        for required in (
+            "harrislab.review-event.v1",
+            "harrislab.review-log.v1",
+            "human_decision_overlay_reference_unchanged",
+            "reference_sha256",
+            "activeReferenceBinding",
+            "Add a decision note before recording the decision",
+            "function relationConsequence",
+            "function renderReviewQueue",
+            "Accepting this direction would create a chronological cycle",
+        ):
+            self.assertIn(required, self.document)
+
 
 if __name__ == "__main__":
     unittest.main()
