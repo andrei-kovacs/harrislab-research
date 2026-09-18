@@ -267,13 +267,17 @@
         <select class="dataset-picker" id="datasetSelect" aria-label="Active archaeological dataset">
           <option value="trimmis">Trimmis Profile 19</option>
           <option value="harp">ADS Harp Inn</option>
+          <option value="imported" id="importedDatasetOption" hidden>Imported dataset</option>
+          <option value="import">Import local JSON...</option>
         </select>
         <div class="project-copy"><strong id="projectTitle">Trimmis GR · Profile 19</strong><span id="projectMeta">26 contexts · 29 direct relations</span></div>
       </div>
       <div class="top-actions">
         <div class="status"><span class="status-dot"></span><span id="datasetStatus">Source reviewed</span></div>
         <button class="icon-btn" title="Open source record" id="sourceButton"><i data-lucide="external-link"></i></button>
+        <button class="icon-btn" title="Import local dataset" id="importButton"><i data-lucide="upload"></i></button>
         <button class="command-btn" id="exportButton"><i data-lucide="download"></i>Export audit</button>
+        <input type="file" id="importInput" accept="application/json,.json" hidden>
       </div>
     </header>
 
@@ -282,7 +286,7 @@
         <div class="section-label">Workspace</div>
         <button class="view-button active" data-view="matrix"><i data-lucide="git-branch"></i><span>Matrix</span><span class="count">26</span></button>
         <button class="view-button" data-view="review"><i data-lucide="clipboard-check"></i><span>Review queue</span><span class="count">0</span></button>
-        <button class="view-button" data-view="questions"><i data-lucide="chart-no-axes-combined"></i><span>Benchmarks</span><span class="count">3</span></button>
+        <button class="view-button" data-view="questions" data-benchmark-only><i data-lucide="chart-no-axes-combined"></i><span>Benchmarks</span><span class="count">3</span></button>
         <button class="view-button" data-view="text" data-trimmis-only><i data-lucide="text-search"></i><span>Text proposals</span><span class="count">3</span></button>
         <button class="view-button" data-view="drawing" data-trimmis-only><i data-lucide="scan-line"></i><span>Drawing comparison</span><span class="count">27</span></button>
         <button class="view-button" data-view="formation" data-trimmis-only><i data-lucide="grid-3x3"></i><span>Formation benchmark</span><span class="count">100</span></button>
@@ -322,7 +326,7 @@
         <div class="tabs">
           <button class="tab active" data-tab="inspect">Inspect</button>
           <button class="tab" data-tab="review">Review</button>
-          <button class="tab" data-tab="questions">Benchmark</button>
+          <button class="tab" data-tab="questions" data-benchmark-only>Benchmark</button>
           <button class="tab" data-tab="text" data-trimmis-only>Text</button>
           <button class="tab" data-tab="drawing" data-trimmis-only>Drawing</button>
           <button class="tab" data-tab="formation" data-trimmis-only>Model</button>
@@ -359,10 +363,16 @@
         title: "Harp Inn · Group 1", meta: "36 contexts · 26 precedence · 10 contemporary", status: "Source-bound",
         source: "https://doi.org/10.5284/1133013", defaultContext: "1003",
         note: "<strong>Direct source import</strong><br>Only explicit ADS ABOVE and LATER records enter precedence. CONTEMPORARY remains typed evidence outside the DAG. AI graph mutations: zero."
+      },
+      imported: {
+        title: "Imported dataset", meta: "Local browser session", status: "Local, hash-bound",
+        source: null, defaultContext: null,
+        note: "<strong>Local review dataset</strong><br>Validated and SHA-256 bound in this browser. No file content is uploaded. Import does not qualify or endorse the archaeological interpretation."
       }
     };
     let graph, referenceDocument, benchmark, comprehensive, drawingComparison, drawingReviewTemplate, aiDrawingScreen, auditManifest, textProposals, formationBenchmark, harpReferenceDocument, harpBenchmark, ranking = [];
     let activeDataset = "trimmis";
+    let importedReference = null;
     let selectedId = "156", activeTab = "inspect", activeMode = "sequence";
     let reviewDraft = null;
     let reviewLog = [];
@@ -395,8 +405,8 @@
     function activateDataset(dataset, resetScroll = true) {
       activeDataset = dataset;
       const config = datasetConfigs[dataset];
-      referenceDocument = dataset === "trimmis" ? window.trimmisReferenceDocument : harpReferenceDocument;
-      benchmark = dataset === "trimmis" ? window.trimmisBenchmark : harpBenchmark;
+      referenceDocument = dataset === "trimmis" ? window.trimmisReferenceDocument : dataset === "harp" ? harpReferenceDocument : importedReference.document;
+      benchmark = dataset === "trimmis" ? window.trimmisBenchmark : dataset === "harp" ? harpBenchmark : null;
       graph = {
         nodes: referenceDocument.contexts.map(context => ({ ...context, description_de: context.label })),
         edges: referenceDocument.relations.map(relation => ({
@@ -412,10 +422,12 @@
           const baselineOrders = step.chronological_orders + step.impact_reduction;
           return { ...step, sampled: sampledStep, score: step.impact_reduction / baselineOrders, title: `Verify ${step.edge[0]} before ${step.edge[1]}` };
         });
-      } else {
+      } else if (dataset === "harp") {
         ranking = benchmark.trials.flatMap(trial => trial.runs.closure_gain.steps.map(step => ({ ...step, score: step.closure_gain / step.reference_implications })));
+      } else {
+        ranking = [];
       }
-      selectedId = config.defaultContext;
+      selectedId = config.defaultContext || graph.nodes[0].id;
       activeTab = "inspect";
       activeMode = "sequence";
       nodePositions.clear();
@@ -429,10 +441,12 @@
       document.getElementById("datasetNote").innerHTML = config.note;
       document.getElementById("matrix").setAttribute("aria-label", `Interactive Harris matrix for ${config.title}`);
       document.querySelector('[data-view="matrix"] .count').textContent = graph.nodes.length;
-      document.querySelector('[data-view="questions"] .count').textContent = dataset === "trimmis" ? "3" : benchmark.trials.length;
+      document.querySelector('[data-view="questions"] .count').textContent = dataset === "trimmis" ? "3" : dataset === "harp" ? benchmark.trials.length : "0";
       document.querySelector('[data-view="sources"] .count').textContent = referenceDocument.evidence.length;
       updateReviewCount();
       document.querySelectorAll("[data-trimmis-only]").forEach(control => { control.disabled = dataset !== "trimmis"; });
+      document.querySelectorAll("[data-benchmark-only]").forEach(control => { control.disabled = dataset === "imported"; });
+      document.getElementById("sourceButton").disabled = !config.source;
       document.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.tab === "inspect"));
       document.querySelectorAll(".view-button").forEach(button => button.classList.toggle("active", button.dataset.view === "matrix"));
       document.querySelectorAll("#modeControl button").forEach(button => button.classList.toggle("active", button.dataset.mode === "sequence"));
@@ -446,6 +460,90 @@
       const response = await fetch(url);
       if (!response.ok) throw new Error(`Could not load ${label}`);
       return response.json();
+    }
+
+    async function importReference(file) {
+      const text = await file.text();
+      let importedDocument;
+      try {
+        importedDocument = JSON.parse(text.replace(/^\uFEFF/, ""));
+        validateImportedReference(importedDocument);
+      } catch (error) {
+        renderImportError(error);
+        return;
+      }
+      const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+      const sha256 = [...new Uint8Array(digest)].map(byte => byte.toString(16).padStart(2, "0")).join("");
+      importedReference = { document: importedDocument, path: file.name, sha256 };
+      const config = datasetConfigs.imported;
+      config.title = importedDocument.dataset.title;
+      config.meta = `${importedDocument.contexts.length} contexts · ${importedDocument.relations.length} observed relations`;
+      config.defaultContext = importedDocument.contexts[0].id;
+      config.source = /^https?:\/\//i.test(importedDocument.dataset.source) ? importedDocument.dataset.source : null;
+      const option = document.getElementById("importedDatasetOption");
+      option.hidden = false;
+      option.textContent = `Local · ${importedDocument.dataset.title}`;
+      activateDataset("imported");
+      toast(`Imported ${importedDocument.contexts.length} contexts · SHA-256 ${sha256.slice(0, 12)}...`);
+    }
+
+    function validateImportedReference(importedDocument) {
+      if (!importedDocument || importedDocument.schema !== "harrislab.reference.v1") throw new Error("schema must be harrislab.reference.v1");
+      if (!importedDocument.dataset || !["title", "source", "license"].every(key => typeof importedDocument.dataset[key] === "string" && importedDocument.dataset[key].trim())) throw new Error("dataset title, source, and license are required");
+      if (!Array.isArray(importedDocument.contexts) || importedDocument.contexts.length < 2 || importedDocument.contexts.length > 500) throw new Error("contexts must contain 2 to 500 records");
+      if (!Array.isArray(importedDocument.evidence) || !importedDocument.evidence.length) throw new Error("at least one evidence record is required");
+      if (!Array.isArray(importedDocument.relations) || !importedDocument.relations.length || importedDocument.relations.length > 2000) throw new Error("relations must contain 1 to 2000 records");
+      const contextIds = new Set();
+      importedDocument.contexts.forEach((context, index) => {
+        if (typeof context.id !== "string" || !context.id.trim() || context.id !== context.id.trim() || typeof context.label !== "string" || !context.label.trim()) throw new Error(`invalid context at index ${index}`);
+        if (contextIds.has(context.id)) throw new Error(`duplicate context: ${context.id}`);
+        contextIds.add(context.id);
+      });
+      const evidenceKinds = new Set(["context_sheet", "drawing", "photograph", "sample", "specialist_report", "other"]);
+      const evidenceIds = new Set();
+      importedDocument.evidence.forEach((item, index) => {
+        if (typeof item.id !== "string" || !item.id.trim() || evidenceIds.has(item.id)) throw new Error(`invalid or duplicate evidence at index ${index}`);
+        if (!evidenceKinds.has(item.kind) || typeof item.description !== "string" || !item.description.trim() || typeof item.source !== "string" || !item.source.trim()) throw new Error(`incomplete evidence: ${item.id}`);
+        evidenceIds.add(item.id);
+      });
+      const relationKeys = new Set();
+      importedDocument.relations.forEach((relation, index) => {
+        if (!contextIds.has(relation.earlier) || !contextIds.has(relation.later)) throw new Error(`unknown relation endpoint at index ${index}`);
+        if (relation.earlier === relation.later) throw new Error(`self relation: ${relation.earlier}`);
+        if ((relation.status || "observed") !== "observed") throw new Error(`only observed relations may be imported: ${relation.earlier} -> ${relation.later}`);
+        if (!Array.isArray(relation.evidence_ids) || !relation.evidence_ids.length || relation.evidence_ids.some(id => !evidenceIds.has(id))) throw new Error(`relation evidence is missing or unknown: ${relation.earlier} -> ${relation.later}`);
+        const key = `${relation.earlier}|${relation.later}`;
+        if (relationKeys.has(key)) throw new Error(`duplicate relation: ${relation.earlier} -> ${relation.later}`);
+        relationKeys.add(key);
+      });
+      if (!isAcyclic(contextIds, importedDocument.relations)) throw new Error("observed relations contain a chronological cycle");
+    }
+
+    function isAcyclic(contextIds, relations) {
+      const outgoing = new Map([...contextIds].map(id => [id, []]));
+      const indegree = new Map([...contextIds].map(id => [id, 0]));
+      relations.forEach(relation => {
+        outgoing.get(relation.earlier).push(relation.later);
+        indegree.set(relation.later, indegree.get(relation.later) + 1);
+      });
+      const pending = [...indegree].filter(([, degree]) => degree === 0).map(([id]) => id);
+      let visited = 0;
+      while (pending.length) {
+        const id = pending.pop();
+        visited += 1;
+        outgoing.get(id).forEach(later => {
+          indegree.set(later, indegree.get(later) - 1);
+          if (indegree.get(later) === 0) pending.push(later);
+        });
+      }
+      return visited === contextIds.size;
+    }
+
+    function renderImportError(error) {
+      document.getElementById("summary").innerHTML = `<div class="eyebrow">Import rejected</div><h2>Dataset unchanged</h2><p>${escapeHtml(error.message)}</p>`;
+      document.getElementById("tabContent").innerHTML = `<div class="study-box"><strong>Fail-closed import</strong><br>No imported records were applied. Correct the file against the documented schema and try again.<div class="study-links"><a href="IMPORT_WORKFLOW.md">Import specification</a><a href="../data/import_reference_template.json">Template JSON</a></div></div>`;
+      document.getElementById("datasetSelect").value = activeDataset;
+      toast(`Import rejected: ${error.message}`);
     }
 
     function svgElement(name, attributes = {}) {
@@ -537,6 +635,7 @@
 
     function shortType(text) {
       if (activeDataset === "harp") return text.toLowerCase().includes("cut") ? "surface / cut" : "deposit";
+      if (activeDataset === "imported") return "context";
       const lower = text.toLowerCase();
       if (lower.includes("grube")) return "cut / pit";
       if (lower.includes("holzkohle") || lower.includes("brand")) return "burnt deposit";
@@ -552,7 +651,7 @@
     }
 
     function selectRelation(edge) {
-      const source = activeDataset === "harp" ? `ADS CSV record ${edge.source_record}` : edge.pdf_path_index === null ? "source-author correction" : `source path ${edge.pdf_path_index}`;
+      const source = relationSourceLabel(edge);
       selectedId = edge.earlier;
       activeTab = "review";
       reviewDraft = {
@@ -564,6 +663,13 @@
       document.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.tab === activeTab));
       renderGraph(); renderInspector();
       toast(`Reviewing ${edge.earlier} → ${edge.later} · ${source}`);
+    }
+
+    function relationSourceLabel(edge) {
+      if (activeDataset === "harp") return `ADS CSV record ${edge.source_record}`;
+      if (activeDataset === "trimmis") return edge.pdf_path_index === null ? "source-author correction" : `source path ${edge.pdf_path_index}`;
+      const evidence = referenceDocument.evidence.find(item => item.id === edge.evidence_ids[0]);
+      return evidence ? `${evidence.description} · ${evidence.source}` : "Imported relation evidence";
     }
 
     function renderInspector() {
@@ -579,24 +685,28 @@
       const node = descriptions.get(selectedId);
       const incoming = graph.edges.filter(edge => edge.later === selectedId);
       const outgoing = graph.edges.filter(edge => edge.earlier === selectedId);
-      const sourceIdentity = activeDataset === "harp"
+      const sourceIdentity = activeDataset === "imported"
+        ? escapeHtml(node.source || "Imported context record")
+        : activeDataset === "harp"
         ? `ADS CSV record ${node.source_record} · ${escapeHtml(node.source_type)}`
         : node.catalog_row
         ? `Catalog row ${node.catalog_row} · printed as ${escapeHtml(node.catalog_notation)}`
         : "Added through confirmed source-author correction";
-      const geometry = activeDataset === "harp"
+      const geometry = activeDataset === "imported"
+        ? "No geometry inferred from the imported reference"
+        : activeDataset === "harp"
         ? "No geometry inferred; identity comes directly from the UNIT record"
         : node.matrix_rectangle
         ? `Page ${node.matrix_page} · [${node.matrix_rectangle.map(value => value.toFixed(1)).join(", ")}]`
         : "Not present in the published P19 matrix";
-      const reviewLabel = activeDataset === "harp" ? "SOURCE-BOUND" : "REVIEWED";
+      const reviewLabel = activeDataset === "harp" ? "SOURCE-BOUND" : activeDataset === "imported" ? "IMPORTED" : "REVIEWED";
       summary.innerHTML = `<div class="summary-top"><div><div class="eyebrow">Selected context</div><h2>${node.id}</h2></div><span class="review-chip">${reviewLabel}</span></div><p>${escapeHtml(node.description_de)}</p>`;
       content.innerHTML = `
         <div class="field"><div class="field-label">Source identity</div><div class="field-value">${sourceIdentity}</div></div>
         <div class="field"><div class="field-label">Matrix geometry</div><div class="field-value">${geometry}</div></div>
         <div class="field"><div class="field-label">Earlier than</div><div class="relations">${outgoing.length ? outgoing.map(edge => relationPill(edge.later, edge.pdf_path_index)).join("") : "<span class='field-value'>No direct successor</span>"}</div></div>
         <div class="field"><div class="field-label">Later than</div><div class="relations">${incoming.length ? incoming.map(edge => relationPill(edge.earlier, edge.pdf_path_index)).join("") : "<span class='field-value'>No direct predecessor</span>"}</div></div>
-        <div class="field"><div class="field-label">Evidence</div><div class="source-box">${activeDataset === "harp" ? `<strong>Explicit ADS Harris CSV</strong><br>DOI 10.5284/1133013 · Open Government Licence<br>Only ABOVE and LATER records become precedence.` : `<strong>${node.id === "199" ? "Confirmed source correction" : "Synoptic Harris matrix"}</strong><br>${node.id === "199" ? "Correction record retained with the approved graph." : "Zenodo 4461075 · CC BY 3.0<br>Connector geometry and catalog record retained for audit."}`}</div></div>`;
+        <div class="field"><div class="field-label">Evidence</div><div class="source-box">${activeDataset === "imported" ? `<strong>${escapeHtml(referenceDocument.dataset.title)}</strong><br>${escapeHtml(referenceDocument.dataset.source)} · ${escapeHtml(referenceDocument.dataset.license)}<br>Local import does not qualify this interpretation.` : activeDataset === "harp" ? `<strong>Explicit ADS Harris CSV</strong><br>DOI 10.5284/1133013 · Open Government Licence<br>Only ABOVE and LATER records become precedence.` : `<strong>${node.id === "199" ? "Confirmed source correction" : "Synoptic Harris matrix"}</strong><br>${node.id === "199" ? "Correction record retained with the approved graph." : "Zenodo 4461075 · CC BY 3.0<br>Connector geometry and catalog record retained for audit."}`}</div></div>`;
       content.querySelectorAll(".relation-pill").forEach(button => button.addEventListener("click", () => selectNode(button.dataset.id)));
     }
 
@@ -626,6 +736,7 @@
     }
 
     function activeReferenceBinding() {
+      if (activeDataset === "imported") return { path: importedReference.path, sha256: importedReference.sha256 };
       const key = activeDataset === "harp" ? "harp_inn_reference" : "reference";
       const component = auditManifest.components.find(item => item.key === key);
       return { path: component.path, sha256: component.sha256 };
@@ -633,7 +744,8 @@
 
     function currentReviewItems() {
       const items = new Map();
-      reviewLog.filter(event => event.dataset === activeDataset).forEach(event => {
+      const referenceHash = activeReferenceBinding().sha256;
+      reviewLog.filter(event => event.dataset === activeDataset && event.reference_sha256 === referenceHash).forEach(event => {
         const key = `${event.earlier}|${event.later}`;
         if (event.action === "opened") {
           items.set(key, { ...event, decision: "undecided", history: [event] });
@@ -906,27 +1018,39 @@
     }
 
     function bindControls() {
-      document.getElementById("datasetSelect").addEventListener("change", event => activateDataset(event.target.value));
+      document.getElementById("datasetSelect").addEventListener("change", event => {
+        if (event.target.value === "import") {
+          event.target.value = activeDataset;
+          document.getElementById("importInput").click();
+        } else {
+          activateDataset(event.target.value);
+        }
+      });
       document.querySelectorAll(".tab").forEach(tab => tab.addEventListener("click", () => { activeTab = tab.dataset.tab; document.querySelectorAll(".tab").forEach(item => item.classList.toggle("active", item === tab)); renderInspector(); }));
       document.querySelectorAll("#modeControl button").forEach(button => button.addEventListener("click", () => { activeMode = button.dataset.mode; document.querySelectorAll("#modeControl button").forEach(item => item.classList.toggle("active", item === button)); renderGraph(); }));
       document.querySelectorAll(".view-button").forEach(button => button.addEventListener("click", () => { document.querySelectorAll(".view-button").forEach(item => item.classList.toggle("active", item === button)); if (["review", "questions", "text", "drawing", "formation", "scenarios", "sources"].includes(button.dataset.view)) { activeTab = button.dataset.view; document.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.tab === activeTab)); renderInspector(); } }));
       document.getElementById("searchInput").addEventListener("input", event => { const query = event.target.value.toLowerCase().trim(); document.querySelectorAll(".node").forEach(node => { const record = descriptions.get(node.dataset.id); node.classList.toggle("dim", Boolean(query && !node.dataset.id.includes(query) && !record.description_de.toLowerCase().includes(query))); }); });
       document.getElementById("fitButton").addEventListener("click", () => { document.getElementById("canvasWrap").scrollTo({ top: 0, behavior: "smooth" }); toast("Matrix returned to youngest context"); });
-      document.getElementById("sourceButton").addEventListener("click", () => window.open(datasetConfigs[activeDataset].source, "_blank"));
+      document.getElementById("sourceButton").addEventListener("click", () => { const source = datasetConfigs[activeDataset].source; if (source) window.open(source, "_blank"); });
+      document.getElementById("importButton").addEventListener("click", () => document.getElementById("importInput").click());
+      document.getElementById("importInput").addEventListener("change", async event => { const [file] = event.target.files; event.target.value = ""; if (file) await importReference(file); });
       document.getElementById("exportButton").addEventListener("click", exportAudit);
       window.addEventListener("resize", () => renderGraph());
     }
 
     function exportAudit() {
-      const reviewEvents = reviewLog.filter(event => event.dataset === activeDataset);
+      const referenceBinding = activeReferenceBinding();
+      const reviewEvents = reviewLog.filter(event => event.dataset === activeDataset && event.reference_sha256 === referenceBinding.sha256);
       const reviewDocument = { schema: "harrislab.review-log.v1", authority: "human_decision_overlay_reference_unchanged", reference: activeReferenceBinding(), events: reviewEvents };
-      const exportDocument = activeDataset === "harp"
+      const exportDocument = activeDataset === "imported"
+        ? { reference: referenceDocument, review_log: reviewDocument, import: { local_only: true, source_file: importedReference.path, source_sha256: importedReference.sha256 } }
+        : activeDataset === "harp"
         ? { provenance: auditManifest, reference: referenceDocument, review_log: reviewDocument, cross_dataset_benchmark: benchmark }
         : { provenance: auditManifest, reference: referenceDocument, review_log: reviewDocument, text_relation_proposals: textProposals, drawing_comparison: drawingComparison, ai_drawing_screen: aiDrawingScreen, formation_process_benchmark: formationBenchmark, retrospective_benchmark: benchmark, comprehensive_benchmark: comprehensive };
       const payload = JSON.stringify(exportDocument, null, 2);
       const link = document.createElement("a");
       link.href = URL.createObjectURL(new Blob([payload], { type: "application/json" }));
-      link.download = activeDataset === "harp" ? "harrislab-harp-inn-group1-audit.json" : "harrislab-trimmis-profile19-audit.json";
+      link.download = activeDataset === "imported" ? "harrislab-local-review-audit.json" : activeDataset === "harp" ? "harrislab-harp-inn-group1-audit.json" : "harrislab-trimmis-profile19-audit.json";
       link.click();
       URL.revokeObjectURL(link.href);
       toast("Audit bundle exported");

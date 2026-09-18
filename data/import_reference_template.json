@@ -1,0 +1,36 @@
+{
+  "schema": "harrislab.reference.v1",
+  "dataset": {
+    "title": "Example post-excavation sequence",
+    "source": "https://example.org/project/archive-record",
+    "license": "Replace with the applicable data licence"
+  },
+  "contexts": [
+    {"id": "100", "label": "Natural substrate"},
+    {"id": "101", "label": "Ditch cut"},
+    {"id": "102", "label": "Primary ditch fill"},
+    {"id": "103", "label": "Sealing deposit"}
+  ],
+  "evidence": [
+    {
+      "id": "section-a",
+      "kind": "drawing",
+      "description": "Section A stratigraphic contacts",
+      "source": "project://drawings/section-a"
+    },
+    {
+      "id": "register-2026",
+      "kind": "context_sheet",
+      "description": "Context register export",
+      "source": "project://register/2026-09-18"
+    }
+  ],
+  "relations": [
+    {"earlier": "100", "later": "101", "status": "observed", "evidence_ids": ["section-a"]},
+    {"earlier": "101", "later": "102", "status": "observed", "evidence_ids": ["section-a", "register-2026"]},
+    {"earlier": "102", "later": "103", "status": "observed", "evidence_ids": ["register-2026"]}
+  ],
+  "authority": {
+    "accepted_graph_mutations_from_ai": 0
+  }
+}

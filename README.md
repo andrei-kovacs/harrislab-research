@@ -70,6 +70,8 @@ provisional pending a systematic literature review.
 - Record append-only accepted, rejected, or undecided review events without
 	mutating the source reference.
 - Export review events bound to the audit-manifest reference hash.
+- Import a local, provenance-complete reference without uploading its contents.
+- Reject malformed, unevidenced, cyclic, or non-observed imported relations.
 
 ## Run
 
@@ -102,6 +104,13 @@ review question. The Review tab also accepts a candidate direction entered by
 context ID. Each decision requires reviewer identity, evidence, rationale, and
 a decision note. Browser storage is a working overlay only; use **Export audit**
 to retain the hash-bound review log.
+
+To review a local project, choose **Import local JSON** from the dataset menu or
+use the upload button. Start from
+[`data/import_reference_template.json`](data/import_reference_template.json).
+The browser validates the complete reference before loading it and binds review
+events to the exact imported file SHA-256. See the
+[`local import specification`](docs/IMPORT_WORKFLOW.md).
 
 Reproduce that artifact:
 
@@ -177,6 +186,7 @@ component hashes, source identity, and authority boundaries.
 - [Comprehensive Trimmis benchmark results](docs/TRIMMIS_COMPREHENSIVE_BENCHMARK.md)
 - [ADS Harp Inn cross-dataset benchmark](docs/HARP_INN_BENCHMARK.md)
 - [Matrix review workflow](docs/REVIEW_WORKFLOW.md)
+- [Local dataset import](docs/IMPORT_WORKFLOW.md)
 - [Closure-gain surrogate calibration](docs/SURROGATE_CALIBRATION.md)
 - [Exact-impact and scalable-ranking limits](docs/EXACT_IMPACT_LIMITATIONS.md)
 - [Sampled-ranking disagreement analysis](docs/DISAGREEMENT_ANALYSIS.md)

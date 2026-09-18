@@ -1,12 +1,15 @@
+import json
 import unittest
 from pathlib import Path
+
+from harrislab.io import load_stratigraphy
 
 
 class AppPrototypeTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        root = Path(__file__).parents[1]
-        cls.document = (root / "docs" / "app-prototype.html").read_text(
+        cls.root = Path(__file__).parents[1]
+        cls.document = (cls.root / "docs" / "app-prototype.html").read_text(
             encoding="utf-8"
         )
 
@@ -39,6 +42,25 @@ class AppPrototypeTests(unittest.TestCase):
             "Accepting this direction would create a chronological cycle",
         ):
             self.assertIn(required, self.document)
+
+    def test_local_import_is_fail_closed_and_hash_bound(self) -> None:
+        for required in (
+            "function validateImportedReference",
+            "function isAcyclic",
+            'crypto.subtle.digest("SHA-256"',
+            "only observed relations may be imported",
+            "relation evidence is missing or unknown",
+            "No file content is uploaded",
+        ):
+            self.assertIn(required, self.document)
+
+        template_path = self.root / "data" / "import_reference_template.json"
+        template = json.loads(template_path.read_text(encoding="utf-8"))
+        graph = load_stratigraphy(template_path)
+        self.assertEqual(template["schema"], "harrislab.reference.v1")
+        self.assertEqual(len(graph.contexts), 4)
+        self.assertEqual(len(graph.relations), 3)
+        self.assertIsNone(graph.contradiction_cycle())
 
 
 if __name__ == "__main__":
