@@ -2,7 +2,13 @@ import json
 import unittest
 from pathlib import Path
 
-from scripts.build_audit_manifest import AUDIT_COMPONENTS, build_manifest, serialized_manifest
+from scripts.build_audit_manifest import (
+    AUDIT_COMPONENTS,
+    build_manifest,
+    canonical_bytes,
+    file_sha256,
+    serialized_manifest,
+)
 
 
 class AuditManifestTests(unittest.TestCase):
@@ -25,6 +31,19 @@ class AuditManifestTests(unittest.TestCase):
         self.assertEqual(
             manifest["authority"]["accepted_graph_mutations_from_ai_screen"], 0
         )
+
+    def test_json_hash_is_stable_across_line_endings(self) -> None:
+        root = Path(__file__).resolve().parents[1]
+        source = root / "data" / "trimmis_profile19_reference.json"
+        lf_content = canonical_bytes(source)
+        temporary = root / ".local-data" / "line-ending-probe.json"
+        temporary.parent.mkdir(exist_ok=True)
+        try:
+            temporary.write_bytes(lf_content.replace(b"\n", b"\r\n"))
+            self.assertEqual(file_sha256(source), file_sha256(temporary))
+            self.assertEqual(len(canonical_bytes(source)), len(canonical_bytes(temporary)))
+        finally:
+            temporary.unlink(missing_ok=True)
 
 
 if __name__ == "__main__":

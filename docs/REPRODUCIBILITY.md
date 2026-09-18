@@ -7,7 +7,7 @@ Trimmis source files to the committed reference, comparison, image, text, and
 benchmark artifacts. Regeneration occurs in a temporary directory and never
 overwrites committed results.
 
-The validator requires exact byte equality for:
+The validator requires canonical content equality for:
 
 - the extracted audit candidate;
 - the independently reviewed published reference;
@@ -19,6 +19,11 @@ The validator requires exact byte equality for:
 
 It then verifies the audit provenance manifest and runs the complete unit test
 suite. A mismatch or missing source fails the command.
+
+JSON line endings are normalized to LF before SHA-256 hashing and byte
+counting, making the manifest stable across Git checkouts on Windows and Linux.
+Binary artifacts, including the rendered profile image, retain exact-byte
+comparison.
 
 ## Reproduce
 

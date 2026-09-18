@@ -18,11 +18,16 @@ AUDIT_COMPONENTS = (
 )
 
 
+def canonical_bytes(path: Path) -> bytes:
+    content = path.read_bytes()
+    if path.suffix.lower() == ".json":
+        return content.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    return content
+
+
 def file_sha256(path: Path) -> str:
     digest = hashlib.sha256()
-    with path.open("rb") as source:
-        for chunk in iter(lambda: source.read(1024 * 1024), b""):
-            digest.update(chunk)
+    digest.update(canonical_bytes(path))
     return digest.hexdigest()
 
 
@@ -35,13 +40,14 @@ def build_manifest(root: Path) -> dict[str, object]:
                 "key": key,
                 "path": relative_path,
                 "sha256": file_sha256(path),
-                "bytes": path.stat().st_size,
+                "bytes": len(canonical_bytes(path)),
             }
         )
     return {
         "schema": "harrislab.audit-provenance.v1",
         "release_version": RELEASE_VERSION,
         "direction_convention": "earlier -> later",
+        "text_canonicalization": "JSON CRLF and CR are normalized to LF before hashing and byte counting.",
         "components": components,
         "external_sources": [
             {

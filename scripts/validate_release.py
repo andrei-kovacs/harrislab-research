@@ -8,11 +8,16 @@ import tempfile
 from pathlib import Path
 
 
+def canonical_bytes(path: Path) -> bytes:
+    content = path.read_bytes()
+    if path.suffix.lower() == ".json":
+        return content.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    return content
+
+
 def sha256(path: Path) -> str:
     digest = hashlib.sha256()
-    with path.open("rb") as source:
-        for chunk in iter(lambda: source.read(1024 * 1024), b""):
-            digest.update(chunk)
+    digest.update(canonical_bytes(path))
     return digest.hexdigest()
 
 

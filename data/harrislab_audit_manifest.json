@@ -2,48 +2,49 @@
   "schema": "harrislab.audit-provenance.v1",
   "release_version": "0.2.0",
   "direction_convention": "earlier -> later",
+  "text_canonicalization": "JSON CRLF and CR are normalized to LF before hashing and byte counting.",
   "components": [
     {
       "key": "reference",
       "path": "data/trimmis_profile19_reference.json",
-      "sha256": "60c6216d97e9640432987faa1875ca2878661eedf1adadc75f146ba37d9c30e5",
-      "bytes": 15699
+      "sha256": "598f82e794e9bd6e2bf1b24530b54e0b064ef2d94f7a2b8770436c1d12b456f5",
+      "bytes": 15030
     },
     {
       "key": "text_relation_proposals",
       "path": "data/trimmis_profile19_text_relation_proposals.json",
-      "sha256": "85c9427b2827e08aebb346d6b6fdb27d2edc40a66d633302979bf426d43dadfc",
-      "bytes": 4010
+      "sha256": "685aa18d2406540627e7d881c72d542587a872d4d4fcfb6bc51c7f3a4e087b74",
+      "bytes": 3889
     },
     {
       "key": "drawing_comparison",
       "path": "data/trimmis_profile19_drawing_comparison.json",
-      "sha256": "b39717afa023ba155dc94dedecbf7edc198fa1ca280b1d7c8ff917af8282fb5d",
-      "bytes": 13505
+      "sha256": "701784c06efb432a54115d66307c58b34fb17bd264f5108a93352aaf4f727d40",
+      "bytes": 12905
     },
     {
       "key": "ai_drawing_screen",
       "path": "data/trimmis_profile19_ai_drawing_screen.json",
-      "sha256": "3aff917f03a97739100b72e1ede1a64f8b147a10c66424c720824f2634215f4c",
-      "bytes": 6105
+      "sha256": "86800c7995c5db93d2c21e81dae53698f19b79240197e84f9d99c56c8318a2a5",
+      "bytes": 6045
     },
     {
       "key": "formation_process_benchmark",
       "path": "data/formation_process_benchmark.json",
-      "sha256": "e27211afd5469fb996c491f61226446c4babd68a6aa9e09fe07248e3325ad07b",
-      "bytes": 211660
+      "sha256": "d1471b29feff0f3e3e61811b005a37e79e7d5be307496f8fa2aac3c85e169eeb",
+      "bytes": 199641
     },
     {
       "key": "retrospective_benchmark",
       "path": "data/trimmis_profile19_benchmark.json",
-      "sha256": "160a3e83a14d8e902baf2dba89061f4dadd4042f8198825215c80133ad2c0684",
-      "bytes": 10162
+      "sha256": "c9012f393564bcf74da7022216e1aaa26da4dca29923819139aa5ff3f00a1347",
+      "bytes": 9827
     },
     {
       "key": "comprehensive_benchmark",
       "path": "data/trimmis_profile19_comprehensive_benchmark.json",
-      "sha256": "8f741e611b0d8ab32d624ea90bb9e9321903f14ccf0394589688162a294bd891",
-      "bytes": 143007
+      "sha256": "2f421a43752c62f43be72e95d6f1e497efd04d28eda8a3dc38d2b76aa5dacc33",
+      "bytes": 137387
     }
   ],
   "external_sources": [
