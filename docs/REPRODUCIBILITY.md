@@ -1,0 +1,64 @@
+# Release Reproducibility
+
+## Scope
+
+HarrisLab 0.2.0 provides a fail-closed release gate from the checksum-verified
+Trimmis source files to the committed reference, comparison, image, text, and
+benchmark artifacts. Regeneration occurs in a temporary directory and never
+overwrites committed results.
+
+The validator requires exact byte equality for:
+
+- the extracted audit candidate;
+- the independently reviewed published reference;
+- the corrected active reference;
+- the P19 drawing comparison and rendered source crop;
+- the catalogue text proposals;
+- the retrospective and comprehensive Trimmis benchmarks; and
+- the synthetic formation-process benchmark.
+
+It then verifies the audit provenance manifest and runs the complete unit test
+suite. A mismatch or missing source fails the command.
+
+## Reproduce
+
+Install the acquisition dependency and obtain the open Zenodo source files:
+
+```powershell
+python -m pip install -e ".[acquisition]"
+python scripts/qualify_trimmis.py .local-data/trimmis-source
+```
+
+Run the release gate:
+
+```powershell
+python scripts/validate_release.py
+```
+
+The source directory may be supplied explicitly:
+
+```powershell
+python scripts/validate_release.py --source-directory C:\path\to\trimmis-source
+```
+
+The authoritative online record is
+[Zenodo 4461075](https://doi.org/10.5281/zenodo.4461075). The validator accepts
+only the source checksums encoded by the extraction workflows. Private review
+correspondence is neither required nor published; the frozen review and
+correction manifests contain the reproducible decisions without personal
+contact details.
+
+## Audit exports
+
+The app's **Export audit** command includes
+`data/harrislab_audit_manifest.json` as its top-level `provenance` object. To
+regenerate or verify that manifest independently:
+
+```powershell
+python scripts/build_audit_manifest.py
+python scripts/build_audit_manifest.py --check
+```
+
+The AI drawing screen remains non-authoritative in both the manifest and the
+export. All 27 drawing relations remain pending qualified review, and the
+screen contributes zero accepted graph mutations.

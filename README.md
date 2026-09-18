@@ -24,6 +24,11 @@ provisional pending a systematic literature review.
 > research project and is not affiliated with, sponsored by, or endorsed by
 > Microsoft or the source-data authors and institutions.
 
+> **Drawing screen status:** An AI-assisted visual screen found 23 relations
+> visually consistent and four indeterminate, with none visibly contradicted.
+> This is non-authoritative triage. All 27 drawing relations remain pending
+> qualified review, and the screen makes zero accepted graph changes.
+
 > **Synthetic benchmark status:** The preregistered depositional-patch
 > automaton comparison is complete. Its directional graph-structure hypothesis
 > was supported on the fixed schedule, with 13 of 100 trials favoring the
@@ -121,10 +126,20 @@ Validation is bound to the comparison SHA-256 and fails on missing, duplicate,
 unknown, or pending decisions. Its output classifies drawing evidence only and
 never mutates the accepted chronology.
 
+Reproduce the complete 0.2.0 artifact chain and run the release gate:
+
+```powershell
+python scripts/validate_release.py
+```
+
+The browser audit export includes a machine-readable provenance manifest with
+component hashes, source identity, and authority boundaries.
+
 ## Research documents
 
 - [Project charter](docs/PROJECT_CHARTER.md)
 - [Formal data model](docs/DATA_MODEL.md)
+- [Release reproducibility](docs/REPRODUCIBILITY.md)
 - [Preliminary literature map](docs/LITERATURE_MAP.md)
 - [Sprint 1 source register](docs/SOURCE_REGISTER.md)
 - [Sprint 1 novelty screen](docs/NOVELTY_SCREEN.md)
@@ -142,3 +157,4 @@ never mutates the accepted chronology.
 - [Exact-impact and scalable-ranking limits](docs/EXACT_IMPACT_LIMITATIONS.md)
 - [Sampled-ranking disagreement analysis](docs/DISAGREEMENT_ANALYSIS.md)
 - [Version 0.1.0 research-seed release notes](docs/RELEASE_NOTES_0.1.0.md)
+- [Version 0.2.0 provenance release notes](docs/RELEASE_NOTES_0.2.0.md)

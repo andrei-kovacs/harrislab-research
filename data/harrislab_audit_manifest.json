@@ -1,0 +1,65 @@
+{
+  "schema": "harrislab.audit-provenance.v1",
+  "release_version": "0.2.0",
+  "direction_convention": "earlier -> later",
+  "components": [
+    {
+      "key": "reference",
+      "path": "data/trimmis_profile19_reference.json",
+      "sha256": "60c6216d97e9640432987faa1875ca2878661eedf1adadc75f146ba37d9c30e5",
+      "bytes": 15699
+    },
+    {
+      "key": "text_relation_proposals",
+      "path": "data/trimmis_profile19_text_relation_proposals.json",
+      "sha256": "85c9427b2827e08aebb346d6b6fdb27d2edc40a66d633302979bf426d43dadfc",
+      "bytes": 4010
+    },
+    {
+      "key": "drawing_comparison",
+      "path": "data/trimmis_profile19_drawing_comparison.json",
+      "sha256": "b39717afa023ba155dc94dedecbf7edc198fa1ca280b1d7c8ff917af8282fb5d",
+      "bytes": 13505
+    },
+    {
+      "key": "ai_drawing_screen",
+      "path": "data/trimmis_profile19_ai_drawing_screen.json",
+      "sha256": "3aff917f03a97739100b72e1ede1a64f8b147a10c66424c720824f2634215f4c",
+      "bytes": 6105
+    },
+    {
+      "key": "formation_process_benchmark",
+      "path": "data/formation_process_benchmark.json",
+      "sha256": "e27211afd5469fb996c491f61226446c4babd68a6aa9e09fe07248e3325ad07b",
+      "bytes": 211660
+    },
+    {
+      "key": "retrospective_benchmark",
+      "path": "data/trimmis_profile19_benchmark.json",
+      "sha256": "160a3e83a14d8e902baf2dba89061f4dadd4042f8198825215c80133ad2c0684",
+      "bytes": 10162
+    },
+    {
+      "key": "comprehensive_benchmark",
+      "path": "data/trimmis_profile19_comprehensive_benchmark.json",
+      "sha256": "8f741e611b0d8ab32d624ea90bb9e9321903f14ccf0394589688162a294bd891",
+      "bytes": 143007
+    }
+  ],
+  "external_sources": [
+    {
+      "record": "https://doi.org/10.5281/zenodo.4461075",
+      "file": "P19.pdf",
+      "checksum": {
+        "algorithm": "md5",
+        "value": "53ccf16a523e986ead69a30fc3f8dc24"
+      },
+      "license": "CC-BY-3.0"
+    }
+  ],
+  "authority": {
+    "ai_drawing_screen": "non_authoritative",
+    "drawing_review_status": "27_relations_pending_qualified_review",
+    "accepted_graph_mutations_from_ai_screen": 0
+  }
+}

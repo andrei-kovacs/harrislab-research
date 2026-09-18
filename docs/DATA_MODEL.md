@@ -61,6 +61,20 @@ future work.
 - `description`: concise human-readable account.
 - `source`: archive reference or URI.
 
+### Evidence artifacts and authority
+
+Extraction candidates, independent reviews, correction manifests, drawing
+comparisons, text proposals, and AI screens are separate versioned artifacts.
+Their schemas state what each layer may establish. In particular, the
+AI-assisted drawing screen is non-authoritative: it records visual triage but
+cannot complete qualified review or mutate the accepted graph.
+
+An audit export contains a `provenance` manifest with the release version,
+direction convention, external-source identity, authority declarations, and
+the SHA-256 plus byte size of every bundled repository artifact. The manifest
+describes and binds the bundle; it does not elevate the authority of any
+component.
+
 ## Deterministic operations
 
 - Referential-integrity validation.
